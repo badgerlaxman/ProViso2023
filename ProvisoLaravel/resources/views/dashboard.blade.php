@@ -87,6 +87,9 @@
                                                         <a class="nav-link" href="#">Home</a>
                                                     </li>
                                                     <li class="nav-item">
+                                                        <a class="nav-link" href="#addMinor">Add Minor</a>
+                                                    </li>
+                                                    <li class="nav-item">
                                                         <a class="nav-link" href="#addClass">Add Classes</a>
                                                     </li>
                                                     <li class="nav-item">
@@ -119,6 +122,91 @@
 		</div>
 		@endif
 		
+        <!-- minor -->
+        <div class="clients" id="addMinor">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="titlepage">
+                            <h2>Select Your Minor</h2>
+                            <span>Select your minor from the drop down menu. If you do not have a minor, select 'none'. To deselect the chosen minor, check the delete box next to the entry and click submit.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <div class="testimo_ban_bg">
+                            <div id="testimp" class="carousel slide testimo_ban" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <li data-target="#testimo" data-slide-to="0" class="active"></li>
+                                    <li data-target="#testimo" data-slide-to="1"></li>
+                                    <li data-target="#testimo" data-slide-to="2"></li>
+                                </ol>
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <div class="container parile0">
+                                            <div class="carousel-caption relative2">
+                                                <div class="row d_flex">
+                                                    <div class="col-md-12">
+                                                        <div class="consect">
+                                                            @if(!is_null($comp))
+                                                            <h3 style="border-bottom: 1px solid black; margin-bottom: 15px">Selected Minor</h3>
+                                                            <!-- Show minors that have already been added -->
+                                                            <form action="{{ route('company.post') }}" method="POST" role="form">
+                                                                @csrf
+                                                                <table class="customers">
+                                                                    <tr>
+                                                                        <th style="padding-right: 15px">Minor</th>
+                                                                        <th style="padding-right: 15px">Delete</th>
+                                                                        <th></th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="padding-right:15px">{{ $comp->Name }}</td>
+
+                                                                        <td>
+                                                                            <input type="checkbox" name="KeyToDelete" value="{{ $comp->CompanyID }}"/>
+                                                                        </td>
+                                                                        <td><input type="submit" name="submitDeleteBtn" value="Submit"/></td>
+                                                                    </tr>
+                                                                </table>
+                                                            </form>
+                                                            @endif
+                                                            <br>
+                                                            <!-- drop down menu -->
+                                                            <h3 style="border-bottom: 1px solid black;margin-bottom: 15px">Add a Minor</h3>
+                                                            <form action='{{ route('addCompany') }}' method='POST'>
+                                                                @csrf
+                                                                <select name="MinorID" class="dropdown" required>
+                                                                    <option value=''>--Minors--</option>
+                                                                    @foreach($company as $c)
+                                                                    <option value="{{ $c->ID }}">{{$c->Name}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                                <input type="submit" name="submit" value="Add"/>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end minor -->
+
+        <!-- divider -->
+        <div class="divider" style="background-color: grey; width: none !important; padding:0px !important">
+            <div class="row" style="padding:0px !important">
+                <br>
+            </div>
+       </div>
+        <!-- end divider -->
+
         <!-- classes -->
         <div class="clients" id="addClass">
             <div class="container">

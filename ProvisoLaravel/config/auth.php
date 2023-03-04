@@ -74,6 +74,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Student::class,
         ],
+        'minor' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Minor::class,
+        ],
         'classes' => [
             'driver' => 'eloquent',
             'model' => App\Models\Classes::class,

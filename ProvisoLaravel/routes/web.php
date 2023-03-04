@@ -28,6 +28,8 @@ Route::post('post-dashboard', [AuthController::class, 'postDashboard'])->name('d
 Route::get('index', [AuthController::class, 'index'])->name('home');
 Route::get('profile', [AuthController::class, 'profile'])->name('profile');
 Route::post('addClass',[AuthController::class, 'addClass'])->name('addClass');
+Route::post('addMinor',[AuthController::class, 'addMinor'])->name('addMinor');
+Route::post('post-minor', [AuthController::class, 'postMinor'])->name('minor.post');
 Route::post('addCompany',[AuthController::class, 'addCompany'])->name('addCompany');
 Route::post('post-company', [AuthController::class, 'postCompany'])->name('company.post');
 Route::post('addSkill',[AuthController::class, 'addSkill'])->name('addSkill');
