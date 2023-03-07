@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 07, 2023 at 08:00 AM
+-- Generation Time: Mar 07, 2023 at 08:35 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -97,7 +97,20 @@ INSERT INTO `classes` (`ID`, `Subject`, `Course#`, `Title`, `Year`, `Credits`, `
 (20002, 'MATH', 310, 'Ordinary Differential Equations', 3, 3, 4),
 (20003, 'MATH', 385, 'Theory of Computation', 0, 3, 5),
 (20004, 'MATH', 388, 'History of Mathematics', 2, 3, 1),
-(20005, 'MATH', 390, 'Axiomatic Geometry', 1, 3, 3);
+(20005, 'MATH', 390, 'Axiomatic Geometry', 1, 3, 3),
+(30001, 'MUSA', 114, 'Studio Instruction', 1, 1, 3),
+(30002, 'MUSA', 114, 'Studio Instruction', 1, 1, 3),
+(30003, 'MUSA', 114, 'Studio Instruction', 2, 1, 3),
+(30004, 'MUSA', 114, 'Studio Instruction', 2, 1, 3),
+(30005, 'MUSA', 145, 'Piano Class 1', 1, 1, 0),
+(30006, 'MUSA', 146, 'Piano Class 2', 1, 1, 1),
+(30007, 'MUSC', 139, 'Aural Skills 1', 1, 2, 0),
+(30008, 'MUSC', 140, 'Aural Skills 2', 1, 2, 1),
+(30009, 'MUSC', 141, 'Theory of Music 1', 1, 2, 0),
+(30010, 'MUSC', 142, 'Theory of Music 2', 1, 2, 1),
+(30011, 'MUSX', 140, 'Convocation (Recital Attendance)', 0, 0, 3),
+(30012, 'MUSX', 140, 'Convocation (Recital Attendance)', 0, 0, 3),
+(30013, 'MUSH', 111, 'Introduction to Music', 1, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -902,7 +915,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `classes`
 --
 ALTER TABLE `classes`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20006;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30014;
 
 --
 -- AUTO_INCREMENT for table `companies`
