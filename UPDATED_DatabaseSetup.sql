@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 19, 2022 at 06:37 AM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 8.1.10
+-- Generation Time: Mar 07, 2023 at 08:00 AM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 
 --
 -- Table structure for table `classes`
--- Note Semester(0 = Fall, 1 = Spring, 2 = Summer, 3 = Fall/Spring 4 = Fall/Spring/Summer)
+--
 
 CREATE TABLE `classes` (
   `ID` int(11) NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE `classes` (
   `Class` varchar(32) GENERATED ALWAYS AS (concat(`Subject`,`Course#`)) VIRTUAL,
   `Credits` int(11) NOT NULL,
   `Semester` int(8) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `classes`
@@ -66,7 +66,7 @@ INSERT INTO `classes` (`ID`, `Subject`, `Course#`, `Title`, `Year`, `Credits`, `
 (20, 'ENGL', 102, 'College Writing and Rhetoric', 1, 3, 4),
 (21, 'COMM', 101, 'Fundamentals of Public Speaking', 1, 3, 3),
 (22, 'STAT', 301, 'Probability and Statistics', 3, 3, 3),
-(10056, 'ENGL', 101, 'Writing and Rhetoric', 1, 3, 4),
+(10057, 'ENGL', 101, 'Writing and Rhetoric', 1, 3, 4),
 (10058, 'GEOL', 102, 'Historical geology', 0, 4, 3),
 (10059, 'CS', 415, 'Computational Biology', 0, 3, 1),
 (10060, 'CS', 477, 'Python for Machine Learning', 0, 3, 1),
@@ -92,7 +92,12 @@ INSERT INTO `classes` (`ID`, `Subject`, `Course#`, `Title`, `Year`, `Credits`, `
 (10081, 'CS', 298, 'Internship', 0, 1, 3),
 (10082, 'CS', 470, 'Artificial Intelligence', 0, 3, 2),
 (10083, 'CS', 466, 'PLC Programming for Automation', 0, 3, 0),
-(10085, 'GEOG', 100, 'Physical Geography', 0, 4, 4);
+(10085, 'GEOG', 100, 'Physical Geography', 0, 4, 4),
+(20001, 'MATH', 275, 'Calculus III', 2, 3, 4),
+(20002, 'MATH', 310, 'Ordinary Differential Equations', 3, 3, 4),
+(20003, 'MATH', 385, 'Theory of Computation', 0, 3, 5),
+(20004, 'MATH', 388, 'History of Mathematics', 2, 3, 1),
+(20005, 'MATH', 390, 'Axiomatic Geometry', 1, 3, 3);
 
 -- --------------------------------------------------------
 
@@ -104,7 +109,7 @@ CREATE TABLE `companies` (
   `ID` int(11) NOT NULL,
   `Name` varchar(32) NOT NULL,
   `Responsibilities` varchar(2048) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `companies`
@@ -139,7 +144,7 @@ CREATE TABLE `prerequisites` (
   `Class` varchar(32) NOT NULL,
   `Prereq` varchar(32) NOT NULL,
   `Requirement` varchar(32) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `prerequisites`
@@ -188,7 +193,7 @@ CREATE TABLE `requires` (
   `CompanyID` int(11) NOT NULL,
   `SkillID` int(11) NOT NULL,
   `Priority` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `requires`
@@ -429,7 +434,7 @@ INSERT INTO `requires` (`CompanyID`, `SkillID`, `Priority`) VALUES
 CREATE TABLE `selections` (
   `ID` int(11) NOT NULL,
   `CompanyID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `selections`
@@ -448,7 +453,7 @@ CREATE TABLE `skills` (
   `ID` int(11) NOT NULL,
   `Name` varchar(32) NOT NULL,
   `Description` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `skills`
@@ -582,7 +587,7 @@ CREATE TABLE `students` (
   `Last` varchar(32) NOT NULL,
   `Major` varchar(32) NOT NULL,
   `Year` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `students`
@@ -622,7 +627,7 @@ CREATE TABLE `suggestions` (
   `Responsibilities` varchar(2048) NOT NULL,
   `SkillIDs` varchar(2048) NOT NULL,
   `User` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -635,7 +640,7 @@ CREATE TABLE `taken` (
   `Class` varchar(8) NOT NULL,
   `Grade` varchar(1) NOT NULL,
   `Year` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `taken`
@@ -667,7 +672,7 @@ INSERT INTO `taken` (`ID`, `Class`, `Grade`, `Year`) VALUES
 CREATE TABLE `teaches` (
   `Class` varchar(32) NOT NULL,
   `SkillID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `teaches`
@@ -836,7 +841,7 @@ CREATE TABLE `users` (
   `password` varchar(64) NOT NULL,
   `remember_token` varchar(64) DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `users`
@@ -897,7 +902,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `classes`
 --
 ALTER TABLE `classes`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10087;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20006;
 
 --
 -- AUTO_INCREMENT for table `companies`
