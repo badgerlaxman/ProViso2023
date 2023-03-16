@@ -2,8 +2,8 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Mar 07, 2023 at 08:35 AM
+-- Host: localhost
+-- Generation Time: Mar 16, 2023 at 09:08 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -146,6 +146,37 @@ INSERT INTO `companies` (`ID`, `Name`, `Responsibilities`) VALUES
 (15, '19 19\'s custom selection', 'Custom skills.'),
 (16, 'carson sloan\'s custom selection', 'Custom skills.'),
 (20, 'IBM', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `minors`
+--
+
+CREATE TABLE `minors` (
+  `ID` int(11) NOT NULL,
+  `Minor` varchar(255) NOT NULL,
+  `Description` varchar(2048) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `minors`
+--
+
+INSERT INTO `minors` (`ID`, `Minor`, `Description`) VALUES
+(0, 'Mathematics', 'A minor in mathematics can help build stronger credentials for employment and improve your opportunities to attend graduate school. A mathematics minor can be added to any degree program and requires just eight courses (26 credits) to complete. Computer Science, Physics, and most Engineering majors can qualify for this minor by taking one to three extra courses.'),
+(1, 'Music', 'No audition is required to become a music minor. This is a great way for students to continue exploring music at the University of Idaho while pursuing another degree. Eleven courses (21 credits) are required for a music minor. ');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `minorselected`
+--
+
+CREATE TABLE `minorselected` (
+  `ID` int(11) NOT NULL,
+  `MinorID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -880,6 +911,18 @@ ALTER TABLE `classes`
 -- Indexes for table `companies`
 --
 ALTER TABLE `companies`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `minors`
+--
+ALTER TABLE `minors`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `minorselected`
+--
+ALTER TABLE `minorselected`
   ADD PRIMARY KEY (`ID`);
 
 --
