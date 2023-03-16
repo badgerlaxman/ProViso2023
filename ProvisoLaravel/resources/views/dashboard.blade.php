@@ -149,10 +149,10 @@
                                                 <div class="row d_flex">
                                                     <div class="col-md-12">
                                                         <div class="consect">
-                                                            @if(!is_null($comp))
+                                                            @if(!is_null($min))
                                                             <h3 style="border-bottom: 1px solid black; margin-bottom: 15px">Selected Minor</h3>
                                                             <!-- Show minors that have already been added -->
-                                                            <form action="{{ route('company.post') }}" method="POST" role="form">
+                                                            <form action="{{ route('minor.post') }}" method="POST" role="form">
                                                                 @csrf
                                                                 <table class="customers">
                                                                     <tr>
@@ -161,10 +161,10 @@
                                                                         <th></th>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td style="padding-right:15px">{{ $comp->Name }}</td>
+                                                                        <td style="padding-right:15px">{{ $min->Minor }}</td>
 
                                                                         <td>
-                                                                            <input type="checkbox" name="KeyToDelete" value="{{ $comp->CompanyID }}"/>
+                                                                            <input type="checkbox" name="KeyToDelete" value="{{ $min->MinorID }}"/>
                                                                         </td>
                                                                         <td><input type="submit" name="submitDeleteBtn" value="Submit"/></td>
                                                                     </tr>
@@ -174,12 +174,12 @@
                                                             <br>
                                                             <!-- drop down menu -->
                                                             <h3 style="border-bottom: 1px solid black;margin-bottom: 15px">Add a Minor</h3>
-                                                            <form action='{{ route('addCompany') }}' method='POST'>
+                                                            <form action='{{ route('addMinor') }}' method='POST'>
                                                                 @csrf
                                                                 <select name="MinorID" class="dropdown" required>
                                                                     <option value=''>--Minors--</option>
-                                                                    @foreach($company as $c)
-                                                                    <option value="{{ $c->ID }}">{{$c->Name}}</option>
+                                                                    @foreach($minor as $m)
+                                                                    <option value="{{ $m->ID }}">{{$m->Minor}}</option>
                                                                     @endforeach
                                                                 </select>
                                                                 <input type="submit" name="submit" value="Add"/>

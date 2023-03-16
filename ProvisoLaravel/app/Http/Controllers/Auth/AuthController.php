@@ -11,6 +11,8 @@ use App\Models\User;
 use App\Models\Classes;
 use App\Models\Skill;
 use App\Models\Company;
+use App\Models\Minors;
+use App\Models\MinorSelected;
 use App\Models\Taken;
 use App\Models\Selection;
 use App\Models\Requires;
@@ -134,6 +136,18 @@ class AuthController extends Controller {
                 $comp = Company::select('Name', 'Responsibilities')->where('ID', $compID->CompanyID)->first();
                 $company = Company::select('Name')->where('ID', $compID->CompanyID)->get();
             }
+
+            // selecting a minor for the first time
+            $minor = Minors::all();
+            $minorselected = MinorSelected::select('*')->where('ID', Auth::guard('user')->user()->id);
+
+            // If a minor has already been selected i.e. selection is not null for their id, update dropdown menu of minor to not have any values
+            $minID = MinorSelected::select('*')->where('ID', Auth::guard('user')->user()->id)->first();
+            $min = null;
+            if (!is_null($minID)) {
+                $min = Minors::select('Minor', 'Description')->where('ID', $minID->MinorID)->first();
+                $minor = Minors::select('Minor')->where('ID', $minID->MinorID)->get();
+            }
 			
 			// If the custom company has been created, and the user has selected it, then update the skills drop down to remove duplicates
 			$custom = Company::select('ID')->where('Name', $this->company_name())->first();
@@ -156,7 +170,7 @@ class AuthController extends Controller {
 				}
 			}
                 
-            return view(view: 'dashboard', data: ['taken' => $taken, 'company' => $company, 'aval' => $aval, 'skill' => $skill, 'selection' => $selection, 'comp' => $comp, 'skills' => $requires]);
+            return view(view: 'dashboard', data: ['taken' => $taken, 'company' => $company, 'aval' => $aval, 'skill' => $skill, 'selection' => $selection, 'comp' => $comp, 'skills' => $requires, 'min' => $min, 'minor' => $minor]);
         }
 
         return redirect("login")->withSuccess('Please log in to access your dashboard.');
@@ -275,6 +289,47 @@ class AuthController extends Controller {
         Selection::where('ID', $userid)->delete();
 
         return redirect('dashboard')->withSuccess('Cleared selected company.');
+    }
+
+    /**
+	 * Adds the given minor to the selections table.
+	 *
+	 * @return redirect to the dashboard with a success message.
+	 */
+    public function addMinor(Request $request) {
+
+        $request->validate([
+            'MinorID'=>'required',
+        ]);
+
+        //check that they have selected from each drop down
+        $this->createMinor($request);
+
+        return redirect('dashboard')->withSuccess('Great! You have successfully selected a Minor!');
+    }
+	
+    /**
+	 * Adds the minor to the selection table using Eloquent syntax.
+	 */
+    public function createMinor(Request $data) {
+        MinorSelected::create([
+            'ID' => Auth::guard('user')->user()->id,
+            'MinorID' => $data['MinorID']
+        ]);
+    }
+    
+    /**
+	 * Deletes an entry with the same MinorID from the selections table.
+	 *
+	 * @return redirect to the dashboard with a success message.
+	 */
+    public function postMinor(Request $result){
+        $min = $result->input('KeyToDelete');
+        $userid = Auth::guard('user')->user()->id;
+        // Where the ID and the current user match
+        MinorSelected::where('ID', $userid)->delete();
+
+        return redirect('dashboard')->withSuccess('Cleared selected minor.');
     }
     
     /**
@@ -447,6 +502,15 @@ class AuthController extends Controller {
 	 * @return string name of the the custom company for this user.
 	 */
 	private function company_name() {
+		return Auth::guard('user')->user()->name . '\'s custom selection';
+	}
+
+    /**
+	 * Getter method for the name to use when creating and querying the user's minor.
+	 *
+	 * @return string name of the the minor for this user.
+	 */
+	private function minor_name() {
 		return Auth::guard('user')->user()->name . '\'s custom selection';
 	}
 }
