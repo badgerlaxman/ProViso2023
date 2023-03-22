@@ -30,6 +30,9 @@
 		<title>Forget Password</title>
 	</head>
 	<body style='background-color: grey'>
+    <div>
+			<button style='width:50px; height:50px'><a href = "{{route('login')}}" ><img src="images/back.png" alt="#"/></a></button>
+		</div>
 		<main class="login-form">
   <div class="cotainer">
       <div class="row justify-content-center">
