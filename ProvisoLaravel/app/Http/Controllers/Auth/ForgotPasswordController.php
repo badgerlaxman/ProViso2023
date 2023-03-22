@@ -67,7 +67,7 @@ class ForgotPasswordController extends Controller
       {
           $request->validate([
               'email' => 'required|email|exists:users',
-              'password' => 'required|string|min:6|confirmed',
+              'password' => 'required|string|confirmed',
               'password_confirmation' => 'required'
           ]);
   
