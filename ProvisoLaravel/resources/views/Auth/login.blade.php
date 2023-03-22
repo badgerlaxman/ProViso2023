@@ -61,6 +61,15 @@
 									<span class="text-danger">{{ $errors->first('Password') }}</span>
 								@endif
 								<button class="sub_btn">Sign In</button>
+
+                                  <!-- Forgot password button-->
+                                <p> 
+                                  <div class="checkbox">
+                                      <label>
+                                          <a style="color:blue;" href="{{ route('forget.password.get') }}">Reset Password</a>
+                                      </label>
+                                  </div>
+                                <p> 
 							</form>
                                                         
                             <p>Don't have an account? <a href="{{ route('register') }}">Register here</a></p> 
