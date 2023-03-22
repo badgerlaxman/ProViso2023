@@ -69,7 +69,7 @@
                           </div>
   
                           <div class="form-group row">
-                              <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+                              <label for="password" class="col-md-4 col-form-label text-md-right">New Password</label>
                               <div class="col-md-6">
                                   <input type="password" id="password" class="form-control" name="password" required autofocus>
                                   @if ($errors->has('password'))
@@ -79,7 +79,7 @@
                           </div>
   
                           <div class="form-group row">
-                              <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirm Password</label>
+                              <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirm New Password</label>
                               <div class="col-md-6">
                                   <input type="password" id="password-confirm" class="form-control" name="password_confirmation" required autofocus>
                                   @if ($errors->has('password_confirmation'))
