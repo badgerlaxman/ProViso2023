@@ -3,9 +3,11 @@
 <head>
     <title>Password Reset</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+    <!-- Added in file CSS because of trouble with linking stylesheets from email link-->
     <style type="text/css">
-        @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
-  
+   
+   
         body{
             margin: 0;
             font-size: .9rem;
@@ -43,6 +45,46 @@
             margin-left: 0;
             margin-right: 0;
         }
+        .bottom_form {
+        margin-top: 23px;
+        width: 100%;
+        height: 100%;
+        }
+
+        .bottom_form .enter {
+         border: inherit;
+        padding: 0px 19px;
+        width: 100%;
+        height: 40px;
+        background-color: transparent;
+        color: #fff;
+        font-size: 15px;
+        font-weight: 300;
+        float: left;
+        margin-bottom: 20px;
+        border: #fff solid 1px;
+        align-content: center
+        }
+
+        .sub_btn {
+        font-size: 16px;
+        transition: ease-in all 0.5s;
+        background-color: lightgray;
+        color: grey;
+        padding: 5px 0px;
+        max-width: 270px;
+        width: 100%;
+        height: 40px;
+        border: grey solid 1px;
+        }
+
+        .sub_btn:hover {
+         background-color: goldenrod;
+         transition: ease-in all 0.5s;
+         color: #fff;
+        }
+
+
     </style>
 	</head>
 	<body style='background-color: grey'>
@@ -89,7 +131,7 @@
                           </div>
   
                           <div class="col-md-6 offset-md-4">
-                              <button type="submit" class="btn btn-primary">
+                              <button type="submit" class="sub_btn">
                                   Reset Password
                               </button>
                           </div>

@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\ProvisoLaravel",
+    "\\ProvisoLaravel\\app\\Http\\Controllers\\Auth",
+    "\\ProvisoLaravel\\public",
+    "\\ProvisoLaravel\\public\\css",
+    "\\ProvisoLaravel\\resources",
+    "\\ProvisoLaravel\\resources\\views",
+    "\\ProvisoLaravel\\resources\\views\\Auth",
+    "\\ProvisoLaravel\\resources\\views\\email",
+    "\\ProvisoLaravel\\routes"
+  ],
+  "SelectedNode": "\\ProvisoLaravel\\public\\css\\bootstrap.css",
+  "PreviewInSolutionExplorer": false
+}

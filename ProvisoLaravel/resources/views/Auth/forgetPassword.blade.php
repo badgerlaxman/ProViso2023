@@ -58,9 +58,9 @@
                                   @endif
                               </div>
                           </div>
-                          <div class="col-md-6 offset-md-4">
-                              <button type="submit" class="btn btn-primary">
-                                  Send Password Reset Link
+                          <div class="col-md-6 offset-md-4">                            
+                              <button  type = "submit" class="sub_btn">
+                                  Send Link
                               </button>
                           </div>
                       </form>
