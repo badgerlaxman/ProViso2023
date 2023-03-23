@@ -271,10 +271,35 @@
                                                                 @csrf
                                                                 <select name="Class" class="dropdown" required>
                                                                     <option value=''>--Classes--</option>
+
+                                                                 <!-- if no minor is selected -->
+                                                                    @if(is_null($min))
                                                                     @foreach($aval as $row)
+                                                                    @if($row->ID < 20000)
                                                                     <option value="{{ $row->Class }}">{{ $row->Class }}
                                                                     </option>
+                                                                    @endif
                                                                     @endforeach
+                                                                 <!-- if math minor is selected -->
+                                                                    @elseif(strcmp( $min->Minor, "Mathematics") == 0)
+                                                                    @foreach($aval as $row)
+                                                                    @if($row->ID < 30000)
+                                                                    <option value="{{ $row->Class }}">{{ $row->Class }}
+                                                                    </option>
+                                                                    @endif
+                                                                    @endforeach
+                                                                 <!-- if music minor is selected -->
+                                                                    @elseif(strcmp( $min->Minor, "Music") == 0)
+                                                                    @foreach($aval as $row)
+                                                                    @if($row->ID < 20000 || $row->ID > 30000)
+                                                                    <option value="{{ $row->Class }}">{{ $row->Class }}
+                                                                    </option>
+                                                                    @endif
+                                                                    @endforeach
+
+                                                                    @endif
+
+
                                                                 </select>
                                                                 <select name='Grade' class="dropdown" required>
                                                                     <option value=''>--Grade--</option>
