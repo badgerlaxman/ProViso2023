@@ -129,7 +129,7 @@
                     <div class="col-md-12">
                         <div class="titlepage">
                             <h2>Select Your Minor</h2>
-                            <span>Select your minor from the drop down menu. If you do not have a minor, select 'none'. To deselect the chosen minor, check the delete box next to the entry and click submit.</span>
+                            <span>Select your minor from the drop down menu (only one minor can be selected). If you do not have a minor, select 'none'. To deselect the chosen minor, check the delete box next to the entry and click submit.</span>
                         </div>
                     </div>
                 </div>
@@ -170,7 +170,9 @@
                                                                     </tr>
                                                                 </table>
                                                             </form>
-                                                            @endif
+															<p>Description of {{ $min->Minor }} Minor:</p>
+															<blockquote style="margin-top: 0; margin-bottom: 0; padding-top: 20px; padding-bottom: 10px">{{ $min->Description }}</blockquote>
+                                                            @else
                                                             <br>
                                                             <!-- drop down menu -->
                                                             <h3 style="border-bottom: 1px solid black;margin-bottom: 15px">Add a Minor</h3>
@@ -184,6 +186,7 @@
                                                                 </select>
                                                                 <input type="submit" name="submit" value="Add"/>
                                                             </form>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
