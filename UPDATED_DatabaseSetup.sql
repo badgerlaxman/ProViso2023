@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 16, 2023 at 09:08 PM
+-- Generation Time: Mar 25, 2023 at 11:49 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -20,6 +20,42 @@ SET time_zone = "+00:00";
 --
 -- Database: `provisoadvising`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `careers`
+--
+
+CREATE TABLE `careers` (
+  `ID` int(11) NOT NULL,
+  `Title` varchar(255) NOT NULL,
+  `Description` varchar(2048) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `careers`
+--
+
+INSERT INTO `careers` (`ID`, `Title`, `Description`) VALUES
+(0, 'Software Engineer', 'A software engineer is a computer science professional who uses knowledge of engineering principles and programming languages to build software products, develop computer games, run network control systems, and more. Some important skills are programming languages, object-oriented design, data structures, algorithms, source control, and databases. '),
+(1, 'Data Engineer', 'A data engineer designs, builds, and optimizes systems for data collection, storage, access, and analytics at scale. Important skills are data processing, knowledge of data storage, databases, SQL, and machine learning frameworks. '),
+(2, 'Data Scientist', 'A data scientist collects, analyzes, and interprets complex digital data in order to assist in decision-making. Some important skills are statistical analysis, machine learning, deep learning, mathematics, programming languages, and database knowledge. '),
+(3, 'Video Game Developer', 'Video Game Developers are involved in lots of different stages of game creation, design, and production. Game Developers conceptualize a game, create assets like graphics and sounds, write code, improve the user experience, and continuously test the game. Important skills are knowledge of game engines, object-oriented programming languages, creativity, and 2D or 3D software animation. '),
+(4, 'Information Security Analyst', 'Information security analysts are IT experts who help clients protect their computer networks by installing software and executing other security measures. Important skills are scripting, networks, operating systems, and cybersecurity controls and frameworks. '),
+(5, 'Cloud Engineer', 'A cloud engineer is an IT expert who analyzes a company\'s technology infrastructure and manages its cloud-based processes and systems. Important skills are Linux, programming languages, database skills, networking, knowledge of cloud providers, and operating systems. '),
+(6, 'User Experience (UX) Designer', 'A UX designer contributes to end-to-end aspects of a user\'s interaction with a product including the creation, planning, usability, function, and branding. Important skills are virtual design, software programming, user research and usability testing, Agile practices, and information architecture. ');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `careerselected`
+--
+
+CREATE TABLE `careerselected` (
+  `ID` int(11) NOT NULL,
+  `CareerID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -145,7 +181,8 @@ INSERT INTO `companies` (`ID`, `Name`, `Responsibilities`) VALUES
 (13, 'Carson last\'s custom selection', 'Custom skills.'),
 (15, '19 19\'s custom selection', 'Custom skills.'),
 (16, 'carson sloan\'s custom selection', 'Custom skills.'),
-(20, 'IBM', '');
+(20, 'IBM', ''),
+(21, '13 13\'s custom selection', 'Custom skills.');
 
 -- --------------------------------------------------------
 
@@ -902,6 +939,18 @@ INSERT INTO `users` (`created_at`, `email`, `email_verified_at`, `id`, `name`, `
 --
 
 --
+-- Indexes for table `careers`
+--
+ALTER TABLE `careers`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `careerselected`
+--
+ALTER TABLE `careerselected`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Indexes for table `classes`
 --
 ALTER TABLE `classes`
@@ -964,7 +1013,7 @@ ALTER TABLE `classes`
 -- AUTO_INCREMENT for table `companies`
 --
 ALTER TABLE `companies`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `skills`
