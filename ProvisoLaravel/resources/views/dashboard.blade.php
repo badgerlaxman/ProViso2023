@@ -87,6 +87,9 @@
                                                         <a class="nav-link" href="#">Home</a>
                                                     </li>
                                                     <li class="nav-item">
+                                                        <a class="nav-link" href="#addCareer">Add Career</a>
+                                                    </li>
+                                                    <li class="nav-item">
                                                         <a class="nav-link" href="#addMinor">Add Minor</a>
                                                     </li>
                                                     <li class="nav-item">
@@ -121,6 +124,94 @@
 			{{ session('success') }}
 		</div>
 		@endif
+
+        <!-- dream career -->
+        <div class="clients" id="addCareer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="titlepage">
+                            <h2>Select Your Desired Career</h2>
+                            <span>Select your desired career from the drop down menu (only one career can be selected at a time). If you do not have a desired career, skip this section. To deselect the chosen career, check the delete box next to the entry and click submit.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <div class="testimo_ban_bg">
+                            <div id="testimp" class="carousel slide testimo_ban" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <li data-target="#testimo" data-slide-to="0" class="active"></li>
+                                    <li data-target="#testimo" data-slide-to="1"></li>
+                                    <li data-target="#testimo" data-slide-to="2"></li>
+                                </ol>
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <div class="container parile0">
+                                            <div class="carousel-caption relative2">
+                                                <div class="row d_flex">
+                                                    <div class="col-md-12">
+                                                        <div class="consect">
+                                                            @if(!is_null($car))
+                                                            <h3 style="border-bottom: 1px solid black; margin-bottom: 15px">Selected Career</h3>
+                                                            <!-- Show minors that have already been added -->
+                                                            <form action="{{ route('career.post') }}" method="POST" role="form">
+                                                                @csrf
+                                                                <table class="customers">
+                                                                    <tr>
+                                                                        <th style="padding-right: 15px">Career</th>
+                                                                        <th style="padding-right: 15px">Delete</th>
+                                                                        <th></th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="padding-right:15px">{{ $car->Title }}</td>
+
+                                                                        <td>
+                                                                            <input type="checkbox" name="KeyToDelete" value="{{ $car->CareerID }}"/>
+                                                                        </td>
+                                                                        <td><input type="submit" name="submitDeleteBtn" value="Submit"/></td>
+                                                                    </tr>
+                                                                </table>
+                                                            </form>
+															<p>Description of {{ $car->Title }} Career:</p>
+															<blockquote style="margin-top: 0; margin-bottom: 0; padding-top: 20px; padding-bottom: 10px">{{ $car->Description }}</blockquote>
+                                                            @else
+                                                            <br>
+                                                            <!-- drop down menu -->
+                                                            <h3 style="border-bottom: 1px solid black;margin-bottom: 15px">Add a Career</h3>
+                                                            <form action='{{ route('addCareer') }}' method='POST'>
+                                                                @csrf
+                                                                <select name="CareerID" class="dropdown" required>
+                                                                    <option value=''>--Career--</option>
+                                                                    @foreach($career as $c)
+                                                                    <option value="{{ $c->ID }}">{{$c->Title}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                                <input type="submit" name="submit" value="Add"/>
+                                                            </form>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end dream job section -->
+
+        <!-- divider -->
+        <div class="divider" style="background-color: grey; width: none !important; padding:0px !important">
+            <div class="row" style="padding:0px !important">
+                <br>
+            </div>
+       </div>
+        <!-- end divider -->
 		
         <!-- minor -->
         <div class="clients" id="addMinor">
@@ -129,7 +220,7 @@
                     <div class="col-md-12">
                         <div class="titlepage">
                             <h2>Select Your Minor</h2>
-                            <span>Select your minor from the drop down menu (only one minor can be selected). If you do not have a minor, select 'none'. To deselect the chosen minor, check the delete box next to the entry and click submit.</span>
+                            <span>Select your minor from the drop down menu (only one minor can be selected). If you do not have a minor, skip this section. To deselect the chosen minor, check the delete box next to the entry and click submit.</span>
                         </div>
                     </div>
                 </div>

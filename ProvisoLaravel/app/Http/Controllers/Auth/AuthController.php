@@ -13,6 +13,8 @@ use App\Models\Skill;
 use App\Models\Company;
 use App\Models\Minors;
 use App\Models\MinorSelected;
+use App\Models\Careers;
+use App\Models\CareerSelected;
 use App\Models\Taken;
 use App\Models\Selection;
 use App\Models\Requires;
@@ -148,6 +150,18 @@ class AuthController extends Controller {
                 $min = Minors::select('Minor', 'Description')->where('ID', $minID->MinorID)->first();
                 $minor = Minors::select('Minor')->where('ID', $minID->MinorID)->get();
             }
+
+            // selecting a career for the first time
+            $career = Careers::all();
+            $careerselected = CareerSelected::select('*')->where('ID', Auth::guard('user')->user()->id);
+
+            // If a career has already been selected i.e. carID is not null for their id, update dropdown menu of minor to not have any values
+            $carID = CareerSelected::select('*')->where('ID', Auth::guard('user')->user()->id)->first();
+            $car = null;
+            if (!is_null($carID)) {
+                $car = Careers::select('Title', 'Description')->where('ID', $carID->CareerID)->first();
+                $career = Careers::select('Title')->where('ID', $carID->CareerID)->get();
+            }
 			
 			// If the custom company has been created, and the user has selected it, then update the skills drop down to remove duplicates
 			$custom = Company::select('ID')->where('Name', $this->company_name())->first();
@@ -170,7 +184,7 @@ class AuthController extends Controller {
 				}
 			}
                 
-            return view(view: 'dashboard', data: ['taken' => $taken, 'company' => $company, 'aval' => $aval, 'skill' => $skill, 'selection' => $selection, 'comp' => $comp, 'skills' => $requires, 'min' => $min, 'minor' => $minor]);
+            return view(view: 'dashboard', data: ['taken' => $taken, 'company' => $company, 'aval' => $aval, 'skill' => $skill, 'selection' => $selection, 'comp' => $comp, 'skills' => $requires, 'min' => $min, 'minor' => $minor, 'car' => $car, 'career' => $career]);
         }
 
         return redirect("login")->withSuccess('Please log in to access your dashboard.');
@@ -330,6 +344,47 @@ class AuthController extends Controller {
         MinorSelected::where('ID', $userid)->delete();
 
         return redirect('dashboard')->withSuccess('Cleared selected minor.');
+    }
+
+    /**
+	 * Adds the given career to the careerselected table.
+	 *
+	 * @return redirect to the dashboard with a success message.
+	 */
+    public function addCareer(Request $request) {
+
+        $request->validate([
+            'CareerID'=>'required',
+        ]);
+
+        //check that they have selected from each drop down
+        $this->createCareer($request);
+
+        return redirect('dashboard')->withSuccess('Great! You have successfully selected a Career!');
+    }
+	
+    /**
+	 * Adds the career to the careerselected table using Eloquent syntax.
+	 */
+    public function createCareer(Request $data) {
+        CareerSelected::create([
+            'ID' => Auth::guard('user')->user()->id,
+            'CareerID' => $data['CareerID']
+        ]);
+    }
+    
+    /**
+	 * Deletes an entry with the same CareerID from the careerselected table.
+	 *
+	 * @return redirect to the dashboard with a success message.
+	 */
+    public function postCareer(Request $result){
+        $car = $result->input('KeyToDelete');
+        $userid = Auth::guard('user')->user()->id;
+        // Where the ID and the current user match
+        CareerSelected::where('ID', $userid)->delete();
+
+        return redirect('dashboard')->withSuccess('Cleared selected career.');
     }
     
     /**

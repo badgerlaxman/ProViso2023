@@ -82,6 +82,14 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\MinorSelected::class,
         ],
+        'careers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Careers::class,
+        ],
+        'careerselected' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\CareerSelected::class,
+        ],
         'classes' => [
             'driver' => 'eloquent',
             'model' => App\Models\Classes::class,
