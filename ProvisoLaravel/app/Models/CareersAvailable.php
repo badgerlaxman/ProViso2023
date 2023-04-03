@@ -4,18 +4,16 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\Careers as Authenticatable;
+use Illuminate\Foundation\Auth\CareersSelected as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
 
-class Careers extends Model
+class CareersAvailable extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
     
-    protected $table = 'careers'; /* database table */
-    protected $primaryKey = 'ID';
-    public $incrementing = false;
+    protected $table = 'careersavailable'; /* database table */
     public $timestamps = false;
     /**
      * The attributes that are mass assignable.
@@ -23,9 +21,8 @@ class Careers extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'ID',
-        'Title',
-        'Description'
+        'CareerID',
+        'CompanyID'
     ];
 
     /**

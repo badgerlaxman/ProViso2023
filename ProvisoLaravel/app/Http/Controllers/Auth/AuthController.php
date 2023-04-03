@@ -15,6 +15,7 @@ use App\Models\Minors;
 use App\Models\MinorSelected;
 use App\Models\Careers;
 use App\Models\CareerSelected;
+use App\Models\CareersAvailable;
 use App\Models\Taken;
 use App\Models\Selection;
 use App\Models\Requires;
@@ -183,8 +184,31 @@ class AuthController extends Controller {
 					$flag = false;
 				}
 			}
-                
-            return view(view: 'dashboard', data: ['taken' => $taken, 'company' => $company, 'aval' => $aval, 'skill' => $skill, 'selection' => $selection, 'comp' => $comp, 'skills' => $requires, 'min' => $min, 'minor' => $minor, 'car' => $car, 'career' => $career]);
+
+            // if a career is selected, update dropdown menu to all the companies that are hiring that career. 
+            // careersavailID = ID of the career selected on the dashboard
+            $careersavailID = CareerSelected::select('*')->where('ID', Auth::guard('user')->user()->id)->first();
+            // careersavail = (empty) variable for all the company IDs that are hiring the selected career 
+            $careersavail = null;
+            // careersavailable = (empty) array of companies that are hiring the selected career
+            $careersavailable = array();
+            // $compsavail = (empty) variable to store the Name and Resonsibilities of the company
+            $compsavail = null;
+            // if there is a career selected on the dashboard, then careersavailID will not be null
+            if (!is_null($careersavailID)) {
+                // careersavail = all the company IDs that are hiring the selected career 
+                $careersavail = CareersAvailable::select('CompanyID')->where('CareerID', $careersavailID->CareerID)->get();
+                // for each company ID, retrieve the Name and Responsibilities from that company and store in $careersavailable array
+                foreach($careersavail as $c)
+                {
+                    // retrieve the Name and Responsibilities associated with the company ID
+                    $compsavail = Company::select('*')->where('ID', $c->CompanyID)->first();
+                    // add the $compsavail data to the array
+                    array_push($careersavailable, $compsavail);
+                }
+            }
+
+            return view(view: 'dashboard', data: ['taken' => $taken, 'company' => $company, 'aval' => $aval, 'skill' => $skill, 'selection' => $selection, 'comp' => $comp, 'skills' => $requires, 'min' => $min, 'minor' => $minor, 'car' => $car, 'career' => $career, 'careersavail' => $careersavail, 'careersavailable' => $careersavailable]);
         }
 
         return redirect("login")->withSuccess('Please log in to access your dashboard.');

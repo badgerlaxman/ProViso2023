@@ -445,9 +445,10 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="titlepage">
-                            <h2>Select a Company or Position</h2>
-                            <span>Select from the drop down menu a company or position you are interested in and then click add.<br/>
-                                To deselect the chosen company or position, check the delete box next to the entry and click submit.</span>
+                            <h2>Select a Company</h2>
+                            <span>Select from the drop down menu a company you are interested in and then click add. 
+                                Only relevant companies with the career selected will be displayed. If no career is selected, then all companies will be listed.
+                                To deselect the chosen company, check the delete box next to the entry and click submit.</span>
                         </div>
                     </div>
                 </div>
@@ -466,7 +467,7 @@
                                             <div class="carousel-caption relative2">
                                                 <div class="row d_flex">
                                                     <div class="col-md-12">
-                                                        <div class="consect">                                                         
+                                                        <div class="consect">
                                                            @if(!is_null($comp))
                                                            <h3 style="border-bottom: 1px solid black; margin-bottom: 15px">Selected Company</h3>
                                                            <!--Show positions they've already added-->  
@@ -494,14 +495,40 @@
 															<p>Example responsibilities of employees at {{ $comp->Name }}:</p>
 															<blockquote style="margin-top: 0; margin-bottom: 0; padding-top: 20px; padding-bottom: 10px">{{ $comp->Responsibilities }}</blockquote>
                                                             @endif
-															@endif
+															@else
+                                                            @if(!is_null($car))
                                                             <br>
                                                             <!-- add drop down menus-->
                                                             <h3 style="border-bottom: 1px solid black;margin-bottom: 15px">Add A Company</h3>
                                                             <form action='{{ route('addCompany') }}' method='POST'>
                                                                 @csrf
 																<select name="CompanyID" class="dropdown" required>
-																	<option value=''>--Companies/Positions--</option>
+																	<option value=''>--Companies--</option>
+																	@foreach($careersavailable as $c)
+																	<option value="{{ $c->ID }}">{{$c->Name}}
+																	</option>
+																	@endforeach
+																</select>
+																<input type="submit" name="submit" value="Add"/>
+                                                            </form>
+                                                            <!-- testing for errors -->
+                                                            @if ($errors->any())
+                                                                <div class="alert alert-danger">
+                                                                    <ul>
+                                                                        @foreach ($errors->all() as $error)
+                                                                            <li>{{ $error }}</li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </div>
+                                                            @endif
+                                                            @else
+                                                            <br>
+                                                            <!-- add drop down menus-->
+                                                            <h3 style="border-bottom: 1px solid black;margin-bottom: 15px">Add A Company</h3>
+                                                            <form action='{{ route('addCompany') }}' method='POST'>
+                                                                @csrf
+																<select name="CompanyID" class="dropdown" required>
+																	<option value=''>--Companies--</option>
 																	@foreach($company as $c)
 																	<option value="{{ $c->ID }}">{{$c->Name}}
 																	</option>
@@ -509,6 +536,8 @@
 																</select>
 																<input type="submit" name="submit" value="Add"/>
                                                             </form>
+                                                            @endif
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 25, 2023 at 11:49 PM
+-- Generation Time: Apr 03, 2023 at 04:24 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -20,6 +20,163 @@ SET time_zone = "+00:00";
 --
 -- Database: `provisoadvising`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `careerrequires`
+--
+
+CREATE TABLE `careerrequires` (
+  `CareerID` int(11) NOT NULL,
+  `SkillID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `careerrequires`
+--
+
+INSERT INTO `careerrequires` (`CareerID`, `SkillID`) VALUES
+(0, 0),
+(0, 1),
+(0, 7),
+(0, 10),
+(0, 13),
+(0, 17),
+(0, 19),
+(0, 20),
+(0, 22),
+(0, 23),
+(0, 24),
+(0, 25),
+(0, 26),
+(0, 27),
+(0, 28),
+(0, 29),
+(0, 30),
+(0, 38),
+(0, 40),
+(0, 50),
+(0, 52),
+(0, 57),
+(0, 58),
+(0, 80),
+(0, 81),
+(1, 0),
+(1, 1),
+(1, 7),
+(1, 9),
+(1, 12),
+(1, 13),
+(1, 14),
+(1, 15),
+(1, 16),
+(1, 17),
+(1, 18),
+(1, 19),
+(1, 20),
+(1, 23),
+(1, 24),
+(1, 25),
+(1, 26),
+(1, 27),
+(1, 28),
+(1, 29),
+(1, 40),
+(1, 50),
+(1, 52),
+(1, 50),
+(1, 52),
+(1, 53),
+(1, 106),
+(2, 0),
+(2, 1),
+(2, 2),
+(2, 7),
+(2, 9),
+(2, 22),
+(2, 23),
+(2, 25),
+(2, 26),
+(2, 28),
+(2, 27),
+(2, 36),
+(2, 39),
+(2, 41),
+(2, 43),
+(2, 52),
+(2, 106),
+(2, 17),
+(3, 0),
+(3, 1),
+(3, 10),
+(3, 11),
+(3, 22),
+(3, 25),
+(3, 26),
+(3, 28),
+(3, 30),
+(3, 50),
+(3, 52),
+(3, 58),
+(3, 89),
+(3, 38),
+(4, 0),
+(4, 1),
+(4, 2),
+(4, 19),
+(4, 20),
+(4, 22),
+(4, 23),
+(4, 25),
+(4, 26),
+(4, 27),
+(4, 28),
+(4, 40),
+(4, 52),
+(4, 39),
+(4, 49),
+(4, 72),
+(5, 0),
+(5, 1),
+(5, 7),
+(5, 19),
+(5, 20),
+(5, 22),
+(5, 24),
+(5, 25),
+(5, 26),
+(5, 27),
+(5, 28),
+(5, 40),
+(5, 52),
+(5, 39),
+(5, 62),
+(5, 60),
+(5, 49),
+(6, 0),
+(6, 1),
+(6, 2),
+(6, 13),
+(6, 12),
+(6, 14),
+(6, 15),
+(6, 16),
+(6, 17),
+(6, 18),
+(6, 22),
+(6, 23),
+(6, 24),
+(6, 25),
+(6, 26),
+(6, 27),
+(6, 28),
+(6, 29),
+(6, 41),
+(6, 50),
+(6, 52),
+(6, 53),
+(6, 57);
 
 -- --------------------------------------------------------
 
@@ -45,6 +202,88 @@ INSERT INTO `careers` (`ID`, `Title`, `Description`) VALUES
 (4, 'Information Security Analyst', 'Information security analysts are IT experts who help clients protect their computer networks by installing software and executing other security measures. Important skills are scripting, networks, operating systems, and cybersecurity controls and frameworks. '),
 (5, 'Cloud Engineer', 'A cloud engineer is an IT expert who analyzes a company\'s technology infrastructure and manages its cloud-based processes and systems. Important skills are Linux, programming languages, database skills, networking, knowledge of cloud providers, and operating systems. '),
 (6, 'User Experience (UX) Designer', 'A UX designer contributes to end-to-end aspects of a user\'s interaction with a product including the creation, planning, usability, function, and branding. Important skills are virtual design, software programming, user research and usability testing, Agile practices, and information architecture. ');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `careersavailable`
+--
+
+CREATE TABLE `careersavailable` (
+  `CareerID` int(11) NOT NULL,
+  `CompanyID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `careersavailable`
+--
+
+INSERT INTO `careersavailable` (`CareerID`, `CompanyID`) VALUES
+(0, 0),
+(0, 1),
+(0, 2),
+(0, 3),
+(0, 4),
+(0, 5),
+(0, 6),
+(0, 7),
+(0, 8),
+(0, 9),
+(0, 10),
+(0, 11),
+(0, 12),
+(0, 20),
+(1, 0),
+(1, 1),
+(1, 2),
+(1, 4),
+(1, 6),
+(1, 8),
+(1, 12),
+(1, 20),
+(2, 0),
+(2, 1),
+(2, 3),
+(2, 4),
+(2, 6),
+(2, 7),
+(2, 8),
+(2, 9),
+(2, 12),
+(2, 20),
+(3, 0),
+(3, 4),
+(3, 6),
+(3, 12),
+(3, 20),
+(4, 0),
+(4, 1),
+(4, 3),
+(4, 4),
+(4, 6),
+(4, 7),
+(4, 8),
+(4, 10),
+(4, 11),
+(5, 0),
+(5, 1),
+(5, 2),
+(5, 3),
+(5, 5),
+(5, 6),
+(5, 9),
+(5, 11),
+(5, 12),
+(5, 20),
+(6, 0),
+(6, 1),
+(6, 2),
+(6, 3),
+(6, 4),
+(6, 6),
+(6, 10),
+(6, 11),
+(6, 12);
 
 -- --------------------------------------------------------
 
@@ -516,13 +755,6 @@ CREATE TABLE `selections` (
   `ID` int(11) NOT NULL,
   `CompanyID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Dumping data for table `selections`
---
-
-INSERT INTO `selections` (`ID`, `CompanyID`) VALUES
-(19, 2);
 
 -- --------------------------------------------------------
 
