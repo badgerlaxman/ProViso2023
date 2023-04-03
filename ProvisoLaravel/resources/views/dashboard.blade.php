@@ -153,6 +153,26 @@
                                                     <div class="col-md-12">
                                                         <div class="consect">
                                                             @if(!is_null($car))
+                                                            @if(!is_null($comp))
+                                                            <h3 style="border-bottom: 1px solid black; margin-bottom: 15px">Selected Career</h3>
+                                                            <!-- Show minors that have already been added -->
+                                                            @csrf
+                                                            <table class="customers">
+                                                                <tr>
+                                                                    <th style="padding-right: 15px">Career</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="padding-right:15px">{{ $car->Title }}</td>
+                                                                </tr>
+                                                            </table>
+                                                            <br>
+                                                            <h3 style="border-bottom: 1px solid black; margin-bottom: 15px"></h3>
+                                                            <p>Description of {{ $car->Title }} Career:</p>
+															<blockquote style="margin-top: 0; margin-bottom: 0; padding-top: 20px; padding-bottom: 10px">{{ $car->Description }}</blockquote>                                                            
+                                                            <h3 style="border-bottom: 1px solid black; margin-bottom: 15px"></h3>
+                                                            <h3>If you want to change your desired career, please deselect a company first.</h3>
+                                                            <a href="#company">Scroll to Company</a>
+                                                            @else
                                                             <h3 style="border-bottom: 1px solid black; margin-bottom: 15px">Selected Career</h3>
                                                             <!-- Show minors that have already been added -->
                                                             <form action="{{ route('career.post') }}" method="POST" role="form">
@@ -173,8 +193,11 @@
                                                                     </tr>
                                                                 </table>
                                                             </form>
+                                                            <br>
+                                                            <h3 style="border-bottom: 1px solid black; margin-bottom: 15px"></h3>
 															<p>Description of {{ $car->Title }} Career:</p>
 															<blockquote style="margin-top: 0; margin-bottom: 0; padding-top: 20px; padding-bottom: 10px">{{ $car->Description }}</blockquote>
+                                                            @endif
                                                             @else
                                                             <br>
                                                             <!-- drop down menu -->
@@ -261,6 +284,8 @@
                                                                     </tr>
                                                                 </table>
                                                             </form>
+                                                            <br>
+                                                            <h3 style="border-bottom: 1px solid black; margin-bottom: 15px"></h3>
 															<p>Description of {{ $min->Minor }} Minor:</p>
 															<blockquote style="margin-top: 0; margin-bottom: 0; padding-top: 20px; padding-bottom: 10px">{{ $min->Description }}</blockquote>
                                                             @else
@@ -489,6 +514,8 @@
                                                                     </tr>
                                                                 </table>
                                                             </form>
+                                                            <br>
+                                                            <h3 style="border-bottom: 1px solid black; margin-bottom: 15px"></h3>
 															@if($comp->Responsibilities == 'Custom skills.')
 															<p>Your chosen skills are saved to this company even if it's deselected.</p>
 															@elseif($comp->Responsibilities != '')
