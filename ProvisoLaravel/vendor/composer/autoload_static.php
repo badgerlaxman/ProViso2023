@@ -132,6 +132,8 @@ class ComposerStaticInit8fc0e3f39adadad5e3bb09e284424e02
             'GuzzleHttp\\Psr7\\' => 16,
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
+            'Graphp\\Graph\\' => 13,
+            'Graphp\\GraphViz\\' => 16,
             'GrahamCampbell\\ResultType\\' => 26,
         ),
         'F' => 
@@ -425,6 +427,14 @@ class ComposerStaticInit8fc0e3f39adadad5e3bb09e284424e02
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
+        'Graphp\\Graph\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/graphp/graph/src',
+        ),
+        'Graphp\\GraphViz\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/graphp/graphviz/src',
+        ),
         'GrahamCampbell\\ResultType\\' => 
         array (
             0 => __DIR__ . '/..' . '/graham-campbell/result-type/src',
@@ -508,6 +518,7 @@ class ComposerStaticInit8fc0e3f39adadad5e3bb09e284424e02
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Auth\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/AuthController.php',
+        'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
@@ -519,7 +530,19 @@ class ComposerStaticInit8fc0e3f39adadad5e3bb09e284424e02
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\ValidateSignature' => __DIR__ . '/../..' . '/app/Http/Middleware/ValidateSignature.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Models\\CareerSelected' => __DIR__ . '/../..' . '/app/Models/CareerSelected.php',
+        'App\\Models\\Careers' => __DIR__ . '/../..' . '/app/Models/Careers.php',
+        'App\\Models\\CareersAvailable' => __DIR__ . '/../..' . '/app/Models/CareersAvailable.php',
+        'App\\Models\\Classes' => __DIR__ . '/../..' . '/app/Models/Classes.php',
+        'App\\Models\\Company' => __DIR__ . '/../..' . '/app/Models/Company.php',
+        'App\\Models\\MinorSelected' => __DIR__ . '/../..' . '/app/Models/MinorSelected.php',
+        'App\\Models\\Minors' => __DIR__ . '/../..' . '/app/Models/Minors.php',
+        'App\\Models\\Prerequisite' => __DIR__ . '/../..' . '/app/Models/Prerequisite.php',
+        'App\\Models\\Requires' => __DIR__ . '/../..' . '/app/Models/Requires.php',
+        'App\\Models\\Selection' => __DIR__ . '/../..' . '/app/Models/Selection.php',
+        'App\\Models\\Skill' => __DIR__ . '/../..' . '/app/Models/Skill.php',
         'App\\Models\\Student' => __DIR__ . '/../..' . '/app/Models/Student.php',
+        'App\\Models\\Taken' => __DIR__ . '/../..' . '/app/Models/Taken.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
@@ -1350,6 +1373,16 @@ class ComposerStaticInit8fc0e3f39adadad5e3bb09e284424e02
         'GrahamCampbell\\ResultType\\Error' => __DIR__ . '/..' . '/graham-campbell/result-type/src/Error.php',
         'GrahamCampbell\\ResultType\\Result' => __DIR__ . '/..' . '/graham-campbell/result-type/src/Result.php',
         'GrahamCampbell\\ResultType\\Success' => __DIR__ . '/..' . '/graham-campbell/result-type/src/Success.php',
+        'Graphp\\GraphViz\\Dot' => __DIR__ . '/..' . '/graphp/graphviz/src/Dot.php',
+        'Graphp\\GraphViz\\GraphViz' => __DIR__ . '/..' . '/graphp/graphviz/src/GraphViz.php',
+        'Graphp\\GraphViz\\Image' => __DIR__ . '/..' . '/graphp/graphviz/src/Image.php',
+        'Graphp\\Graph\\Edge' => __DIR__ . '/..' . '/graphp/graph/src/Edge.php',
+        'Graphp\\Graph\\EdgeDirected' => __DIR__ . '/..' . '/graphp/graph/src/EdgeDirected.php',
+        'Graphp\\Graph\\EdgeUndirected' => __DIR__ . '/..' . '/graphp/graph/src/EdgeUndirected.php',
+        'Graphp\\Graph\\Entity' => __DIR__ . '/..' . '/graphp/graph/src/Entity.php',
+        'Graphp\\Graph\\Graph' => __DIR__ . '/..' . '/graphp/graph/src/Graph.php',
+        'Graphp\\Graph\\Vertex' => __DIR__ . '/..' . '/graphp/graph/src/Vertex.php',
+        'Graphp\\Graph\\Walk' => __DIR__ . '/..' . '/graphp/graph/src/Walk.php',
         'GuzzleHttp\\BodySummarizer' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/BodySummarizer.php',
         'GuzzleHttp\\BodySummarizerInterface' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/BodySummarizerInterface.php',
         'GuzzleHttp\\Client' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Client.php',

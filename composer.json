@@ -1,0 +1,6 @@
+{
+    "require": {
+        "graphp/graph": "^1@dev",
+        "graphp/graphviz": "^0.2.2"
+    }
+}

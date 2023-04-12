@@ -29,7 +29,9 @@ use Hash;
 use Graphp\Graph\Graph;
 use Graphp\GraphViz\GraphViz;
 
-require_once '/Applications/XAMPP/htdocs/CS360/ProViso/ProViso2023/ProvisoLaravel/bootstrap/app.php'; // bootstrap info
+require_once __DIR__ . '\..\..\..\bootstrap\app.php';
+
+//require_once '/Applications/XAMPP/htdocs/CS360/ProViso/ProViso2023/ProvisoLaravel/bootstrap/app.php'; // bootstrap info
 
 
 /**
