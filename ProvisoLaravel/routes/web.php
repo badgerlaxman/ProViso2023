@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\GraphController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,3 +47,13 @@ Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPassw
 Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post'); 
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+
+Route::get('print-classes', [GraphController::class, 'print_classes'])->name('print.classes');
+Route::get('basic-graph', [GraphController::class, 'basic_graph'])->name('basic.graph');
+Route::get('print-recommendations', [GraphController::class, 'print_recommendations'])->name('print.recommendations');
+Route::get('print-skills', [GraphController::class, 'print_skills'])->name('print.skills');
+Route::get('print-all-skills', [GraphController::class, 'print_all_skills'])->name('print.all.skills');
+Route::get('print-classes-and-skills', [GraphController::class, 'print_classes_and_skills'])->name('print.classes.and.skills');
+Route::get('create-class-graph', [GraphController::class, 'create_class_graphgraph'])->name('create.class.graph');
+Route::get('create-skill-graph', [GraphController::class, 'create_skill_graph'])->name('create.skill.graph');
+Route::get('update-student', [GraphController::class, 'update_student'])->name('update.student');
