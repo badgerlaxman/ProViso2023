@@ -90,16 +90,16 @@
                                                         <a class="nav-link" href="#addCareer">Add Career</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a class="nav-link" href="#addMinor">Add Minor</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" href="#addClass">Add Classes</a>
-                                                    </li>
-                                                    <li class="nav-item">
                                                         <a class="nav-link" href="#company">Select Company</a>
                                                     </li>
                                                     <li class="nav-item">
                                                         <a class="nav-link" href="#skills">Add Skills</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" href="#addMinor">Add Minor</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" href="#addClass">Add Classes</a>
                                                     </li>
                                                     <li class="nav-item">
                                                         <a class="nav-link" href="#schedule">Schedule</a>
@@ -228,14 +228,232 @@
         </div>
         <!-- end dream job section -->
 
-        <!-- divider -->
+        <!--divider -->
         <div class="divider" style="background-color: grey; width: none !important; padding:0px !important">
-            <div class="row" style="padding:0px !important">
+            <div class='row' style="padding:0px !important" >
                 <br>
             </div>
-       </div>
+        </div>
         <!-- end divider -->
-		
+
+        <!--Companies or positions -->
+        <div class="clients" id="company">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="titlepage">
+                            <h2>Select a Company</h2>
+                            <span>Select from the drop down menu a company you are interested in and then click add. 
+                                Only relevant companies with the career selected will be displayed. If no career is selected, then all companies will be listed.
+                                To deselect the chosen company, check the delete box next to the entry and click submit.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <div class="testimo_ban_bg">
+                            <div id="testimo" class="carousel slide testimo_ban" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <li data-target="#testimo" data-slide-to="0" class="active"></li>
+                                    <li data-target="#testimo" data-slide-to="1"></li>
+                                    <li data-target="#testimo" data-slide-to="2"></li>
+                                </ol>
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <div class="container parile0">
+                                            <div class="carousel-caption relative2">
+                                                <div class="row d_flex">
+                                                    <div class="col-md-12">
+                                                        <div class="consect">
+                                                           @if(!is_null($comp))
+                                                           <h3 style="border-bottom: 1px solid black; margin-bottom: 15px">Selected Company</h3>
+                                                           <!--Show positions they've already added-->  
+                                                            <form action="{{ route('company.post') }}" method="POST" role="form">
+                                                                @csrf
+                                                                <table class="customers">
+                                                                    <tr>
+                                                                        <th style="padding-right: 15px">Company</th>
+                                                                        <th style="padding-right: 15px">Delete</th>
+                                                                        <th></th>
+                                                                    </tr>
+                                                                    <tr>                                             
+                                                                        <td style ="padding-right:15px">{{ $comp->Name }}</td>
+                                                                     
+                                                                        <td>
+                                                                            <input type="checkbox" name="KeyToDelete" value="{{ $comp->CompanyID }}"/>
+                                                                        </td>
+                                                                        <td><input type="submit" name="submitDeleteBtn" value="Submit"/></td>
+                                                                    </tr>
+                                                                </table>
+                                                            </form>
+                                                            <br>
+                                                            <h3 style="border-bottom: 1px solid black; margin-bottom: 15px"></h3>
+															@if($comp->Responsibilities == 'Custom skills.')
+															<p>Your chosen skills are saved to this company even if it's deselected.</p>
+															@elseif($comp->Responsibilities != '')
+															<p>Example responsibilities of employees at {{ $comp->Name }}:</p>
+															<blockquote style="margin-top: 0; margin-bottom: 0; padding-top: 20px; padding-bottom: 10px">{{ $comp->Responsibilities }}</blockquote>
+                                                            @endif
+															@else
+                                                            @if(!is_null($car))
+                                                            <br>
+                                                            <!-- add drop down menus-->
+                                                            <h3 style="border-bottom: 1px solid black;margin-bottom: 15px">Add A Company</h3>
+                                                            <form action='{{ route('addCompany') }}' method='POST'>
+                                                                @csrf
+																<select name="CompanyID" class="dropdown" required>
+																	<option value=''>--Companies--</option>
+																	@foreach($careersavailable as $c)
+																	<option value="{{ $c->ID }}">{{$c->Name}}
+																	</option>
+																	@endforeach
+																</select>
+																<input type="submit" name="submit" value="Add"/>
+                                                            </form>
+                                                            <!-- testing for errors -->
+                                                            @if ($errors->any())
+                                                                <div class="alert alert-danger">
+                                                                    <ul>
+                                                                        @foreach ($errors->all() as $error)
+                                                                            <li>{{ $error }}</li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </div>
+                                                            @endif
+                                                            @else
+                                                            <br>
+                                                            <!-- add drop down menus-->
+                                                            <h3 style="border-bottom: 1px solid black;margin-bottom: 15px">Add A Company</h3>
+                                                            <form action='{{ route('addCompany') }}' method='POST'>
+                                                                @csrf
+																<select name="CompanyID" class="dropdown" required>
+																	<option value=''>--Companies--</option>
+																	@foreach($company as $c)
+																	<option value="{{ $c->ID }}">{{$c->Name}}
+																	</option>
+																	@endforeach
+																</select>
+																<input type="submit" name="submit" value="Add"/>
+                                                            </form>
+                                                            @endif
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end company -->
+
+        <!--divider -->
+        <div class="divider" style="background-color: grey; width: none !important; padding:0px !important">
+            <div class='row' style="padding:0px !important" >
+                <br>
+            </div>
+        </div>
+        <!-- end divider -->
+
+        <!--Add Skills-->
+        <div class="clients" id="skills">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="titlepage">
+                            <h2>Select skills</h2>
+                            <span>If you can't find a company or position you are looking for,
+                                add the skills your future job would require.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <div class="testimo_ban_bg">
+                            <div id="testimo" class="carousel slide testimo_ban" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <li data-target="#testimo" data-slide-to="0" class="active"></li>
+                                    <li data-target="#testimo" data-slide-to="1"></li>
+                                    <li data-target="#testimo" data-slide-to="2"></li>
+                                </ol>
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <div class="container parile0">
+                                            <div class="carousel-caption relative2">
+                                                <div class="row d_flex">
+                                                    <div class="col-md-12">
+                                                        <div class="consect">
+                                                            @if(!empty($skills))
+                                                            <!--Show positions they've already added-->
+                                                            <h3 style="border-bottom: 1px solid black;margin-bottom: 15px">Added Skills</h3>
+                                                            <form action="{{ route('skills.post') }}" method="POST" role="form">
+                                                                @csrf
+                                                                <table class="customers">
+                                                                    <tr>
+                                                                        <th style="padding-right: 15px">Skill</th>
+                                                                        <th style="padding-right: 15px">Delete</th>
+                                                                        <th></th>
+                                                                    </tr>
+                                                                    @foreach ($skills as $s)
+                                                                    <tr>
+                                                                        <td style ="padding-right:15px">{{ App\Models\Skill::select('Name')->where('ID', $s->SkillID)->first()->Name }}</td>
+                                                                     
+                                                                        <td>
+                                                                            <input type="checkbox" name="KeyToDelete" value="{{ $s->SkillID }}"/>
+                                                                        </td>
+                                                                        <td><input type="submit" name="submitDeleteBtn" value="Submit"/></td>
+                                                                    </tr>
+                                                                    @endforeach
+                                                                </table>
+                                                            </form>
+															<a href="{{ route('newCompany') }}"><u>Are these skills for a company not yet in our database? Suggest it to us here!</u></a>
+															<br/>
+                                                            @endif
+															@if(!is_null($comp) && $comp->Responsibilities != 'Custom skills.')
+															<p>Choosing specific skills will cancel the company selection above.</p>
+															@endif
+                                                            <br>
+                                                            <!-- add drop down menus-->
+                                                            <h3 style="border-bottom: 1px solid black;margin-bottom: 15px">Add Skills</h3>
+                                                            <form action='{{ route('addSkill') }}' method='POST'>
+                                                                @csrf
+																<select name="skills" class="dropdown" required>
+																	<option value=''>--Skills--</option>
+																	@foreach($skill as $row)
+																	<option value="{{ $row->ID }}">{{$row->Name}}
+																	</option>
+																	@endforeach
+																</select>
+																<input type="submit" name="submit" value="Add"/>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end skills -->
+
+        <!--divider -->
+        <div class="divider" style="background-color: grey; width: none !important; padding:0px !important">
+            <div class='row' style="padding:0px !important" >
+                <br>
+            </div>
+        </div>
+        <!-- end divider -->
+
         <!-- minor -->
         <div class="clients" id="addMinor">
             <div class="container">
@@ -458,222 +676,16 @@
                 </div>
             </div>
         </div>
-        <!--divider -->
+        <!-- end classes -->
+
+        <!-- divider -->
         <div class="divider" style="background-color: grey; width: none !important; padding:0px !important">
-            <div class='row' style="padding:0px !important" >
+            <div class="row" style="padding:0px !important">
                 <br>
             </div>
-        </div>
-        <!--Companies or positions -->
-        <div class="clients" id="company">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="titlepage">
-                            <h2>Select a Company</h2>
-                            <span>Select from the drop down menu a company you are interested in and then click add. 
-                                Only relevant companies with the career selected will be displayed. If no career is selected, then all companies will be listed.
-                                To deselect the chosen company, check the delete box next to the entry and click submit.</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-8 offset-md-2">
-                        <div class="testimo_ban_bg">
-                            <div id="testimo" class="carousel slide testimo_ban" data-ride="carousel">
-                                <ol class="carousel-indicators">
-                                    <li data-target="#testimo" data-slide-to="0" class="active"></li>
-                                    <li data-target="#testimo" data-slide-to="1"></li>
-                                    <li data-target="#testimo" data-slide-to="2"></li>
-                                </ol>
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <div class="container parile0">
-                                            <div class="carousel-caption relative2">
-                                                <div class="row d_flex">
-                                                    <div class="col-md-12">
-                                                        <div class="consect">
-                                                           @if(!is_null($comp))
-                                                           <h3 style="border-bottom: 1px solid black; margin-bottom: 15px">Selected Company</h3>
-                                                           <!--Show positions they've already added-->  
-                                                            <form action="{{ route('company.post') }}" method="POST" role="form">
-                                                                @csrf
-                                                                <table class="customers">
-                                                                    <tr>
-                                                                        <th style="padding-right: 15px">Company</th>
-                                                                        <th style="padding-right: 15px">Delete</th>
-                                                                        <th></th>
-                                                                    </tr>
-                                                                    <tr>                                             
-                                                                        <td style ="padding-right:15px">{{ $comp->Name }}</td>
-                                                                     
-                                                                        <td>
-                                                                            <input type="checkbox" name="KeyToDelete" value="{{ $comp->CompanyID }}"/>
-                                                                        </td>
-                                                                        <td><input type="submit" name="submitDeleteBtn" value="Submit"/></td>
-                                                                    </tr>
-                                                                </table>
-                                                            </form>
-                                                            <br>
-                                                            <h3 style="border-bottom: 1px solid black; margin-bottom: 15px"></h3>
-															@if($comp->Responsibilities == 'Custom skills.')
-															<p>Your chosen skills are saved to this company even if it's deselected.</p>
-															@elseif($comp->Responsibilities != '')
-															<p>Example responsibilities of employees at {{ $comp->Name }}:</p>
-															<blockquote style="margin-top: 0; margin-bottom: 0; padding-top: 20px; padding-bottom: 10px">{{ $comp->Responsibilities }}</blockquote>
-                                                            @endif
-															@else
-                                                            @if(!is_null($car))
-                                                            <br>
-                                                            <!-- add drop down menus-->
-                                                            <h3 style="border-bottom: 1px solid black;margin-bottom: 15px">Add A Company</h3>
-                                                            <form action='{{ route('addCompany') }}' method='POST'>
-                                                                @csrf
-																<select name="CompanyID" class="dropdown" required>
-																	<option value=''>--Companies--</option>
-																	@foreach($careersavailable as $c)
-																	<option value="{{ $c->ID }}">{{$c->Name}}
-																	</option>
-																	@endforeach
-																</select>
-																<input type="submit" name="submit" value="Add"/>
-                                                            </form>
-                                                            <!-- testing for errors -->
-                                                            @if ($errors->any())
-                                                                <div class="alert alert-danger">
-                                                                    <ul>
-                                                                        @foreach ($errors->all() as $error)
-                                                                            <li>{{ $error }}</li>
-                                                                        @endforeach
-                                                                    </ul>
-                                                                </div>
-                                                            @endif
-                                                            @else
-                                                            <br>
-                                                            <!-- add drop down menus-->
-                                                            <h3 style="border-bottom: 1px solid black;margin-bottom: 15px">Add A Company</h3>
-                                                            <form action='{{ route('addCompany') }}' method='POST'>
-                                                                @csrf
-																<select name="CompanyID" class="dropdown" required>
-																	<option value=''>--Companies--</option>
-																	@foreach($company as $c)
-																	<option value="{{ $c->ID }}">{{$c->Name}}
-																	</option>
-																	@endforeach
-																</select>
-																<input type="submit" name="submit" value="Add"/>
-                                                            </form>
-                                                            @endif
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>                   
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--divider -->
-        <div class="divider" style="background-color: grey; width: none !important; padding:0px !important">
-            <div class='row' style="padding:0px !important" >
-                <br>
-            </div>
-        </div>
-        <!--Add Skills-->
-        <div class="clients" id="skills">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="titlepage">
-                            <h2>Select skills</h2>
-                            <span>If you can't find a company or position you are looking for,
-                                add the skills your future job would require.</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-8 offset-md-2">
-                        <div class="testimo_ban_bg">
-                            <div id="testimo" class="carousel slide testimo_ban" data-ride="carousel">
-                                <ol class="carousel-indicators">
-                                    <li data-target="#testimo" data-slide-to="0" class="active"></li>
-                                    <li data-target="#testimo" data-slide-to="1"></li>
-                                    <li data-target="#testimo" data-slide-to="2"></li>
-                                </ol>
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <div class="container parile0">
-                                            <div class="carousel-caption relative2">
-                                                <div class="row d_flex">
-                                                    <div class="col-md-12">
-                                                        <div class="consect">
-                                                            @if(!empty($skills))
-                                                            <!--Show positions they've already added-->
-                                                            <h3 style="border-bottom: 1px solid black;margin-bottom: 15px">Added Skills</h3>
-                                                            <form action="{{ route('skills.post') }}" method="POST" role="form">
-                                                                @csrf
-                                                                <table class="customers">
-                                                                    <tr>
-                                                                        <th style="padding-right: 15px">Skill</th>
-                                                                        <th style="padding-right: 15px">Delete</th>
-                                                                        <th></th>
-                                                                    </tr>
-                                                                    @foreach ($skills as $s)
-                                                                    <tr>
-                                                                        <td style ="padding-right:15px">{{ App\Models\Skill::select('Name')->where('ID', $s->SkillID)->first()->Name }}</td>
-                                                                     
-                                                                        <td>
-                                                                            <input type="checkbox" name="KeyToDelete" value="{{ $s->SkillID }}"/>
-                                                                        </td>
-                                                                        <td><input type="submit" name="submitDeleteBtn" value="Submit"/></td>
-                                                                    </tr>
-                                                                    @endforeach
-                                                                </table>
-                                                            </form>
-															<a href="{{ route('newCompany') }}"><u>Are these skills for a company not yet in our database? Suggest it to us here!</u></a>
-															<br/>
-                                                            @endif
-															@if(!is_null($comp) && $comp->Responsibilities != 'Custom skills.')
-															<p>Choosing specific skills will cancel the company selection above.</p>
-															@endif
-                                                            <br>
-                                                            <!-- add drop down menus-->
-                                                            <h3 style="border-bottom: 1px solid black;margin-bottom: 15px">Add Skills</h3>
-                                                            <form action='{{ route('addSkill') }}' method='POST'>
-                                                                @csrf
-																<select name="skills" class="dropdown" required>
-																	<option value=''>--Skills--</option>
-																	@foreach($skill as $row)
-																	<option value="{{ $row->ID }}">{{$row->Name}}
-																	</option>
-																	@endforeach
-																</select>
-																<input type="submit" name="submit" value="Add"/>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>                   
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--divider -->
-        <div class="divider" style="background-color: grey; width: none !important; padding:0px !important">
-            <div class='row' style="padding:0px !important" >
-                <br>
-            </div>
-        </div>
+       </div>
+        <!-- end divider -->
+
         <!--generate schedule -->
         <div class = "clients" style="background-color: goldenrod; width: none !important" id="schedule">
             <div class="container">
@@ -718,6 +730,8 @@
 				</div>
 			</div>
 		</div>
+        <!-- end schedule section -->
+        
         <!--divider -->
         <div class="divider" style="background-color: grey; width: none !important; padding:0px !important">
             <div class='row' style="padding:0px !important" >
