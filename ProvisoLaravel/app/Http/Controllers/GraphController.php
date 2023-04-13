@@ -19,9 +19,11 @@ use App\Models\Company;
 use App\Models\Minors;
 use App\Models\MinorSelected;
 use App\Models\Careers;
+use App\Models\CareerRequires;
 use App\Models\CareerSelected;
 use App\Models\CareersAvailable;
 use App\Models\Taken;
+use App\Models\Teaches;
 use App\Models\Selection;
 use App\Models\Requires;
 use App\Models\Prerequisite;
@@ -29,7 +31,7 @@ use Hash;
 use Graphp\Graph\Graph;
 use Graphp\GraphViz\GraphViz;
 
-require_once __DIR__ . '\..\..\..\bootstrap\app.php';
+//require_once __DIR__ . '\..\..\..\bootstrap\app.php';
 
 //require_once '/Applications/XAMPP/htdocs/CS360/ProViso/ProViso2023/ProvisoLaravel/bootstrap/app.php'; // bootstrap info
 
@@ -167,7 +169,89 @@ class GraphController extends BaseController {
     public function print_all_skills(){
 
     }
+    
     public function print_classes_and_skills(){
+        $graph = new Graph();
+        $graphviz = new GraphViz();
+        $graphviz->setFormat('png');
+        //$graphviz->setEngine('dot');
+        //filename
+
+        // Set attributes for the GraphViz object
+        //$graph->setFormat('png');
+        //$graph->setEngine('dot');
+        $graph->setAttribute('graphviz.graph.bgcolor', 'transparent');
+        $graph->setAttribute('graphviz.graph.rankdir', 'TB'); // TB - top down; LR - left right
+        $graph->setAttribute('graphviz.graph.pad', '1');
+        $graph->setAttribute('graphviz.graph.compound', 'true');
+        $graph->setAttribute('graphviz.graph.forcelabels', 'true');
+        $graph->setAttribute('graphviz.node.shape', 'square');
+        $graph->setAttribute('graphviz.node.style', 'rounded,filled');
+        $graph->setAttribute('graphviz.node.width', '2');
+        $graph->setAttribute('graphviz.node.fixedsize', 'shape');
+        $graph->setAttribute('graphviz.edge.minlen', '2');
+        $graph->setAttribute('graphviz.graph.fontname', 'Comic Sans MS');
+
+        // retrieve the careerID for the career selected
+        $careerselected = CareerSelected::select('CareerID')->where('ID', Auth::guard('user')->user()->id)->first();
+        $careerName = Careers::select('Title')->where('ID', $careerselected->CareerID)->get();
+        $companyselected = Selection::select('CompanyID')->where('ID', Auth::guard('user')->user()->id)->first();
+        $companyName = Company::select('Name')->where('ID', $companyselected->CompanyID)->get();
+
+        // retrieve the skillIDs for the career (or company?)
+        $skillsrequired = CareerRequires::select('SkillID')->where('CareerID', $careerselected->CareerID)->get();
+
+        // join career and company name
+        $careerName = $careerName[0]['Title'];
+        $companyName = $companyName[0]['Name'];
+        $rootName = $companyName . " " . $careerName;
+
+        // create root node (career)
+        $careerNode = $graph->createVertex();
+        $careerNode->setAttribute('id', $rootName);
+        $careerNode->setAttribute('graphviz.color', '#FFCC66');
+
+        // create skills nodes and edges from skills nodes to career node
+        foreach($skillsrequired as $skill)
+        {
+            // retrieve skill name using skillID
+            $skillName = Skill::select('Name')->where('ID', $skill->SkillID)->first();
+            
+            // make skill node
+            $skillNode = $graph->createVertex();
+            $skillNode->setAttribute('id', $skillName->Name);
+            $skillNode->setAttribute('graphviz.color', '#FFFF99');
+
+            // make direted edge from skill node to career node
+            $careerskilledge = $graph->createEdgeDirected($careerNode, $skillNode);
+
+            // retrieve the classes for each skill in the skills required table for the career
+            $classesperskill = Teaches::select('Class')->where('SkillID', $skill->SkillID)->get();
+
+            // create classes nodes and edges from classes nodes to skills nodes
+            foreach($classesperskill as $class)
+            {
+                // make class node
+                $classNode = $graph->createVertex();
+                $classNode->setAttribute('id', $class->Class);
+                $classNode->setAttribute('graphviz.color', '#FFFFCC');
+
+                // make directed edge from class node to skill node
+                $skillclassedge = $graph->createEdgeDirected($skillNode, $classNode);
+            }
+            
+        }
+
+        /*$dotContent = $graphviz->createScript($graph);
+
+        // Save DOT file to a local file
+        $dotFile = '/Users/nyahnelson/Desktop/graph.dot'; // specify the file path
+        file_put_contents($dotFile, $dotContent);
+
+        $imageFile = '/Users/nyahnelson/Desktop/graph.png'; // specify the file path for the image file
+        exec("dot -Tpng {$dotFile} -o {$imageFile}");*/
+
+        $graphviz->display($graph);
 
     }
 

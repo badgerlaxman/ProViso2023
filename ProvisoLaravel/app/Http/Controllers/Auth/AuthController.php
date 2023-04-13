@@ -592,4 +592,10 @@ class AuthController extends Controller {
 	private function minor_name() {
 		return Auth::guard('user')->user()->name . '\'s custom selection';
 	}
+
+    // return minor information
+    public function get_minor(){
+        $minor = Minors::select('Minor')->first();
+        return minor;
+    }
 }
