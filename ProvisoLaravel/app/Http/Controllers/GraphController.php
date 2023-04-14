@@ -181,7 +181,7 @@ class GraphController extends BaseController {
         //$graph->setFormat('png');
         //$graph->setEngine('dot');
         $graph->setAttribute('graphviz.graph.bgcolor', 'transparent');
-        $graph->setAttribute('graphviz.graph.rankdir', 'TB'); // TB - top down; LR - left right
+        $graph->setAttribute('graphviz.graph.rankdir', 'BT'); // BT - bottom to top
         $graph->setAttribute('graphviz.graph.pad', '1');
         $graph->setAttribute('graphviz.graph.compound', 'true');
         $graph->setAttribute('graphviz.graph.forcelabels', 'true');
@@ -223,35 +223,39 @@ class GraphController extends BaseController {
             $skillNode->setAttribute('graphviz.color', '#FFFF99');
 
             // make direted edge from skill node to career node
-            $careerskilledge = $graph->createEdgeDirected($careerNode, $skillNode);
+            $careerskilledge = $graph->createEdgeDirected($skillNode, $careerNode);
 
             // retrieve the classes for each skill in the skills required table for the career
-            $classesperskill = Teaches::select('Class')->where('SkillID', $skill->SkillID)->get();
+            $classesperskill = Teaches::select('Class')->where('SkillID', $skill->SkillID)->get();            
 
             // create classes nodes and edges from classes nodes to skills nodes
             foreach($classesperskill as $class)
             {
                 // make class node
+                $className = Classes::select('Title')->where('Class', $class->Class)->first();
                 $classNode = $graph->createVertex();
-                $classNode->setAttribute('id', $class->Class);
+                $classNodeID = $class->Class . " " . $className->Title;
+                $classNode->setAttribute('id', $classNodeID);
                 $classNode->setAttribute('graphviz.color', '#FFFFCC');
 
                 // make directed edge from class node to skill node
-                $skillclassedge = $graph->createEdgeDirected($skillNode, $classNode);
+                $skillclassedge = $graph->createEdgeDirected($classNode, $skillNode);
             }
             
         }
 
-        /*$dotContent = $graphviz->createScript($graph);
+        $dotContent = $graphviz->createScript($graph);
 
         // Save DOT file to a local file
-        $dotFile = '/Users/nyahnelson/Desktop/graph.dot'; // specify the file path
+        $dotFile = '/Users/nyahnelson/Desktop/careergraph.dot'; // specify the file path
         file_put_contents($dotFile, $dotContent);
 
-        $imageFile = '/Users/nyahnelson/Desktop/graph.png'; // specify the file path for the image file
-        exec("dot -Tpng {$dotFile} -o {$imageFile}");*/
+        $imageFile = 'images/careergraph.png'; // specify the file path for the image file
+        exec("dot -Tpng {$dotFile} -o {$imageFile}");
 
-        $graphviz->display($graph);
+        return response()->json(['imagePath' => 'images/careergraph.png']);
+
+        //$graphviz->display($graph);
 
     }
 

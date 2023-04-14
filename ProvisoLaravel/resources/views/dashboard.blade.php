@@ -133,6 +133,12 @@
                         <div class="titlepage">
                             <h2>Select Your Desired Career</h2>
                             <span>Select your desired career from the drop down menu (only one career can be selected at a time). If you do not have a desired career, skip this section. To deselect the chosen career, check the delete box next to the entry and click submit.</span>
+                            @if(!is_null($car) && !is_null($comp))
+                            <h3>You have selected a career and a company! Want to generate your career graph?
+                                <br>
+                                <a href="#careergraph">Scroll to Career Graph</a>
+                            </h3>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -244,7 +250,7 @@
                         <div class="titlepage">
                             <h2>Select a Company</h2>
                             <span>Select from the drop down menu a company you are interested in and then click add. 
-                                Only relevant companies with the career selected will be displayed. If no career is selected, then all companies will be listed.
+                                Only relevant companies hiring the career selected will be displayed. If no career is selected, then all companies will be listed.
                                 To deselect the chosen company, check the delete box next to the entry and click submit.</span>
                         </div>
                     </div>
@@ -454,6 +460,61 @@
         </div>
         <!-- end divider -->
 
+        <!-- recommended classes graph -->
+        <!-- if company and career are chosen, display the career graph -->
+        @if(!is_null($comp) && !is_null($car))
+        <div class="clients" style="background-color: goldenrod; width: none !important" id="careergraph">
+            <div class="container">
+                <div class='row' style="width:100%; padding:0px !important" >
+                    <div class="col-md-12">
+                        <div class="titlepage">
+                            <h2>Career Graph</h2>
+                            <span>You have chosen a career and company. Click the button below to generate your career graph for your desired company!</span>
+                            <br/>
+                            <button type="button" class="btn btn-secondary career_graph" id="careergraphbutton">Generate Career Graph</button>
+                            <!-- Career Graph -->
+                            <div class="container w-100 career_graph">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Graph Modal-->
+		<div class="modal fade" id="skill_modal" tabindex="-1" role="dialog" aria-labelledby="skill_modal_label" aria-hidden="true">
+			<div class="modal-dialog" style="max-width: 1300px; margin: auto" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="skill_modal_label">Career Graph</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body row w-100" style="margin: auto; padding: 0">
+						<div class="col-md-5" style="padding: 0">
+                            <img src="{{ asset('images/careergraph.png') }}" alt="career graph">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+        <!-- end modal -->
+
+        <!--divider -->
+        <div class="divider" style="background-color: grey; width: none !important; padding:0px !important">
+            <div class='row' style="padding:0px !important" >
+                <br>
+            </div>
+        </div>
+        <!-- end divider -->
+        @endif
+
+        <!-- end career graph -->
+
         <!-- minor -->
         <div class="clients" id="addMinor">
             <div class="container">
@@ -461,7 +522,7 @@
                     <div class="col-md-12">
                         <div class="titlepage">
                             <h2>Select Your Minor</h2>
-                            <span>Select your minor from the drop down menu (only one minor can be selected). If you do not have a minor, skip this section. To deselect the chosen minor, check the delete box next to the entry and click submit.</span>
+                            <span>Select your minor from the drop down menu (only one minor can be selected at a time). If you do not have a minor, skip this section. To deselect the chosen minor, check the delete box next to the entry and click submit.</span>
                         </div>
                     </div>
                 </div>
@@ -730,6 +791,7 @@
 				</div>
 			</div>
 		</div>
+        <!-- end modal -->
         <!-- end schedule section -->
         
         <!--divider -->
@@ -742,6 +804,7 @@
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.bundle.min.js"></script>
         <script src="js/jquery-3.0.0.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <!-- sidebar -->
         <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
         <script src="js/custom.js"></script>
@@ -749,6 +812,22 @@
 			$('button.class_graph').click(function () {
 				$('div.class_graph').html('<p>Click the graph to open it in a larger window.</p><button type="button" class="btn btn-secondary w-50" data-toggle="modal" data-target="#skill_modal"><img src="wsgi/classGraph?ID={{ Auth::guard('user')->user()->id }}" alt="Graph showing basic CS class progression."/></button>');
 				$('div.skill_graph').html('<p>Click the graph to open it in a larger window.</p><button type="button" class="btn btn-secondary w-50" data-toggle="modal" data-target="#skill_modal"><img src="wsgi/skillGraph?ID={{ Auth::guard('user')->user()->id }}" alt="Graph showing recommended classes to learn the skills required by the selected company."/></button>');
+			});
+            $('button.career_graph').click(function () {
+                // make an AJAX request to the laravel route
+                $.ajax({
+                    url: "{{ route('print.classes.and.skills') }}", // Replace with your Laravel route URL
+                    type: "GET", 
+                    success: function(response) {
+                        // Handle the response from the Laravel route
+                        console.log(response);
+                        $('div.career_graph').html('<img src="{{ asset('images/careergraph.png') }}" alt="career graph">');
+                    },
+                    error: function(error) {
+                        console.log(error);
+                        // Handle any error that may occur during the AJAX request
+                    }
+                });
 			});
         </script>
     </body>

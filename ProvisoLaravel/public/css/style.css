@@ -35,6 +35,7 @@ form.login_form input.login-input::placeholder { /* Chrome, Firefox, Opera, Safa
   opacity: 1; /* Firefox */
 }
 
+div.career_graph,
 div.class_graph,
 div.skill_graph {
 	margin-top: 30px;
@@ -1021,7 +1022,7 @@ ul.social_icon_staff li a:hover {
      position: inherit;
      padding: 0px 50px 80px 50px;
      text-align: left;
-     //border-top: #fe9901 solid 111px;
+     /*border-top: #fe9901 solid 111px;*/
      border-radius: 10px;
 }
 
@@ -1049,7 +1050,7 @@ ul.social_icon_staff li a:hover {
 
 .testimo_ban_bg {
      background: #fff;
-     //box-shadow: 0 0px 237px rgba(22, 22, 23, 0.11);
+     /*box-shadow: 0 0px 237px rgba(22, 22, 23, 0.11);*/
      border-radius: 10px;
 }
 

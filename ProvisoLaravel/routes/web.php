@@ -53,7 +53,8 @@ Route::get('basic-graph', [GraphController::class, 'basic_graph'])->name('basic.
 Route::get('print-recommendations', [GraphController::class, 'print_recommendations'])->name('print.recommendations');
 Route::get('print-skills', [GraphController::class, 'print_skills'])->name('print.skills');
 Route::get('print-all-skills', [GraphController::class, 'print_all_skills'])->name('print.all.skills');
-Route::get('print-classes-and-skills', [GraphController::class, 'print_classes_and_skills'])->name('print.classes.and.skills');
+//Route::get('print-classes-and-skills', [GraphController::class, 'print_classes_and_skills'])->name('print.classes.and.skills');
+Route::get('print-classes-and-skills', [GraphController::class, 'print_classes_and_skills'])->name('print.classes.and.skills')->middleware('web');
 Route::get('create-class-graph', [GraphController::class, 'create_class_graphgraph'])->name('create.class.graph');
 Route::get('create-skill-graph', [GraphController::class, 'create_skill_graph'])->name('create.skill.graph');
 Route::get('update-student', [GraphController::class, 'update_student'])->name('update.student');
