@@ -83,29 +83,28 @@ class GraphController extends BaseController {
     {
         // create a new graph object
         $graph = new Graph();
+        // Set graph attributes
+        $graph->setAttribute('graphviz.graph.size', '5,5'); // Set width and height to 5 inches
+
+        // Set node attributes
+        $graph->setAttribute('graphviz.node.size', '1,1'); // Set width and height of nodes to 1 inch
+
+        $graphviz = new GraphViz();
+        $graphviz->setFormat('png');
 
         // create some vertices
         $vertex1 = $graph->createVertex(array('name' => 'A'));
         $vertex2 = $graph->createVertex(array('name' => 'B'));
         $vertex3 = $graph->createVertex(array('name' => 'C'));
-        /*$vertex1 = $graph->createVertex('A');
-        $vertex2 = $graph->createVertex('B');
-        $vertex3 = $graph->createVertex('C');*/
 
         // create some edges
         $graph->createEdgeDirected($vertex1, $vertex2);
         $graph->createEdgeDirected($vertex2, $vertex3);
         $graph->createEdgeDirected($vertex3, $vertex1);
-        /*$edge1 = $vertex1->createEdgeTo($vertex2);
-        $edge2 = $vertex2->createEdgeTo($vertex3);
-        $edge3 = $vertex3->createEdgeTo($vertex1);*/
 
-        // display the graph (will open up in preview)
-        //$graphviz = new Graphp\GraphViz\GraphViz();
-        $graphviz = new GraphViz();
-        $graphviz->display($graph);
-        //$image = $graphviz->createImageFile($graph);
-        //file_put_contents('/Users/nyahnelson/Desktop/gimage.png', $image);
+        $graphviz->createScript($graph);
+
+        $dotContent = $graphviz->createScript($graph);
     }
 
     public function get_taken($year){
@@ -120,12 +119,7 @@ class GraphController extends BaseController {
         $graph = new Graph();
         $graphviz = new GraphViz();
         $graphviz->setFormat('png');
-        //$graphviz->setEngine('dot');
-        // filename
 
-        // Set attributes for the GraphViz object
-        //$graph->setFormat('png');
-        //$graph->setEngine('dot');
         $graph->setAttribute('graphviz.graph.bgcolor', 'transparent');
         $graph->setAttribute('graphviz.graph.rankdir', 'LR');
         $graph->setAttribute('graphviz.graph.pad', '1');
@@ -146,16 +140,6 @@ class GraphController extends BaseController {
         $graph->createEdgeDirected($vertex2, $vertex3);
         $graph->createEdgeDirected($vertex3, $vertex1);
 
-
-        // Generate the graphviz script
-        //$graphvizScript = $graphviz->createScript($graph);
-        
-        // Display the graph
-        //$graphviz->display($graphvizScript);
-
-        echo $graphviz->createScript($graph);
-        $graphviz->display($graph);
-
     }
 
     public function print_recommendations(){
@@ -174,12 +158,8 @@ class GraphController extends BaseController {
         $graph = new Graph();
         $graphviz = new GraphViz();
         $graphviz->setFormat('png');
-        //$graphviz->setEngine('dot');
-        //filename
 
         // Set attributes for the GraphViz object
-        //$graph->setFormat('png');
-        //$graph->setEngine('dot');
         $graph->setAttribute('graphviz.graph.bgcolor', 'transparent');
         $graph->setAttribute('graphviz.graph.rankdir', 'BT'); // BT - bottom to top
         $graph->setAttribute('graphviz.graph.pad', '1');
@@ -231,31 +211,31 @@ class GraphController extends BaseController {
             // create classes nodes and edges from classes nodes to skills nodes
             foreach($classesperskill as $class)
             {
-                // make class node
                 $className = Classes::select('Title')->where('Class', $class->Class)->first();
                 $classNode = $graph->createVertex();
                 $classNodeID = $class->Class . " " . $className->Title;
                 $classNode->setAttribute('id', $classNodeID);
                 $classNode->setAttribute('graphviz.color', '#FFFFCC');
-
+            
                 // make directed edge from class node to skill node
                 $skillclassedge = $graph->createEdgeDirected($classNode, $skillNode);
             }
-            
         }
 
         $dotContent = $graphviz->createScript($graph);
 
         // Save DOT file to a local file
         $dotFile = '/Users/nyahnelson/Desktop/careergraph.dot'; // specify the file path
+        //$dotFile = 'dotfiles/careergraph.dot';
         file_put_contents($dotFile, $dotContent);
 
         $imageFile = 'images/careergraph.png'; // specify the file path for the image file
         exec("dot -Tpng {$dotFile} -o {$imageFile}");
 
         return response()->json(['imagePath' => 'images/careergraph.png']);
+    }
 
-        //$graphviz->display($graph);
+    public function print_classes_and_skills_legend(){
 
     }
 

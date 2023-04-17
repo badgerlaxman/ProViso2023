@@ -26,6 +26,20 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 
+        <style>
+            .modal-image {
+                transition: transform 0.3s ease-in-out;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                
+            }
+
+            .modal-image:hover {
+                transform: scale(2.2); /* Adjust the scaling factor as needed */
+            }
+        </style>
+
     </head>
     <body class="main-layout">
         <!-- loader  -->
@@ -469,7 +483,7 @@
                     <div class="col-md-12">
                         <div class="titlepage">
                             <h2>Career Graph</h2>
-                            <span>You have chosen a career and company. Click the button below to generate your career graph for your desired company!</span>
+                            <span>You have chosen a career and company, so you can create a career graph. A career graph will show you the required skills needed for a career at a certain company. The graph will also show you classes offered at your institution that teach that skill. Click the button below to generate your career graph for your desired company!</span>
                             <br/>
                             <button type="button" class="btn btn-secondary career_graph" id="careergraphbutton">Generate Career Graph</button>
                             <!-- Career Graph -->
@@ -482,19 +496,25 @@
         </div>
 
         <!--Graph Modal-->
-		<div class="modal fade" id="skill_modal" tabindex="-1" role="dialog" aria-labelledby="skill_modal_label" aria-hidden="true">
-			<div class="modal-dialog" style="max-width: 1300px; margin: auto" role="document">
+		<div class="modal fade" id="career_modal" tabindex="-1" role="dialog" aria-labelledby="career_modal_label" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" style="max-width: 1300px; margin: auto" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="skill_modal_label">Career Graph</h5>
+                        <div class="legend">
+                            <h3> LEGEND </h3>
+                            <ul style="direction: ltr;">
+                                <li><span class="legend-item careergraphcolor1"></span> Desired Career & Company</li>
+                                <li><span class="legend-item careergraphcolor2"></span> Required Skills for Career & Company</li>
+                                <li><span class="legend-item careergraphcolor3"></span> Classes Offered that teach the Skill</li>
+                            </ul>
+                        </div>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-					<div class="modal-body row w-100" style="margin: auto; padding: 0">
-						<div class="col-md-5" style="padding: 0">
-                            <img src="{{ asset('images/careergraph.png') }}" alt="career graph">
-						</div>
+					<div class="modal-body row w-100 text-center" style="margin: auto; padding: 0">
+                        <img src="{{ asset('images/careergraph.png') }}" alt="career graph" class="modal-image img-fluid mx-auto d-block"  style="margin: 0 auto">
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -821,7 +841,8 @@
                     success: function(response) {
                         // Handle the response from the Laravel route
                         console.log(response);
-                        $('div.career_graph').html('<img src="{{ asset('images/careergraph.png') }}" alt="career graph">');
+                        //$('div.career_graph').html('<p>Click the graph to open it in a larger window.</p><div class="image-container"><button type="button" class="btn btn-secondary w-50" data-toggle="modal" data-target="#career_modal"><img src="{{ asset('images/careergraph.png') }}" alt="career graph"></button></div><div class="legend"><h3> LEGEND </h3><ul> <li><span class="legend-item careergraphcolor1"></span> Desired Career & Company</li><li><span class="legend-item careergraphcolor2"></span> Required Skills for Career & Company</li><li><span class="legend-item careergraphcolor3"></span> Classes Offered that teach the Skill</li></ul></div>');
+                        $('div.career_graph').html('<p>Click the graph to open it in a larger window.</p><button type="button" class="btn btn-secondary w-50" data-toggle="modal" data-target="#career_modal"><img src="{{ asset('images/careergraph.png') }}" alt="career graph"></button>');
                     },
                     error: function(error) {
                         console.log(error);

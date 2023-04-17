@@ -1413,6 +1413,53 @@ ul.insta li {
      animation: myfirst 15s linear 0s infinite alternate;
 }
 
+/* graph legends */
+.legend {
+     background-color: #f8f8f8;
+     padding: 10px;
+     border: 1px solid #ccc;
+     border-radius: 5px;
+     max-width: 1000px; /* adjust width as needed */
+     margin-left: 10px;
+   }
+   
+   .legend ul {
+     list-style-type: none;
+     padding: 0;
+     margin: 0;
+   }
+   
+   .legend li {
+     padding: 5px;
+     margin-bottom: 5px;
+   }
+   
+   .legend-item {
+     display: inline-block;
+     width: 20px;
+     height: 10px;
+     margin-right: 5px;
+   }
+   
+   .careergraphcolor1 {
+     background-color: #FFCC66; /* adjust color as needed */
+   }
+   
+   .careergraphcolor2 {
+     background-color: #FFFF99; /* adjust color as needed */
+   }
+   
+   .careergraphcolor3 {
+     background-color: #FFFFCC; /* adjust color as needed */
+   }
+
+   .image-container {
+     margin-left: 20px; /* add left margin to separate the image from the legend */
+   }
+
+   .image {
+     float: right;
+   }
 
 /* Safari 4.0 - 8.0 */
 
