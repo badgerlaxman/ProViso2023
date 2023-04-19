@@ -2,36 +2,69 @@ digraph {
   graph [bgcolor="transparent" rankdir="BT" pad=1 compound="true" forcelabels="true" fontname="Comic Sans MS"]
   node [shape="square" style="rounded,filled" width=2 fixedsize="shape"]
   edge [minlen=2]
-  "TuSimple Information Security Analyst" [color="#FFCC66"]
+  "13 13&apos;s custom selection Software Engineer" [color="#FFCC66"]
   "C++" [color="#FFFF99"]
+  "CS120 Computer Science 1" [color="#FFFFCC"]
+  "CS121 Computer Science 2" [color="#FFFFCC"]
   "CS120 Computer Science 1" [color="#FFFFCC"]
   "CS121 Computer Science 2" [color="#FFFFCC"]
   "C" [color="#FFFF99"]
   "CS121 Computer Science 2" [color="#FFFFCC"]
-  "Research" [color="#FFFF99"]
-  "ENGL317 Technical Writing" [color="#FFFFCC"]
-  "ENGL102 College Writing and Rhetoric" [color="#FFFFCC"]
-  "CS480 Senior Capstone Design 1" [color="#FFFFCC"]
-  "CS481 Senior Capstone Design 2" [color="#FFFFCC"]
+  "CS121 Computer Science 2" [color="#FFFFCC"]
+  "Python" [color="#FFFF99"]
+  "CS210 Programming Languages" [color="#FFFFCC"]
+  "CS212 Practical Python" [color="#FFFFCC"]
+  "CS477 Python for Machine Learning" [color="#FFFFCC"]
+  "CS210 Programming Languages" [color="#FFFFCC"]
+  "CS212 Practical Python" [color="#FFFFCC"]
+  "CS477 Python for Machine Learning" [color="#FFFFCC"]
+  "C#" [color="#FFFF99"]
+  "CS383 Software Engineering" [color="#FFFFCC"]
+  "CS383 Software Engineering" [color="#FFFFCC"]
+  "HTML" [color="#FFFF99"]
+  "CS360 Database Systems" [color="#FFFFCC"]
+  "CS360 Database Systems" [color="#FFFFCC"]
+  "SQL" [color="#FFFF99"]
+  "CS360 Database Systems" [color="#FFFFCC"]
+  "CS460 Database Management Systems Design" [color="#FFFFCC"]
+  "CS360 Database Systems" [color="#FFFFCC"]
   "CS460 Database Management Systems Design" [color="#FFFFCC"]
   "Bash" [color="#FFFF99"]
+  "CS240 Computer Operating Systems" [color="#FFFFCC"]
+  "CS270 System Software" [color="#FFFFCC"]
   "CS240 Computer Operating Systems" [color="#FFFFCC"]
   "CS270 System Software" [color="#FFFFCC"]
   "Unix" [color="#FFFF99"]
   "CS240 Computer Operating Systems" [color="#FFFFCC"]
   "CS270 System Software" [color="#FFFFCC"]
+  "CS240 Computer Operating Systems" [color="#FFFFCC"]
+  "CS270 System Software" [color="#FFFFCC"]
   "Ethics" [color="#FFFF99"]
+  "CS400 Contemporary Issues in Computer Science" [color="#FFFFCC"]
+  "PHIL103 Intro to Ethics" [color="#FFFFCC"]
   "CS400 Contemporary Issues in Computer Science" [color="#FFFFCC"]
   "PHIL103 Intro to Ethics" [color="#FFFFCC"]
   "Technical writing" [color="#FFFF99"]
   "ENGL317 Technical Writing" [color="#FFFFCC"]
   "ENGL175 Literature and Ideas" [color="#FFFFCC"]
   "ENGL101 Writing and Rhetoric" [color="#FFFFCC"]
+  "ENGL317 Technical Writing" [color="#FFFFCC"]
+  "ENGL175 Literature and Ideas" [color="#FFFFCC"]
+  "ENGL101 Writing and Rhetoric" [color="#FFFFCC"]
+  "Makefile" [color="#FFFF99"]
+  "CS270 System Software" [color="#FFFFCC"]
+  "CS270 System Software" [color="#FFFFCC"]
   "Git" [color="#FFFF99"]
+  "CS383 Software Engineering" [color="#FFFFCC"]
   "CS383 Software Engineering" [color="#FFFFCC"]
   "GitHub" [color="#FFFF99"]
   "CS383 Software Engineering" [color="#FFFFCC"]
+  "CS383 Software Engineering" [color="#FFFFCC"]
   "Command line editors" [color="#FFFF99"]
+  "CS121 Computer Science 2" [color="#FFFFCC"]
+  "CS210 Programming Languages" [color="#FFFFCC"]
+  "CS240 Computer Operating Systems" [color="#FFFFCC"]
+  "CS270 System Software" [color="#FFFFCC"]
   "CS121 Computer Science 2" [color="#FFFFCC"]
   "CS210 Programming Languages" [color="#FFFFCC"]
   "CS240 Computer Operating Systems" [color="#FFFFCC"]
@@ -40,65 +73,418 @@ digraph {
   "MATH170 Calculus 1" [color="#FFFFCC"]
   "MATH175 Calculus 2" [color="#FFFFCC"]
   "MATH330 Linear Algebra" [color="#FFFFCC"]
+  "MATH170 Calculus 1" [color="#FFFFCC"]
+  "MATH175 Calculus 2" [color="#FFFFCC"]
+  "MATH330 Linear Algebra" [color="#FFFFCC"]
+  "Relational algebra" [color="#FFFF99"]
+  "CS385 Theory of Computation" [color="#FFFFCC"]
+  "CS385 Theory of Computation" [color="#FFFFCC"]
+  "Design patterns" [color="#FFFF99"]
+  "CS383 Software Engineering" [color="#FFFFCC"]
+  "CS383 Software Engineering" [color="#FFFFCC"]
+  "Object oriented programming" [color="#FFFF99"]
+  "CS210 Programming Languages" [color="#FFFFCC"]
+  "CS120 Computer Science 1" [color="#FFFFCC"]
+  "CS112 Computational Thinking and Problem Solving" [color="#FFFFCC"]
+  "CS210 Programming Languages" [color="#FFFFCC"]
+  "CS120 Computer Science 1" [color="#FFFFCC"]
+  "CS112 Computational Thinking and Problem Solving" [color="#FFFFCC"]
   "Networking" [color="#FFFF99"]
   "CS270 System Software" [color="#FFFFCC"]
   "CS466 PLC Programming for Automation" [color="#FFFFCC"]
-  "Completed BS CS" [color="#FFFF99"]
-  "Scripting" [color="#FFFF99"]
   "CS270 System Software" [color="#FFFFCC"]
-  "CS212 Practical Python" [color="#FFFFCC"]
-  "Operating systems" [color="#FFFF99"]
-  "CS240 Computer Operating Systems" [color="#FFFFCC"]
-  "CS452 Real-time Operating Systems" [color="#FFFFCC"]
-  "Control systems" [color="#FFFF99"]
   "CS466 PLC Programming for Automation" [color="#FFFFCC"]
-  "C++" -> "TuSimple Information Security Analyst"
+  "Debugging" [color="#FFFF99"]
+  "CS210 Programming Languages" [color="#FFFFCC"]
+  "CS120 Computer Science 1" [color="#FFFFCC"]
+  "CS121 Computer Science 2" [color="#FFFFCC"]
+  "CS383 Software Engineering" [color="#FFFFCC"]
+  "CS210 Programming Languages" [color="#FFFFCC"]
+  "CS120 Computer Science 1" [color="#FFFFCC"]
+  "CS121 Computer Science 2" [color="#FFFFCC"]
+  "CS383 Software Engineering" [color="#FFFFCC"]
+  "Completed BS CS" [color="#FFFF99"]
+  "Agile development" [color="#FFFF99"]
+  "CS383 Software Engineering" [color="#FFFFCC"]
+  "CS383 Software Engineering" [color="#FFFFCC"]
+  "Team programming" [color="#FFFF99"]
+  "CS383 Software Engineering" [color="#FFFFCC"]
+  "CS477 Python for Machine Learning" [color="#FFFFCC"]
+  "CS383 Software Engineering" [color="#FFFFCC"]
+  "CS477 Python for Machine Learning" [color="#FFFFCC"]
+  "Data structures" [color="#FFFF99"]
+  "CS460 Database Management Systems Design" [color="#FFFFCC"]
+  "CS470 Artificial Intelligence" [color="#FFFFCC"]
+  "CS477 Python for Machine Learning" [color="#FFFFCC"]
+  "CS460 Database Management Systems Design" [color="#FFFFCC"]
+  "CS470 Artificial Intelligence" [color="#FFFFCC"]
+  "CS477 Python for Machine Learning" [color="#FFFFCC"]
+  "Algorithm design" [color="#FFFF99"]
+  "CS470 Artificial Intelligence" [color="#FFFFCC"]
+  "CS395 Analysis of Algorithms" [color="#FFFFCC"]
+  "CS470 Artificial Intelligence" [color="#FFFFCC"]
+  "CS395 Analysis of Algorithms" [color="#FFFFCC"]
+  "C++" [color="#FFFF99"]
+  "CS120 Computer Science 1" [color="#FFFFCC"]
+  "CS121 Computer Science 2" [color="#FFFFCC"]
+  "CS120 Computer Science 1" [color="#FFFFCC"]
+  "CS121 Computer Science 2" [color="#FFFFCC"]
+  "C" [color="#FFFF99"]
+  "CS121 Computer Science 2" [color="#FFFFCC"]
+  "CS121 Computer Science 2" [color="#FFFFCC"]
+  "Python" [color="#FFFF99"]
+  "CS210 Programming Languages" [color="#FFFFCC"]
+  "CS212 Practical Python" [color="#FFFFCC"]
+  "CS477 Python for Machine Learning" [color="#FFFFCC"]
+  "CS210 Programming Languages" [color="#FFFFCC"]
+  "CS212 Practical Python" [color="#FFFFCC"]
+  "CS477 Python for Machine Learning" [color="#FFFFCC"]
+  "C#" [color="#FFFF99"]
+  "CS383 Software Engineering" [color="#FFFFCC"]
+  "CS383 Software Engineering" [color="#FFFFCC"]
+  "HTML" [color="#FFFF99"]
+  "CS360 Database Systems" [color="#FFFFCC"]
+  "CS360 Database Systems" [color="#FFFFCC"]
+  "SQL" [color="#FFFF99"]
+  "CS360 Database Systems" [color="#FFFFCC"]
+  "CS460 Database Management Systems Design" [color="#FFFFCC"]
+  "CS360 Database Systems" [color="#FFFFCC"]
+  "CS460 Database Management Systems Design" [color="#FFFFCC"]
+  "Bash" [color="#FFFF99"]
+  "CS240 Computer Operating Systems" [color="#FFFFCC"]
+  "CS270 System Software" [color="#FFFFCC"]
+  "CS240 Computer Operating Systems" [color="#FFFFCC"]
+  "CS270 System Software" [color="#FFFFCC"]
+  "Unix" [color="#FFFF99"]
+  "CS240 Computer Operating Systems" [color="#FFFFCC"]
+  "CS270 System Software" [color="#FFFFCC"]
+  "CS240 Computer Operating Systems" [color="#FFFFCC"]
+  "CS270 System Software" [color="#FFFFCC"]
+  "Ethics" [color="#FFFF99"]
+  "CS400 Contemporary Issues in Computer Science" [color="#FFFFCC"]
+  "PHIL103 Intro to Ethics" [color="#FFFFCC"]
+  "CS400 Contemporary Issues in Computer Science" [color="#FFFFCC"]
+  "PHIL103 Intro to Ethics" [color="#FFFFCC"]
+  "Technical writing" [color="#FFFF99"]
+  "ENGL317 Technical Writing" [color="#FFFFCC"]
+  "ENGL175 Literature and Ideas" [color="#FFFFCC"]
+  "ENGL101 Writing and Rhetoric" [color="#FFFFCC"]
+  "ENGL317 Technical Writing" [color="#FFFFCC"]
+  "ENGL175 Literature and Ideas" [color="#FFFFCC"]
+  "ENGL101 Writing and Rhetoric" [color="#FFFFCC"]
+  "Makefile" [color="#FFFF99"]
+  "CS270 System Software" [color="#FFFFCC"]
+  "CS270 System Software" [color="#FFFFCC"]
+  "Git" [color="#FFFF99"]
+  "CS383 Software Engineering" [color="#FFFFCC"]
+  "CS383 Software Engineering" [color="#FFFFCC"]
+  "GitHub" [color="#FFFF99"]
+  "CS383 Software Engineering" [color="#FFFFCC"]
+  "CS383 Software Engineering" [color="#FFFFCC"]
+  "Command line editors" [color="#FFFF99"]
+  "CS121 Computer Science 2" [color="#FFFFCC"]
+  "CS210 Programming Languages" [color="#FFFFCC"]
+  "CS240 Computer Operating Systems" [color="#FFFFCC"]
+  "CS270 System Software" [color="#FFFFCC"]
+  "CS121 Computer Science 2" [color="#FFFFCC"]
+  "CS210 Programming Languages" [color="#FFFFCC"]
+  "CS240 Computer Operating Systems" [color="#FFFFCC"]
+  "CS270 System Software" [color="#FFFFCC"]
+  "Calculus" [color="#FFFF99"]
+  "MATH170 Calculus 1" [color="#FFFFCC"]
+  "MATH175 Calculus 2" [color="#FFFFCC"]
+  "MATH330 Linear Algebra" [color="#FFFFCC"]
+  "MATH170 Calculus 1" [color="#FFFFCC"]
+  "MATH175 Calculus 2" [color="#FFFFCC"]
+  "MATH330 Linear Algebra" [color="#FFFFCC"]
+  "Relational algebra" [color="#FFFF99"]
+  "CS385 Theory of Computation" [color="#FFFFCC"]
+  "CS385 Theory of Computation" [color="#FFFFCC"]
+  "Design patterns" [color="#FFFF99"]
+  "CS383 Software Engineering" [color="#FFFFCC"]
+  "CS383 Software Engineering" [color="#FFFFCC"]
+  "Object oriented programming" [color="#FFFF99"]
+  "CS210 Programming Languages" [color="#FFFFCC"]
+  "CS120 Computer Science 1" [color="#FFFFCC"]
+  "CS112 Computational Thinking and Problem Solving" [color="#FFFFCC"]
+  "CS210 Programming Languages" [color="#FFFFCC"]
+  "CS120 Computer Science 1" [color="#FFFFCC"]
+  "CS112 Computational Thinking and Problem Solving" [color="#FFFFCC"]
+  "Networking" [color="#FFFF99"]
+  "CS270 System Software" [color="#FFFFCC"]
+  "CS466 PLC Programming for Automation" [color="#FFFFCC"]
+  "CS270 System Software" [color="#FFFFCC"]
+  "CS466 PLC Programming for Automation" [color="#FFFFCC"]
+  "Debugging" [color="#FFFF99"]
+  "CS210 Programming Languages" [color="#FFFFCC"]
+  "CS120 Computer Science 1" [color="#FFFFCC"]
+  "CS121 Computer Science 2" [color="#FFFFCC"]
+  "CS383 Software Engineering" [color="#FFFFCC"]
+  "CS210 Programming Languages" [color="#FFFFCC"]
+  "CS120 Computer Science 1" [color="#FFFFCC"]
+  "CS121 Computer Science 2" [color="#FFFFCC"]
+  "CS383 Software Engineering" [color="#FFFFCC"]
+  "Completed BS CS" [color="#FFFF99"]
+  "Agile development" [color="#FFFF99"]
+  "CS383 Software Engineering" [color="#FFFFCC"]
+  "CS383 Software Engineering" [color="#FFFFCC"]
+  "Team programming" [color="#FFFF99"]
+  "CS383 Software Engineering" [color="#FFFFCC"]
+  "CS477 Python for Machine Learning" [color="#FFFFCC"]
+  "CS383 Software Engineering" [color="#FFFFCC"]
+  "CS477 Python for Machine Learning" [color="#FFFFCC"]
+  "Data structures" [color="#FFFF99"]
+  "CS460 Database Management Systems Design" [color="#FFFFCC"]
+  "CS470 Artificial Intelligence" [color="#FFFFCC"]
+  "CS477 Python for Machine Learning" [color="#FFFFCC"]
+  "CS460 Database Management Systems Design" [color="#FFFFCC"]
+  "CS470 Artificial Intelligence" [color="#FFFFCC"]
+  "CS477 Python for Machine Learning" [color="#FFFFCC"]
+  "Algorithm design" [color="#FFFF99"]
+  "CS470 Artificial Intelligence" [color="#FFFFCC"]
+  "CS395 Analysis of Algorithms" [color="#FFFFCC"]
+  "CS470 Artificial Intelligence" [color="#FFFFCC"]
+  "CS395 Analysis of Algorithms" [color="#FFFFCC"]
+  "C++" -> "13 13&apos;s custom selection Software Engineer"
   "CS120 Computer Science 1" -> "C++"
   "CS121 Computer Science 2" -> "C++"
-  "C" -> "TuSimple Information Security Analyst"
+  "CS120 Computer Science 1" -> "C++"
+  "CS121 Computer Science 2" -> "C++"
+  "C" -> "13 13&apos;s custom selection Software Engineer"
   "CS121 Computer Science 2" -> "C"
-  "Research" -> "TuSimple Information Security Analyst"
-  "ENGL317 Technical Writing" -> "Research"
-  "ENGL102 College Writing and Rhetoric" -> "Research"
-  "CS480 Senior Capstone Design 1" -> "Research"
-  "CS481 Senior Capstone Design 2" -> "Research"
-  "CS460 Database Management Systems Design" -> "Research"
-  "Bash" -> "TuSimple Information Security Analyst"
+  "CS121 Computer Science 2" -> "C"
+  "Python" -> "13 13&apos;s custom selection Software Engineer"
+  "CS210 Programming Languages" -> "Python"
+  "CS212 Practical Python" -> "Python"
+  "CS477 Python for Machine Learning" -> "Python"
+  "CS210 Programming Languages" -> "Python"
+  "CS212 Practical Python" -> "Python"
+  "CS477 Python for Machine Learning" -> "Python"
+  "C#" -> "13 13&apos;s custom selection Software Engineer"
+  "CS383 Software Engineering" -> "C#"
+  "CS383 Software Engineering" -> "C#"
+  "HTML" -> "13 13&apos;s custom selection Software Engineer"
+  "CS360 Database Systems" -> "HTML"
+  "CS360 Database Systems" -> "HTML"
+  "SQL" -> "13 13&apos;s custom selection Software Engineer"
+  "CS360 Database Systems" -> "SQL"
+  "CS460 Database Management Systems Design" -> "SQL"
+  "CS360 Database Systems" -> "SQL"
+  "CS460 Database Management Systems Design" -> "SQL"
+  "Bash" -> "13 13&apos;s custom selection Software Engineer"
   "CS240 Computer Operating Systems" -> "Bash"
   "CS270 System Software" -> "Bash"
-  "Unix" -> "TuSimple Information Security Analyst"
+  "CS240 Computer Operating Systems" -> "Bash"
+  "CS270 System Software" -> "Bash"
+  "Unix" -> "13 13&apos;s custom selection Software Engineer"
   "CS240 Computer Operating Systems" -> "Unix"
   "CS270 System Software" -> "Unix"
-  "Ethics" -> "TuSimple Information Security Analyst"
+  "CS240 Computer Operating Systems" -> "Unix"
+  "CS270 System Software" -> "Unix"
+  "Ethics" -> "13 13&apos;s custom selection Software Engineer"
   "CS400 Contemporary Issues in Computer Science" -> "Ethics"
   "PHIL103 Intro to Ethics" -> "Ethics"
-  "Technical writing" -> "TuSimple Information Security Analyst"
+  "CS400 Contemporary Issues in Computer Science" -> "Ethics"
+  "PHIL103 Intro to Ethics" -> "Ethics"
+  "Technical writing" -> "13 13&apos;s custom selection Software Engineer"
   "ENGL317 Technical Writing" -> "Technical writing"
   "ENGL175 Literature and Ideas" -> "Technical writing"
   "ENGL101 Writing and Rhetoric" -> "Technical writing"
-  "Git" -> "TuSimple Information Security Analyst"
+  "ENGL317 Technical Writing" -> "Technical writing"
+  "ENGL175 Literature and Ideas" -> "Technical writing"
+  "ENGL101 Writing and Rhetoric" -> "Technical writing"
+  "Makefile" -> "13 13&apos;s custom selection Software Engineer"
+  "CS270 System Software" -> "Makefile"
+  "CS270 System Software" -> "Makefile"
+  "Git" -> "13 13&apos;s custom selection Software Engineer"
   "CS383 Software Engineering" -> "Git"
-  "GitHub" -> "TuSimple Information Security Analyst"
+  "CS383 Software Engineering" -> "Git"
+  "GitHub" -> "13 13&apos;s custom selection Software Engineer"
   "CS383 Software Engineering" -> "GitHub"
-  "Command line editors" -> "TuSimple Information Security Analyst"
+  "CS383 Software Engineering" -> "GitHub"
+  "Command line editors" -> "13 13&apos;s custom selection Software Engineer"
   "CS121 Computer Science 2" -> "Command line editors"
   "CS210 Programming Languages" -> "Command line editors"
   "CS240 Computer Operating Systems" -> "Command line editors"
   "CS270 System Software" -> "Command line editors"
-  "Calculus" -> "TuSimple Information Security Analyst"
+  "CS121 Computer Science 2" -> "Command line editors"
+  "CS210 Programming Languages" -> "Command line editors"
+  "CS240 Computer Operating Systems" -> "Command line editors"
+  "CS270 System Software" -> "Command line editors"
+  "Calculus" -> "13 13&apos;s custom selection Software Engineer"
   "MATH170 Calculus 1" -> "Calculus"
   "MATH175 Calculus 2" -> "Calculus"
   "MATH330 Linear Algebra" -> "Calculus"
-  "Networking" -> "TuSimple Information Security Analyst"
+  "MATH170 Calculus 1" -> "Calculus"
+  "MATH175 Calculus 2" -> "Calculus"
+  "MATH330 Linear Algebra" -> "Calculus"
+  "Relational algebra" -> "13 13&apos;s custom selection Software Engineer"
+  "CS385 Theory of Computation" -> "Relational algebra"
+  "CS385 Theory of Computation" -> "Relational algebra"
+  "Design patterns" -> "13 13&apos;s custom selection Software Engineer"
+  "CS383 Software Engineering" -> "Design patterns"
+  "CS383 Software Engineering" -> "Design patterns"
+  "Object oriented programming" -> "13 13&apos;s custom selection Software Engineer"
+  "CS210 Programming Languages" -> "Object oriented programming"
+  "CS120 Computer Science 1" -> "Object oriented programming"
+  "CS112 Computational Thinking and Problem Solving" -> "Object oriented programming"
+  "CS210 Programming Languages" -> "Object oriented programming"
+  "CS120 Computer Science 1" -> "Object oriented programming"
+  "CS112 Computational Thinking and Problem Solving" -> "Object oriented programming"
+  "Networking" -> "13 13&apos;s custom selection Software Engineer"
   "CS270 System Software" -> "Networking"
   "CS466 PLC Programming for Automation" -> "Networking"
-  "Completed BS CS" -> "TuSimple Information Security Analyst"
-  "Scripting" -> "TuSimple Information Security Analyst"
-  "CS270 System Software" -> "Scripting"
-  "CS212 Practical Python" -> "Scripting"
-  "Operating systems" -> "TuSimple Information Security Analyst"
-  "CS240 Computer Operating Systems" -> "Operating systems"
-  "CS452 Real-time Operating Systems" -> "Operating systems"
-  "Control systems" -> "TuSimple Information Security Analyst"
-  "CS466 PLC Programming for Automation" -> "Control systems"
+  "CS270 System Software" -> "Networking"
+  "CS466 PLC Programming for Automation" -> "Networking"
+  "Debugging" -> "13 13&apos;s custom selection Software Engineer"
+  "CS210 Programming Languages" -> "Debugging"
+  "CS120 Computer Science 1" -> "Debugging"
+  "CS121 Computer Science 2" -> "Debugging"
+  "CS383 Software Engineering" -> "Debugging"
+  "CS210 Programming Languages" -> "Debugging"
+  "CS120 Computer Science 1" -> "Debugging"
+  "CS121 Computer Science 2" -> "Debugging"
+  "CS383 Software Engineering" -> "Debugging"
+  "Completed BS CS" -> "13 13&apos;s custom selection Software Engineer"
+  "Agile development" -> "13 13&apos;s custom selection Software Engineer"
+  "CS383 Software Engineering" -> "Agile development"
+  "CS383 Software Engineering" -> "Agile development"
+  "Team programming" -> "13 13&apos;s custom selection Software Engineer"
+  "CS383 Software Engineering" -> "Team programming"
+  "CS477 Python for Machine Learning" -> "Team programming"
+  "CS383 Software Engineering" -> "Team programming"
+  "CS477 Python for Machine Learning" -> "Team programming"
+  "Data structures" -> "13 13&apos;s custom selection Software Engineer"
+  "CS460 Database Management Systems Design" -> "Data structures"
+  "CS470 Artificial Intelligence" -> "Data structures"
+  "CS477 Python for Machine Learning" -> "Data structures"
+  "CS460 Database Management Systems Design" -> "Data structures"
+  "CS470 Artificial Intelligence" -> "Data structures"
+  "CS477 Python for Machine Learning" -> "Data structures"
+  "Algorithm design" -> "13 13&apos;s custom selection Software Engineer"
+  "CS470 Artificial Intelligence" -> "Algorithm design"
+  "CS395 Analysis of Algorithms" -> "Algorithm design"
+  "CS470 Artificial Intelligence" -> "Algorithm design"
+  "CS395 Analysis of Algorithms" -> "Algorithm design"
+  "C++" -> "13 13&apos;s custom selection Software Engineer"
+  "CS120 Computer Science 1" -> "C++"
+  "CS121 Computer Science 2" -> "C++"
+  "CS120 Computer Science 1" -> "C++"
+  "CS121 Computer Science 2" -> "C++"
+  "C" -> "13 13&apos;s custom selection Software Engineer"
+  "CS121 Computer Science 2" -> "C"
+  "CS121 Computer Science 2" -> "C"
+  "Python" -> "13 13&apos;s custom selection Software Engineer"
+  "CS210 Programming Languages" -> "Python"
+  "CS212 Practical Python" -> "Python"
+  "CS477 Python for Machine Learning" -> "Python"
+  "CS210 Programming Languages" -> "Python"
+  "CS212 Practical Python" -> "Python"
+  "CS477 Python for Machine Learning" -> "Python"
+  "C#" -> "13 13&apos;s custom selection Software Engineer"
+  "CS383 Software Engineering" -> "C#"
+  "CS383 Software Engineering" -> "C#"
+  "HTML" -> "13 13&apos;s custom selection Software Engineer"
+  "CS360 Database Systems" -> "HTML"
+  "CS360 Database Systems" -> "HTML"
+  "SQL" -> "13 13&apos;s custom selection Software Engineer"
+  "CS360 Database Systems" -> "SQL"
+  "CS460 Database Management Systems Design" -> "SQL"
+  "CS360 Database Systems" -> "SQL"
+  "CS460 Database Management Systems Design" -> "SQL"
+  "Bash" -> "13 13&apos;s custom selection Software Engineer"
+  "CS240 Computer Operating Systems" -> "Bash"
+  "CS270 System Software" -> "Bash"
+  "CS240 Computer Operating Systems" -> "Bash"
+  "CS270 System Software" -> "Bash"
+  "Unix" -> "13 13&apos;s custom selection Software Engineer"
+  "CS240 Computer Operating Systems" -> "Unix"
+  "CS270 System Software" -> "Unix"
+  "CS240 Computer Operating Systems" -> "Unix"
+  "CS270 System Software" -> "Unix"
+  "Ethics" -> "13 13&apos;s custom selection Software Engineer"
+  "CS400 Contemporary Issues in Computer Science" -> "Ethics"
+  "PHIL103 Intro to Ethics" -> "Ethics"
+  "CS400 Contemporary Issues in Computer Science" -> "Ethics"
+  "PHIL103 Intro to Ethics" -> "Ethics"
+  "Technical writing" -> "13 13&apos;s custom selection Software Engineer"
+  "ENGL317 Technical Writing" -> "Technical writing"
+  "ENGL175 Literature and Ideas" -> "Technical writing"
+  "ENGL101 Writing and Rhetoric" -> "Technical writing"
+  "ENGL317 Technical Writing" -> "Technical writing"
+  "ENGL175 Literature and Ideas" -> "Technical writing"
+  "ENGL101 Writing and Rhetoric" -> "Technical writing"
+  "Makefile" -> "13 13&apos;s custom selection Software Engineer"
+  "CS270 System Software" -> "Makefile"
+  "CS270 System Software" -> "Makefile"
+  "Git" -> "13 13&apos;s custom selection Software Engineer"
+  "CS383 Software Engineering" -> "Git"
+  "CS383 Software Engineering" -> "Git"
+  "GitHub" -> "13 13&apos;s custom selection Software Engineer"
+  "CS383 Software Engineering" -> "GitHub"
+  "CS383 Software Engineering" -> "GitHub"
+  "Command line editors" -> "13 13&apos;s custom selection Software Engineer"
+  "CS121 Computer Science 2" -> "Command line editors"
+  "CS210 Programming Languages" -> "Command line editors"
+  "CS240 Computer Operating Systems" -> "Command line editors"
+  "CS270 System Software" -> "Command line editors"
+  "CS121 Computer Science 2" -> "Command line editors"
+  "CS210 Programming Languages" -> "Command line editors"
+  "CS240 Computer Operating Systems" -> "Command line editors"
+  "CS270 System Software" -> "Command line editors"
+  "Calculus" -> "13 13&apos;s custom selection Software Engineer"
+  "MATH170 Calculus 1" -> "Calculus"
+  "MATH175 Calculus 2" -> "Calculus"
+  "MATH330 Linear Algebra" -> "Calculus"
+  "MATH170 Calculus 1" -> "Calculus"
+  "MATH175 Calculus 2" -> "Calculus"
+  "MATH330 Linear Algebra" -> "Calculus"
+  "Relational algebra" -> "13 13&apos;s custom selection Software Engineer"
+  "CS385 Theory of Computation" -> "Relational algebra"
+  "CS385 Theory of Computation" -> "Relational algebra"
+  "Design patterns" -> "13 13&apos;s custom selection Software Engineer"
+  "CS383 Software Engineering" -> "Design patterns"
+  "CS383 Software Engineering" -> "Design patterns"
+  "Object oriented programming" -> "13 13&apos;s custom selection Software Engineer"
+  "CS210 Programming Languages" -> "Object oriented programming"
+  "CS120 Computer Science 1" -> "Object oriented programming"
+  "CS112 Computational Thinking and Problem Solving" -> "Object oriented programming"
+  "CS210 Programming Languages" -> "Object oriented programming"
+  "CS120 Computer Science 1" -> "Object oriented programming"
+  "CS112 Computational Thinking and Problem Solving" -> "Object oriented programming"
+  "Networking" -> "13 13&apos;s custom selection Software Engineer"
+  "CS270 System Software" -> "Networking"
+  "CS466 PLC Programming for Automation" -> "Networking"
+  "CS270 System Software" -> "Networking"
+  "CS466 PLC Programming for Automation" -> "Networking"
+  "Debugging" -> "13 13&apos;s custom selection Software Engineer"
+  "CS210 Programming Languages" -> "Debugging"
+  "CS120 Computer Science 1" -> "Debugging"
+  "CS121 Computer Science 2" -> "Debugging"
+  "CS383 Software Engineering" -> "Debugging"
+  "CS210 Programming Languages" -> "Debugging"
+  "CS120 Computer Science 1" -> "Debugging"
+  "CS121 Computer Science 2" -> "Debugging"
+  "CS383 Software Engineering" -> "Debugging"
+  "Completed BS CS" -> "13 13&apos;s custom selection Software Engineer"
+  "Agile development" -> "13 13&apos;s custom selection Software Engineer"
+  "CS383 Software Engineering" -> "Agile development"
+  "CS383 Software Engineering" -> "Agile development"
+  "Team programming" -> "13 13&apos;s custom selection Software Engineer"
+  "CS383 Software Engineering" -> "Team programming"
+  "CS477 Python for Machine Learning" -> "Team programming"
+  "CS383 Software Engineering" -> "Team programming"
+  "CS477 Python for Machine Learning" -> "Team programming"
+  "Data structures" -> "13 13&apos;s custom selection Software Engineer"
+  "CS460 Database Management Systems Design" -> "Data structures"
+  "CS470 Artificial Intelligence" -> "Data structures"
+  "CS477 Python for Machine Learning" -> "Data structures"
+  "CS460 Database Management Systems Design" -> "Data structures"
+  "CS470 Artificial Intelligence" -> "Data structures"
+  "CS477 Python for Machine Learning" -> "Data structures"
+  "Algorithm design" -> "13 13&apos;s custom selection Software Engineer"
+  "CS470 Artificial Intelligence" -> "Algorithm design"
+  "CS395 Analysis of Algorithms" -> "Algorithm design"
+  "CS470 Artificial Intelligence" -> "Algorithm design"
+  "CS395 Analysis of Algorithms" -> "Algorithm design"
 }
