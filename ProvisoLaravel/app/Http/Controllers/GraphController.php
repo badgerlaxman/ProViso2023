@@ -415,6 +415,7 @@ class GraphController extends BaseController {
 
     }
     
+    // career graph 
     public function print_classes_and_skills(){
         $graph = new Graph();
         $graphviz = new GraphViz();
@@ -486,8 +487,7 @@ class GraphController extends BaseController {
         $dotContent = $graphviz->createScript($graph);
 
         // Save DOT file to a local file
-        $dotFile = '/Users/nyahnelson/Desktop/careergraph.dot'; // specify the file path
-        //$dotFile = 'dotfiles/careergraph.dot';
+        $dotFile = 'dotfiles/careergraph.dot';
         file_put_contents($dotFile, $dotContent);
 
         $imageFile = 'images/careergraph.png'; // specify the file path for the image file
