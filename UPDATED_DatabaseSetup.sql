@@ -432,7 +432,9 @@ INSERT INTO `companies` (`ID`, `Name`, `Responsibilities`) VALUES
 CREATE TABLE `minors` (
   `ID` int(11) NOT NULL,
   `Minor` varchar(255) NOT NULL,
-  `Description` varchar(2048) DEFAULT NULL
+  `Description` varchar(2048) DEFAULT NULL,
+  `Subject` varchar(16) NOT NULL
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
