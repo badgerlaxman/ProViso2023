@@ -159,9 +159,13 @@ class AuthController extends Controller {
             // If a career has already been selected i.e. carID is not null for their id, update dropdown menu of minor to not have any values
             $carID = CareerSelected::select('*')->where('ID', Auth::guard('user')->user()->id)->first();
             $car = null;
+            $minorrecommend = null;
             if (!is_null($carID)) {
                 $car = Careers::select('Title', 'Description')->where('ID', $carID->CareerID)->first();
                 $career = Careers::select('Title')->where('ID', $carID->CareerID)->get();
+                // get minor that is recommended for the career
+                $minorrecommendID = Careers::select('MinorIDRecommend')->where('ID', $carID->CareerID)->first();
+                $minorrecommend = Minors::select('Minor')->where('ID', $minorrecommendID->MinorIDRecommend)->first();
             }
 			
 			// If the custom company has been created, and the user has selected it, then update the skills drop down to remove duplicates
@@ -208,7 +212,7 @@ class AuthController extends Controller {
                 }
             }
 
-            return view(view: 'dashboard', data: ['taken' => $taken, 'company' => $company, 'aval' => $aval, 'skill' => $skill, 'selection' => $selection, 'comp' => $comp, 'skills' => $requires, 'min' => $min, 'minor' => $minor, 'car' => $car, 'career' => $career, 'careersavail' => $careersavail, 'careersavailable' => $careersavailable]);
+            return view(view: 'dashboard', data: ['taken' => $taken, 'company' => $company, 'aval' => $aval, 'skill' => $skill, 'selection' => $selection, 'comp' => $comp, 'skills' => $requires, 'min' => $min, 'minor' => $minor, 'car' => $car, 'career' => $career, 'careersavail' => $careersavail, 'careersavailable' => $careersavailable, 'minorrecommend' => $minorrecommend]);
         }
 
         return redirect("login")->withSuccess('Please log in to access your dashboard.');

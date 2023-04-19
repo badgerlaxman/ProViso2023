@@ -1,0 +1,104 @@
+digraph {
+  graph [bgcolor="transparent" rankdir="BT" pad=1 compound="true" forcelabels="true" fontname="Comic Sans MS"]
+  node [shape="square" style="rounded,filled" width=2 fixedsize="shape"]
+  edge [minlen=2]
+  "TuSimple Information Security Analyst" [color="#FFCC66"]
+  "C++" [color="#FFFF99"]
+  "CS120 Computer Science 1" [color="#FFFFCC"]
+  "CS121 Computer Science 2" [color="#FFFFCC"]
+  "C" [color="#FFFF99"]
+  "CS121 Computer Science 2" [color="#FFFFCC"]
+  "Research" [color="#FFFF99"]
+  "ENGL317 Technical Writing" [color="#FFFFCC"]
+  "ENGL102 College Writing and Rhetoric" [color="#FFFFCC"]
+  "CS480 Senior Capstone Design 1" [color="#FFFFCC"]
+  "CS481 Senior Capstone Design 2" [color="#FFFFCC"]
+  "CS460 Database Management Systems Design" [color="#FFFFCC"]
+  "Bash" [color="#FFFF99"]
+  "CS240 Computer Operating Systems" [color="#FFFFCC"]
+  "CS270 System Software" [color="#FFFFCC"]
+  "Unix" [color="#FFFF99"]
+  "CS240 Computer Operating Systems" [color="#FFFFCC"]
+  "CS270 System Software" [color="#FFFFCC"]
+  "Ethics" [color="#FFFF99"]
+  "CS400 Contemporary Issues in Computer Science" [color="#FFFFCC"]
+  "PHIL103 Intro to Ethics" [color="#FFFFCC"]
+  "Technical writing" [color="#FFFF99"]
+  "ENGL317 Technical Writing" [color="#FFFFCC"]
+  "ENGL175 Literature and Ideas" [color="#FFFFCC"]
+  "ENGL101 Writing and Rhetoric" [color="#FFFFCC"]
+  "Git" [color="#FFFF99"]
+  "CS383 Software Engineering" [color="#FFFFCC"]
+  "GitHub" [color="#FFFF99"]
+  "CS383 Software Engineering" [color="#FFFFCC"]
+  "Command line editors" [color="#FFFF99"]
+  "CS121 Computer Science 2" [color="#FFFFCC"]
+  "CS210 Programming Languages" [color="#FFFFCC"]
+  "CS240 Computer Operating Systems" [color="#FFFFCC"]
+  "CS270 System Software" [color="#FFFFCC"]
+  "Calculus" [color="#FFFF99"]
+  "MATH170 Calculus 1" [color="#FFFFCC"]
+  "MATH175 Calculus 2" [color="#FFFFCC"]
+  "MATH330 Linear Algebra" [color="#FFFFCC"]
+  "Networking" [color="#FFFF99"]
+  "CS270 System Software" [color="#FFFFCC"]
+  "CS466 PLC Programming for Automation" [color="#FFFFCC"]
+  "Completed BS CS" [color="#FFFF99"]
+  "Scripting" [color="#FFFF99"]
+  "CS270 System Software" [color="#FFFFCC"]
+  "CS212 Practical Python" [color="#FFFFCC"]
+  "Operating systems" [color="#FFFF99"]
+  "CS240 Computer Operating Systems" [color="#FFFFCC"]
+  "CS452 Real-time Operating Systems" [color="#FFFFCC"]
+  "Control systems" [color="#FFFF99"]
+  "CS466 PLC Programming for Automation" [color="#FFFFCC"]
+  "C++" -> "TuSimple Information Security Analyst"
+  "CS120 Computer Science 1" -> "C++"
+  "CS121 Computer Science 2" -> "C++"
+  "C" -> "TuSimple Information Security Analyst"
+  "CS121 Computer Science 2" -> "C"
+  "Research" -> "TuSimple Information Security Analyst"
+  "ENGL317 Technical Writing" -> "Research"
+  "ENGL102 College Writing and Rhetoric" -> "Research"
+  "CS480 Senior Capstone Design 1" -> "Research"
+  "CS481 Senior Capstone Design 2" -> "Research"
+  "CS460 Database Management Systems Design" -> "Research"
+  "Bash" -> "TuSimple Information Security Analyst"
+  "CS240 Computer Operating Systems" -> "Bash"
+  "CS270 System Software" -> "Bash"
+  "Unix" -> "TuSimple Information Security Analyst"
+  "CS240 Computer Operating Systems" -> "Unix"
+  "CS270 System Software" -> "Unix"
+  "Ethics" -> "TuSimple Information Security Analyst"
+  "CS400 Contemporary Issues in Computer Science" -> "Ethics"
+  "PHIL103 Intro to Ethics" -> "Ethics"
+  "Technical writing" -> "TuSimple Information Security Analyst"
+  "ENGL317 Technical Writing" -> "Technical writing"
+  "ENGL175 Literature and Ideas" -> "Technical writing"
+  "ENGL101 Writing and Rhetoric" -> "Technical writing"
+  "Git" -> "TuSimple Information Security Analyst"
+  "CS383 Software Engineering" -> "Git"
+  "GitHub" -> "TuSimple Information Security Analyst"
+  "CS383 Software Engineering" -> "GitHub"
+  "Command line editors" -> "TuSimple Information Security Analyst"
+  "CS121 Computer Science 2" -> "Command line editors"
+  "CS210 Programming Languages" -> "Command line editors"
+  "CS240 Computer Operating Systems" -> "Command line editors"
+  "CS270 System Software" -> "Command line editors"
+  "Calculus" -> "TuSimple Information Security Analyst"
+  "MATH170 Calculus 1" -> "Calculus"
+  "MATH175 Calculus 2" -> "Calculus"
+  "MATH330 Linear Algebra" -> "Calculus"
+  "Networking" -> "TuSimple Information Security Analyst"
+  "CS270 System Software" -> "Networking"
+  "CS466 PLC Programming for Automation" -> "Networking"
+  "Completed BS CS" -> "TuSimple Information Security Analyst"
+  "Scripting" -> "TuSimple Information Security Analyst"
+  "CS270 System Software" -> "Scripting"
+  "CS212 Practical Python" -> "Scripting"
+  "Operating systems" -> "TuSimple Information Security Analyst"
+  "CS240 Computer Operating Systems" -> "Operating systems"
+  "CS452 Real-time Operating Systems" -> "Operating systems"
+  "Control systems" -> "TuSimple Information Security Analyst"
+  "CS466 PLC Programming for Automation" -> "Control systems"
+}

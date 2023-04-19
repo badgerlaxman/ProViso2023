@@ -25,7 +25,8 @@ class Careers extends Model
     protected $fillable = [
         'ID',
         'Title',
-        'Description'
+        'Description',
+        'MinorIDRecommend'
     ];
 
     /**

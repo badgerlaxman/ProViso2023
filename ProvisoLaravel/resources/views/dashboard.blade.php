@@ -175,7 +175,7 @@
                                                             @if(!is_null($car))
                                                             @if(!is_null($comp))
                                                             <h3 style="border-bottom: 1px solid black; margin-bottom: 15px">Selected Career</h3>
-                                                            <!-- Show minors that have already been added -->
+                                                            <!-- Show careers that have already been added -->
                                                             @csrf
                                                             <table class="customers">
                                                                 <tr>
@@ -188,7 +188,12 @@
                                                             <br>
                                                             <h3 style="border-bottom: 1px solid black; margin-bottom: 15px"></h3>
                                                             <p>Description of {{ $car->Title }} Career:</p>
-															<blockquote style="margin-top: 0; margin-bottom: 0; padding-top: 20px; padding-bottom: 10px">{{ $car->Description }}</blockquote>                                                            
+															<blockquote style="margin-top: 0; margin-bottom: 0; padding-top: 20px; padding-bottom: 10px">{{ $car->Description }}</blockquote>    
+                                                            <!-- if a career chosen recommends a minor) -->
+                                                            <h3 style="border-bottom: 1px solid black; margin-bottom: 15px"></h3>
+                                                            <p> Minor Recommendation: </p>
+                                                            <blockquote style="margin-top: 0; margin-bottom: 0; padding-top: 20px; padding-bottom: 10px">You want to be a {{ $car->Title }}! ProViso recommends you get a {{ $minorrecommend->Minor }} minor!</blockquote>    
+                                                            <a href="#addMinor"> Scroll to Minor </a>
                                                             <h3 style="border-bottom: 1px solid black; margin-bottom: 15px"></h3>
                                                             <h3>If you want to change your desired career, please deselect a company first.</h3>
                                                             <a href="#company">Scroll to Company</a>
@@ -217,6 +222,11 @@
                                                             <h3 style="border-bottom: 1px solid black; margin-bottom: 15px"></h3>
 															<p>Description of {{ $car->Title }} Career:</p>
 															<blockquote style="margin-top: 0; margin-bottom: 0; padding-top: 20px; padding-bottom: 10px">{{ $car->Description }}</blockquote>
+                                                            <!-- if a career chosen recommends a minor) -->
+                                                            <h3 style="border-bottom: 1px solid black; margin-bottom: 15px"></h3>
+                                                            <p> Minor Recommendation: </p>
+                                                            <blockquote style="margin-top: 0; margin-bottom: 0; padding-top: 20px; padding-bottom: 10px">You want to be a {{ $car->Title }}! ProViso recommends you get a {{ $minorrecommend->Minor }} minor!</blockquote>    
+                                                            <a href="#addMinor"> Scroll to Minor </a>                                                            
                                                             @endif
                                                             @else
                                                             <br>
@@ -841,7 +851,6 @@
                     success: function(response) {
                         // Handle the response from the Laravel route
                         console.log(response);
-                        //$('div.career_graph').html('<p>Click the graph to open it in a larger window.</p><div class="image-container"><button type="button" class="btn btn-secondary w-50" data-toggle="modal" data-target="#career_modal"><img src="{{ asset('images/careergraph.png') }}" alt="career graph"></button></div><div class="legend"><h3> LEGEND </h3><ul> <li><span class="legend-item careergraphcolor1"></span> Desired Career & Company</li><li><span class="legend-item careergraphcolor2"></span> Required Skills for Career & Company</li><li><span class="legend-item careergraphcolor3"></span> Classes Offered that teach the Skill</li></ul></div>');
                         $('div.career_graph').html('<p>Click the graph to open it in a larger window.</p><button type="button" class="btn btn-secondary w-50" data-toggle="modal" data-target="#career_modal"><img src="{{ asset('images/careergraph.png') }}" alt="career graph"></button>');
                     },
                     error: function(error) {
