@@ -144,6 +144,7 @@ class GraphController extends BaseController {
 
     public function print_recommendations(){
 
+        
         //set graph node style
         $graph = new Graph();
         $graphviz = new GraphViz();
@@ -160,9 +161,8 @@ class GraphController extends BaseController {
         $graph->setAttribute('graphviz.edge.minlen', '2');
 
         //Classes/Taken
-        $classes = Classes::select('Class','Year','Semester')->get();
-        $classes2 = Classes::select('Class','Year','Semester')->get();
-        $prereq = Prerequisite::select('Class', 'Prereq')->get();
+      
+        $prereq = Prerequisite::select('Prereq')->get();
         $taken = Taken::select('Class')->where('ID', Auth::guard('user')->user()->id)->get();       
         //Company/Career
         $careerSelected = CareerSelected::select('CareerID')->where('ID', Auth::guard('user')->user()->id)->first();
@@ -176,9 +176,27 @@ class GraphController extends BaseController {
 
         //classes that have not been taken yet
         $classesRemainingAll = Classes::select('Class')->whereNotIn('Class',$taken)->get();
-        $classesRemainingMajor = Classes::select('Class')
+        $classesRemainingMajor = Classes::select('Class','Year','Semester','ID')
             ->whereNotIn('Class',$taken)
+            ->orderBy('Year','asc')//changed year to id
             ->where('ID', '<', '10000')->get();
+        //added for collection of class only
+         $classesRemainingMajor_Class = Classes::select('Class')
+            ->whereNotIn('Class',$taken)
+            ->orderBy('Year','asc')//changed year to id
+            ->where('ID', '<', '10000')->get();
+
+        //added for collection of class only
+        $prereqByYear_Class = Classes::select('Class')
+        ->whereIn('Class',$prereq)
+        ->whereNotIn('Class', $taken)
+        ->orderby('Year','asc')
+        ->get();
+        $prereqByYear = Classes::select('Class','Year')
+        ->whereIn('Class',$prereq)
+        ->whereNotIn('Class', $taken)
+        ->orderby('Year','asc')
+        ->get();
         
         //get minor information
         $minorSelectedID = MinorSelected::select('MinorID')->where('ID', Auth::guard('user')->user()->id)->first();
@@ -189,15 +207,25 @@ class GraphController extends BaseController {
         $minorNotNeeded = Classes::select('Class')->whereNotIn('Class', $minorClasses)
             ->where('ID', '>=', 20000)->get();
 
-        //recommended classes
-        $recommendedClasses = Classes::select('Class','Year','Semester')
-            ->whereNotIn('Class',$minorNotNeeded)
-            ->whereIn('Class',$classesRemainingAll)
-            ->orderBy('Year')
+        $electiveClasses = Classes::select('Class')
+            ->where('ID','>=',10000)
+            ->where('ID','<',20000)
+            ->whereNotIn('Class',$taken)
             ->get();
 
-        
-        $i = [1,2,3,4,5];
+            //recommended classes
+        $recommendedClasses = Classes::select('Class','Year','Semester')
+            ->whereNotIn('Class',$prereqByYear_Class)
+            ->whereIn('Class',$classesRemainingMajor_Class)
+            ->orderBy('Year')//changed year to id
+            ->get();
+
+        // iterater for years
+        $i = [1,2,3,4];
+        //variable to hold class prereqs, and required prereq set to NULL
+        $classPreReq = NULL;
+ //       $classReqPreReq = NULL;
+
         //how many classes a semester, maybe credits
         //may make it ask before generating
         $classLimit = 8; // Max of 5 classes allowed per semester as of now
@@ -206,455 +234,487 @@ class GraphController extends BaseController {
         $graph->setAttribute('graphviz.graph.rankdir', 'TB'); // TB - top down; LR - left right          
         $classTempReq = NULL;
         //iterate through all years and set year/semester nodes
+        
+        
         foreach ($i as $b){   
 
             switch($b){
-
+                //year 1 
                 case('1'):
                     $vertexHead = $graph->createVertex();
-                    $vertexHead->setAttribute('label', 'Year 1');
+                    $vertexHead->setAttribute('id', 'Year 1');
+                    $vertexHead->setAttribute('graphviz.color', 'orange');
                     $vertexFall1 = $graph->createVertex();
                     $vertexFall1->setAttribute('id', 'Fall-1');
+                    $vertexFall1->setAttribute('graphviz.color', '#FFCC66');
+
                     $vertexSpring1 = $graph->createVertex();
                     $vertexSpring1->setAttribute('id', 'Spring-1'); 
+                    $vertexSpring1->setAttribute('graphviz.color', '#FFCC66');
                     $graph->createEdgeDirected($vertexHead, $vertexFall1);
                     $graph->createEdgeDirected($vertexHead, $vertexSpring1);
+                    $lastHead = $vertexHead;
 
                     break;
+                //year 2
 
                 case('2'):
+
                     $vertexHead = $graph->createVertex();
-                    $vertexHead->setAttribute('label', 'Year 2');
+                    $vertexHead->setAttribute('id', 'Year 2');
+                    $vertexHead->setAttribute('graphviz.color', 'orange');
+                    $graph->createEdgeDirected($lastHead, $vertexHead);
                     $vertexFall2 = $graph->createVertex();
                     $vertexFall2->setAttribute('id', 'Fall-2');
+                    $vertexFall2->setAttribute('graphviz.color', '#FFCC66');
                     $vertexSpring2 = $graph->createVertex();
                     $vertexSpring2->setAttribute('id', 'Spring-2');
+                    $vertexSpring2->setAttribute('graphviz.color', '#FFCC66');
                     $graph->createEdgeDirected($vertexHead, $vertexFall2);
                     $graph->createEdgeDirected($vertexHead, $vertexSpring2);
+                    $lastHead = $vertexHead;
 
                     break;
+                //year 3 
 
                 case('3'):
                     $vertexHead = $graph->createVertex();
-                    $vertexHead->setAttribute('label', 'Year 3');
+                    $vertexHead->setAttribute('id', 'Year 3');
+                    $vertexHead->setAttribute('graphviz.color', 'orange');
+                    $graph->createEdgeDirected($lastHead, $vertexHead);
                     $vertexFall3 = $graph->createVertex();
                     $vertexFall3->setAttribute('id', 'Fall-3');
+                    $vertexFall3->setAttribute('graphviz.color', '#FFCC66');
+
                     $vertexSpring3 = $graph->createVertex();
                     $vertexSpring3->setAttribute('id', 'Spring-3');
+                    $vertexSpring3->setAttribute('graphviz.color', '#FFCC66');
                     $graph->createEdgeDirected($vertexHead, $vertexFall3);
                     $graph->createEdgeDirected($vertexHead, $vertexSpring3);
+                    $lastHead = $vertexHead;
 
                     break;
+                //year 4 
 
                 case('4'):
                     $vertexHead = $graph->createVertex();
-                    $vertexHead->setAttribute('label', 'Year 4');
+                    $vertexHead->setAttribute('id', 'Year 4');
+                    $vertexHead->setAttribute('graphviz.color', 'orange');
+                    $graph->createEdgeDirected($lastHead, $vertexHead);
+
                     $vertexFall4 = $graph->createVertex();
                     $vertexFall4->setAttribute('id', 'Fall-4');
+                    $vertexFall4->setAttribute('graphviz.color', '#FFCC66');
                     $vertexSpring4 = $graph->createVertex();
                     $vertexSpring4->setAttribute('id', 'Spring-4');
+                    $vertexSpring4->setAttribute('graphviz.color', '#FFCC66');
                     $graph->createEdgeDirected($vertexHead, $vertexFall4);
                     $graph->createEdgeDirected($vertexHead, $vertexSpring4);
+                    $lastHead = $vertexHead;
 
                     break;      
-                case('5'):
-                    $vertexHead = $graph->createVertex();
-                    $vertexHead->setAttribute('label', 'Electives');
-                    $vertexElective = $graph->createVertex();
-                    $vertexElective->setAttribute('id', 'AvailableElectives');
-                    $graph->createEdgeDirected($vertexHead, $vertexElective);
-                    $lastVertex = $vertexElective;
-                    break;                 
+                //electives/minors
+                //currently not added because foreach iterates through classesRequiredMajor and not recommendedClasses 
+                         
             }
         }
-//add classes to graph
-        foreach($recommendedClasses as $recommended){
- 
-            //Electives/Minors
-            if($recommended->Year == 0){
-                    $vertex1 = $graph->createVertex();
-                    $vertex1->setAttribute('id', $recommended->Class);
-                    $graph->createEdgeDirected($lastVertex,$vertex1);
-                    $lastVertex = $vertex1;
 
-                //Year 1  
-                }elseif($recommended->Year == 1 || 2 && $currYear == 1){
+        
+        //add classes to graph
+        foreach($prereqByYear as $recommended){
+            //set graph node of class
+            $vertex1 = $graph->createVertex();
+            $vertex1->setAttribute('id', $recommended->Class);
+            $vertex1->setAttribute('graphviz.color', 'white');
+
+            if($currYear == 1 ){
                     
-                   if($class_count_iter == 0){
-                        $vertex1 = $graph->createVertex();
-                        $vertex1->setAttribute('id', $recommended->Class);
-                        $graph->createEdgeDirected($vertexFall1,$vertex1);
+                   if($class_count_iter == 0 ){
+                        //add first class to fall
+                    
+                        $edge = $graph->createEdgeDirected($vertexFall1,$vertex1);
+                        $edge->setAttribute('graphviz.color', 'white');
                         $lastVertex = $vertex1;
+
                         $class_count_iter += 1;
                    }
                    elseif($class_count_iter == $classLimit/2){
-                        $vertex1 = $graph->createVertex();
-                        $vertex1->setAttribute('id', $recommended->Class);
-                        $graph->createEdgeDirected($vertexSpring1,$vertex1);
-                        $lastVertex = $vertex1;
+                        //add first class to spring
+                    
+                       $edge = $graph->createEdgeDirected($vertexSpring1,$vertex1);
+                       $edge->setAttribute('graphviz.color', 'white');
+                       $lastVertex = $vertex1;
+
                         $class_count_iter += 1;
                    }
                     elseif($class_count_iter < $classLimit){
-                        $vertex1 = $graph->createVertex();
-                        $vertex1->setAttribute('id', $recommended->Class);
-                        $graph->createEdgeDirected($lastVertex,$vertex1);
+                        //add rest of classes to fall or spring
+                     
+                        $edge = $graph->createEdgeDirected($lastVertex,$vertex1);
+                        $edge->setAttribute('graphviz.color', 'white');
                         $lastVertex = $vertex1;
+                    
+                        //added to keep last vertex of fall semester
+                        if($class_count_iter == ($classLimit/2)-1){
+
+                            $vertexFall1 = $vertex1;
+                        }//keep last vertex of spring1 
+                        elseif($class_count_iter == $classLimit-1){
+                            
+                            $vertexSpring1 = $vertex1;
+                        }
+
                         $class_count_iter += 1;
-    
-                        $lastVertex = $vertex1; 
+                      
                     }else{
+                        
+                        $edge = $graph->createEdgeDirected($lastVertex,$vertex1);
+                        $edge->setAttribute('graphviz.color', 'white');
+                       
+                        $vertexElective = $graph->createVertex();
+                        $vertexElective->setAttribute('id', 'Elective/Minor');
+                        $vertexElective->setAttribute('graphviz.color', '#40c9ff');
+                        $edge = $graph->createEdgeDirected($vertexFall1,$vertexElective);
+                        $edge->setAttribute('graphviz.color', 'green');
+  
                         $currYear = 2;
                         $class_count_iter = 0;
                     }
                 //Year 2
-                }elseif($recommended->Year == 2 || 3 && $currYear == 2){
+                }
+                
+                elseif( $currYear == 2){
                    if($class_count_iter == 0){
-                        $vertex1 = $graph->createVertex();
-                        $vertex1->setAttribute('id', $recommended->Class);
-                        $graph->createEdgeDirected($vertexFall2,$vertex1);
+                       
+                        $edge = $graph->createEdgeDirected($vertexFall2,$vertex1);
+                        $edge->setAttribute('graphviz.color', 'white');
                         $lastVertex = $vertex1;
                         $class_count_iter += 1;
                    }
                    elseif($class_count_iter == $classLimit/2){
 
-                        $vertex1 = $graph->createVertex();
-                        $vertex1->setAttribute('id', $recommended->Class);
-                        $graph->createEdgeDirected($vertexSpring2,$vertex1);
+                        $edge = $graph->createEdgeDirected($vertexSpring2,$vertex1);
+                        $edge->setAttribute('graphviz.color', 'white');
                         $lastVertex = $vertex1;
                         $class_count_iter += 1;
 
                    }
                     elseif($class_count_iter < $classLimit){
-                            $vertex1 = $graph->createVertex();
-                            $vertex1->setAttribute('id', $recommended->Class);
-                            $graph->createEdgeDirected($lastVertex,$vertex1);
+                 
+                            $edge = $graph->createEdgeDirected($lastVertex,$vertex1);
+                            $edge->setAttribute('graphviz.color', 'white');
                             $lastVertex = $vertex1;
-                            $class_count_iter += 1;
-                            $lastVertex = $vertex1; 
+                               //added to keep last vertex of fall semester
+                        if($class_count_iter == ($classLimit/2)-1){
+
+                            $vertexFall2 = $vertex1;
+                        }//keep last vertex of spring1 
+                        elseif($class_count_iter == $classLimit-1){
+                            
+                            $vertexSpring2 = $vertex1;
+                        }
+                        $class_count_iter += 1;
                     }else{
+                        $edge = $graph->createEdgeDirected($lastVertex,$vertex1);
+                        $edge->setAttribute('graphviz.color', 'white');
                         $currYear = 3;
                         $class_count_iter = 0;
                     }
                 //Year 3
-                }elseif($recommended->Year == 3 || 4 && $currYear == 3){
+                }elseif($currYear == 3){
                    if($class_count_iter == 0){
-                        $vertex1 = $graph->createVertex();
-                        $vertex1->setAttribute('id', $recommended->Class);
-                        $graph->createEdgeDirected($vertexFall3,$vertex1);
+                 
+                        $edge = $graph->createEdgeDirected($vertexFall3,$vertex1);
+                        $edge->setAttribute('graphviz.color', 'white');
                         $lastVertex = $vertex1;
                         $class_count_iter += 1;
                    }
                    elseif($class_count_iter == $classLimit/2){
 
-                        $vertex1 = $graph->createVertex();
-                        $vertex1->setAttribute('id', $recommended->Class);
-                        $graph->createEdgeDirected($vertexSpring3,$vertex1);
+               
+                        $edge = $graph->createEdgeDirected($vertexSpring3,$vertex1);
+                        $edge->setAttribute('graphviz.color', 'white');
                         $lastVertex = $vertex1;
                         $class_count_iter += 1;
 
                    }
                     elseif($class_count_iter < $classLimit){
-                        $vertex1 = $graph->createVertex();
-                        $vertex1->setAttribute('id', $recommended->Class);
-                        $graph->createEdgeDirected($lastVertex,$vertex1);
+                 
+                        $edge = $graph->createEdgeDirected($lastVertex,$vertex1);
+                        $edge->setAttribute('graphviz.color', 'white');
                         $lastVertex = $vertex1;
-                        $class_count_iter += 1;
     
                         $lastVertex = $vertex1; 
+                           //added to keep last vertex of fall semester
+                           if($class_count_iter == ($classLimit/2)-1){
+
+                            $vertexFall3 = $vertex1;
+                        }//keep last vertex of spring1 
+                        elseif($class_count_iter == $classLimit-1){
+                            
+                            $vertexSpring3 = $vertex1;
+                        }
+                        $class_count_iter += 1;
+
                     }else{
+                        $edge = $graph->createEdgeDirected($lastVertex,$vertex1);
+                        $edge->setAttribute('graphviz.color', 'white');
                         $currYear = 4;
                         $class_count_iter = 0;
                     }
-                //Year 4
-                }elseif($recommended->Year == 4 && $currYear == 4 ){
+                //Year 4& 
+                }elseif($currYear == 4 ){
                    if($class_count_iter == 0){
-                        $vertex1 = $graph->createVertex();
-                        $vertex1->setAttribute('id', $recommended->Class);
-                        $graph->createEdgeDirected($vertexFall4,$vertex1);
+                     
+                        $edge = $graph->createEdgeDirected($vertexFall4,$vertex1);
+                        $edge->setAttribute('graphviz.color', 'white');
                         $lastVertex = $vertex1;
                         $class_count_iter += 1;
                    }
                    elseif($class_count_iter == $classLimit/2){
 
-                        $vertex1 = $graph->createVertex();
-                        $vertex1->setAttribute('id', $recommended->Class);
-                        $graph->createEdgeDirected($vertexSpring4,$vertex1);
+                   
+                        $edge = $graph->createEdgeDirected($vertexSpring4,$vertex1);
+                        $edge->setAttribute('graphviz.color', 'white');
                         $lastVertex = $vertex1;
                         $class_count_iter += 1;
 
                    }
                     elseif($class_count_iter < $classLimit){
-                        $vertex1 = $graph->createVertex();
-                        $vertex1->setAttribute('id', $recommended->Class);
-                        $graph->createEdgeDirected($lastVertex,$vertex1);
+                  
+                        $edge = $graph->createEdgeDirected($lastVertex,$vertex1);
+                        $edge->setAttribute('graphviz.color', 'white');
                         $lastVertex = $vertex1;
-                        $class_count_iter += 1;
     
-                        $lastVertex = $vertex1; 
+                        $lastVertex = $vertex1;
+                           //added to keep last vertex of fall semester
+                           if($class_count_iter == ($classLimit/2)-1){
+
+                            $vertexFall4 = $vertex1;
+                        }//keep last vertex of spring 
+                        elseif($class_count_iter == $classLimit-1){
+                            
+                            $vertexSpring4 = $vertex1;
+                        } 
+                        $class_count_iter += 1;
                     }else{
+                        $edge = $graph->createEdgeDirected($lastVertex,$vertex1);
+                        $edge->setAttribute('graphviz.color', 'white');
                         $currYear = 5;
                         $class_count_iter = 0;
                     }
                 }
-            
+                else{
+                    $vertex1->setAttribute('graphviz.color', '#45CAF');
+                    $vertex1->setAttribute('graphviz.color', 'green');
+
+                }
+   
 
         }
-      
 
-    echo $graphviz->createScript($graph);
-    $graphviz->display($graph);
-
-
-    }
-
-    public function print_minor_recommendations(){
-
-        //set graph node style
-        $graph = new Graph();
-        $graphviz = new GraphViz();
-        $graphviz->setFormat('png');
-        $graph->setAttribute('graphviz.graph.bgcolor', 'transparent');
-        $graph->setAttribute('graphviz.graph.rankdir', 'LR');
-        $graph->setAttribute('graphviz.graph.pad', '1');
-        $graph->setAttribute('graphviz.graph.compound', 'true');
-        $graph->setAttribute('graphviz.graph.forcelabels', 'true');
-        $graph->setAttribute('graphviz.node.shape', 'square');
-        $graph->setAttribute('graphviz.node.style', 'rounded,filled');
-        $graph->setAttribute('graphviz.node.width', '2');
-        $graph->setAttribute('graphviz.node.fixedsize', 'shape');
-        $graph->setAttribute('graphviz.edge.minlen', '2');
-
-        //Classes/Taken
-        $classes = Classes::select('Class','Year','Semester')->get();
-        $classes2 = Classes::select('Class','Year','Semester')->get();
-        $prereq = Prerequisite::select('Class', 'Prereq')->get();
-        $taken = Taken::select('Class')->where('ID', Auth::guard('user')->user()->id)->get();       
-        
-        
-        //get minor information
-        $minorSelectedID = MinorSelected::select('MinorID')->where('ID', Auth::guard('user')->user()->id)->first();
-        $minorSelectedName = Minors::select('Minor','Subject')->where('ID',$minorSelectedID->MinorID)->first();
-        $minorClasses = Classes::select('Class')
-            ->where('ID','>=',10000)
-            ->where('Subject',$minorSelectedName->Subject)->get();
-        $minorNotNeeded = Classes::select('Class')->whereNotIn('Class', $minorClasses)
-            ->where('ID', '>=', 20000)->get(); 
-        //minor classes that have not been taken yet
-        $classesRemainingMinor = Classes::select('Class')
-            ->whereNotIn('Class',$taken)
-            ->whereIn('Class',$minorClasses)->get();
-
-        //recommended classes
-        $recommendedClasses = Classes::select('Class','Year','Semester')
-            ->whereNotIn('Class',$minorNotNeeded)
-            ->whereIn('Class',$minorClasses)
-            ->orderBy('Year')
-            ->get();
-
-        
-        $i = [1,2,3,4,5];
-        //how many classes a semester, maybe credits
-        //may make it ask before generating
-        $classLimit = 2; // Max of 5 classes allowed per semester as of now
-        $class_count_iter = 0; // Var to track classes added to semester
-        $currYear = 1;
-        $graph->setAttribute('graphviz.graph.rankdir', 'TB'); // TB - top down; LR - left right          
-        $classTempReq = NULL;
-        //iterate through all years and set year/semester nodes
-        foreach ($i as $b){   
-
-            switch($b){
-
-                case('1'):
-                    $vertexHead = $graph->createVertex();
-                    $vertexHead->setAttribute('label', 'Year 1');
-                    $vertexFall1 = $graph->createVertex();
-                    $vertexFall1->setAttribute('id', 'Fall-1');
-                    $vertexSpring1 = $graph->createVertex();
-                    $vertexSpring1->setAttribute('id', 'Spring-1'); 
-                    $graph->createEdgeDirected($vertexHead, $vertexFall1);
-                    $graph->createEdgeDirected($vertexHead, $vertexSpring1);
-
-                    break;
-
-                case('2'):
-                    $vertexHead = $graph->createVertex();
-                    $vertexHead->setAttribute('label', 'Year 2');
-                    $vertexFall2 = $graph->createVertex();
-                    $vertexFall2->setAttribute('id', 'Fall-2');
-                    $vertexSpring2 = $graph->createVertex();
-                    $vertexSpring2->setAttribute('id', 'Spring-2');
-                    $graph->createEdgeDirected($vertexHead, $vertexFall2);
-                    $graph->createEdgeDirected($vertexHead, $vertexSpring2);
-
-                    break;
-
-                case('3'):
-                    $vertexHead = $graph->createVertex();
-                    $vertexHead->setAttribute('label', 'Year 3');
-                    $vertexFall3 = $graph->createVertex();
-                    $vertexFall3->setAttribute('id', 'Fall-3');
-                    $vertexSpring3 = $graph->createVertex();
-                    $vertexSpring3->setAttribute('id', 'Spring-3');
-                    $graph->createEdgeDirected($vertexHead, $vertexFall3);
-                    $graph->createEdgeDirected($vertexHead, $vertexSpring3);
-
-                    break;
-
-                case('4'):
-                    $vertexHead = $graph->createVertex();
-                    $vertexHead->setAttribute('label', 'Year 4');
-                    $vertexFall4 = $graph->createVertex();
-                    $vertexFall4->setAttribute('id', 'Fall-4');
-                    $vertexSpring4 = $graph->createVertex();
-                    $vertexSpring4->setAttribute('id', 'Spring-4');
-                    $graph->createEdgeDirected($vertexHead, $vertexFall4);
-                    $graph->createEdgeDirected($vertexHead, $vertexSpring4);
-
-                    break; 
-                             
-             
-            }
-        }
-            //add classes to graph
+        //Add remaining classes to schedule after prereqs are sorted and added
+        //code in for loop same as above loop
         foreach($recommendedClasses as $recommended){
- 
-            //Electives/Minors
-            //if($recommended->Year == 0){
-                //    $vertex1 = $graph->createVertex();
-              //      $vertex1->setAttribute('id', $recommended->Class);
-             //       $graph->createEdgeDirected($vertexFall1,$vertex1);
-             //       $lastVertex = $vertex1;
+            //set graph node of class
+            $vertex1 = $graph->createVertex();
+            $vertex1->setAttribute('id', $recommended->Class);
+            $vertex1->setAttribute('graphviz.color', 'white');
 
-                //Year 1  
-                if($recommended->Year < 2){
+            if($currYear == 1){
                     
-                   if($class_count_iter == 0 && $currYear != 2){
-                        $vertex1 = $graph->createVertex();
-                        $vertex1->setAttribute('id', $recommended->Class);
-                        $graph->createEdgeDirected($vertexFall1,$vertex1);
+                   if($class_count_iter == 0 ){
+                        //add first class to fall
+                    
+                        $edge = $graph->createEdgeDirected($vertexFall1,$vertex1);
+                        $edge->setAttribute('graphviz.color', 'white');
                         $lastVertex = $vertex1;
+
                         $class_count_iter += 1;
                    }
-                   elseif($class_count_iter == $classLimit/2 && $class_count_iter < $classLimit){
-                        $vertex1 = $graph->createVertex();
-                        $vertex1->setAttribute('id', $recommended->Class);
-                        $graph->createEdgeDirected($vertexSpring1,$vertex1);
-                        $lastVertex = $vertex1;
+                   elseif($class_count_iter == $classLimit/2){
+                        //add first class to spring
+                    
+                       $edge = $graph->createEdgeDirected($vertexSpring1,$vertex1);
+                       $edge->setAttribute('graphviz.color', 'white');
+                       $lastVertex = $vertex1;
+
                         $class_count_iter += 1;
                    }
                     elseif($class_count_iter < $classLimit){
-                        $vertex1 = $graph->createVertex();
-                        $vertex1->setAttribute('id', $recommended->Class);
-                        $graph->createEdgeDirected($lastVertex,$vertex1);
+                        //add rest of classes to fall or spring
+                     
+                        $edge = $graph->createEdgeDirected($lastVertex,$vertex1);
+                        $edge->setAttribute('graphviz.color', 'white');
                         $lastVertex = $vertex1;
+                    
+                        //added to keep last vertex of fall semester
+                        if($class_count_iter == ($classLimit/2)-1){
+
+                            $vertexFall1 = $vertex1;
+                        }//keep last vertex of spring1 
+                        elseif($class_count_iter == $classLimit-1){
+                            
+                            $vertexSpring1 = $vertex1;
+                        }
+
                         $class_count_iter += 1;
-    
-                        $lastVertex = $vertex1; 
+                      
                     }else{
+                        
+                        $edge = $graph->createEdgeDirected($lastVertex,$vertex1);
+                        $edge->setAttribute('graphviz.color', 'white');
+                       
+                        $vertexElective = $graph->createVertex();
+                        $vertexElective->setAttribute('id', 'Elective/Minor');
+                        $vertexElective->setAttribute('graphviz.color', '#40c9ff');
+                        $edge = $graph->createEdgeDirected($vertexFall1,$vertexElective);
+                        $edge->setAttribute('graphviz.color', 'green');
+  
                         $currYear = 2;
                         $class_count_iter = 0;
                     }
                 //Year 2
-                }elseif($recommended->Year < 3){
+                }
+                
+                elseif( $currYear == 2){
                    if($class_count_iter == 0){
-                        $vertex1 = $graph->createVertex();
-                        $vertex1->setAttribute('id', $recommended->Class);
-                        $graph->createEdgeDirected($vertexFall2,$vertex1);
+                       
+                        $edge = $graph->createEdgeDirected($vertexFall2,$vertex1);
+                        $edge->setAttribute('graphviz.color', 'white');
                         $lastVertex = $vertex1;
                         $class_count_iter += 1;
                    }
                    elseif($class_count_iter == $classLimit/2){
 
-                        $vertex1 = $graph->createVertex();
-                        $vertex1->setAttribute('id', $recommended->Class);
-                        $graph->createEdgeDirected($vertexSpring2,$vertex1);
+                        $edge = $graph->createEdgeDirected($vertexSpring2,$vertex1);
+                        $edge->setAttribute('graphviz.color', 'white');
                         $lastVertex = $vertex1;
                         $class_count_iter += 1;
 
                    }
                     elseif($class_count_iter < $classLimit){
-                            $vertex1 = $graph->createVertex();
-                            $vertex1->setAttribute('id', $recommended->Class);
-                            $graph->createEdgeDirected($lastVertex,$vertex1);
+                 
+                            $edge = $graph->createEdgeDirected($lastVertex,$vertex1);
+                            $edge->setAttribute('graphviz.color', 'white');
                             $lastVertex = $vertex1;
-                            $class_count_iter += 1;
-                            $lastVertex = $vertex1; 
+                               //added to keep last vertex of fall semester
+                        if($class_count_iter == ($classLimit/2)-1){
+
+                            $vertexFall2 = $vertex1;
+                        }//keep last vertex of spring1 
+                        elseif($class_count_iter == $classLimit-1){
+                            
+                            $vertexSpring2 = $vertex1;
+                        }
+                        $class_count_iter += 1;
                     }else{
+                        $edge = $graph->createEdgeDirected($lastVertex,$vertex1);
+                        $edge->setAttribute('graphviz.color', 'white');
                         $currYear = 3;
                         $class_count_iter = 0;
                     }
                 //Year 3
-                }elseif($recommended->Year < 4){
+                }elseif($currYear == 3){
                    if($class_count_iter == 0){
-                        $vertex1 = $graph->createVertex();
-                        $vertex1->setAttribute('id', $recommended->Class);
-                        $graph->createEdgeDirected($vertexFall3,$vertex1);
+                 
+                        $edge = $graph->createEdgeDirected($vertexFall3,$vertex1);
+                        $edge->setAttribute('graphviz.color', 'white');
                         $lastVertex = $vertex1;
                         $class_count_iter += 1;
                    }
                    elseif($class_count_iter == $classLimit/2){
 
-                        $vertex1 = $graph->createVertex();
-                        $vertex1->setAttribute('id', $recommended->Class);
-                        $graph->createEdgeDirected($vertexSpring3,$vertex1);
+               
+                        $edge = $graph->createEdgeDirected($vertexSpring3,$vertex1);
+                        $edge->setAttribute('graphviz.color', 'white');
                         $lastVertex = $vertex1;
                         $class_count_iter += 1;
 
                    }
                     elseif($class_count_iter < $classLimit){
-                        $vertex1 = $graph->createVertex();
-                        $vertex1->setAttribute('id', $recommended->Class);
-                        $graph->createEdgeDirected($lastVertex,$vertex1);
+                 
+                        $edge = $graph->createEdgeDirected($lastVertex,$vertex1);
+                        $edge->setAttribute('graphviz.color', 'white');
                         $lastVertex = $vertex1;
-                        $class_count_iter += 1;
     
                         $lastVertex = $vertex1; 
+                           //added to keep last vertex of fall semester
+                           if($class_count_iter == ($classLimit/2)-1){
+
+                            $vertexFall3 = $vertex1;
+                        }//keep last vertex of spring1 
+                        elseif($class_count_iter == $classLimit-1){
+                            
+                            $vertexSpring3 = $vertex1;
+                        }
+                        $class_count_iter += 1;
+
                     }else{
+                        $edge = $graph->createEdgeDirected($lastVertex,$vertex1);
+                        $edge->setAttribute('graphviz.color', 'white');
                         $currYear = 4;
                         $class_count_iter = 0;
                     }
                 //Year 4
-                }elseif($recommended->Year <= 4){
+                }elseif($currYear == 4 ){
                    if($class_count_iter == 0){
-                        $vertex1 = $graph->createVertex();
-                        $vertex1->setAttribute('id', $recommended->Class);
-                        $graph->createEdgeDirected($vertexFall4,$vertex1);
+                     
+                        $edge = $graph->createEdgeDirected($vertexFall4,$vertex1);
+                        $edge->setAttribute('graphviz.color', 'white');
                         $lastVertex = $vertex1;
                         $class_count_iter += 1;
                    }
                    elseif($class_count_iter == $classLimit/2){
 
-                        $vertex1 = $graph->createVertex();
-                        $vertex1->setAttribute('id', $recommended->Class);
-                        $graph->createEdgeDirected($vertexSpring4,$vertex1);
+                   
+                        $edge = $graph->createEdgeDirected($vertexSpring4,$vertex1);
+                        $edge->setAttribute('graphviz.color', 'white');
                         $lastVertex = $vertex1;
                         $class_count_iter += 1;
 
                    }
                     elseif($class_count_iter < $classLimit){
-                        $vertex1 = $graph->createVertex();
-                        $vertex1->setAttribute('id', $recommended->Class);
-                        $graph->createEdgeDirected($lastVertex,$vertex1);
+                  
+                        $edge = $graph->createEdgeDirected($lastVertex,$vertex1);
+                        $edge->setAttribute('graphviz.color', 'white');
                         $lastVertex = $vertex1;
-                        $class_count_iter += 1;
     
-                        $lastVertex = $vertex1; 
+                        $lastVertex = $vertex1;
+                           //added to keep last vertex of fall semester
+                           if($class_count_iter == ($classLimit/2)-1){
+
+                            $vertexFall4 = $vertex1;
+                        }//keep last vertex of spring 
+                        elseif($class_count_iter == $classLimit-1){
+                            
+                            $vertexSpring4 = $vertex1;
+                        } 
+                        $class_count_iter += 1;
                     }else{
+                        $edge = $graph->createEdgeDirected($lastVertex,$vertex1);
+                        $edge->setAttribute('graphviz.color', 'white');
                         $currYear = 5;
                         $class_count_iter = 0;
                     }
                 }
-            
+                else{
+                    $vertex1->setAttribute('graphviz.color', '#45CAF');
+                    $vertex1->setAttribute('graphviz.color', 'green');
+
+                }
+   
 
         }
-      
+    
 
-    echo $graphviz->createScript($graph);
+   // echo $graphviz->createScript($graph);
     $graphviz->display($graph);
 
-
     }
+    
+   
+
 
     public function print_skills(){
 
