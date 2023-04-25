@@ -367,13 +367,14 @@ class GraphController extends BaseController {
                         
                         $edge = $graph->createEdgeDirected($lastVertex,$vertex1);
                         $edge->setAttribute('graphviz.color', 'white');
-                       
+                       /*
                         $vertexElective = $graph->createVertex();
                         $vertexElective->setAttribute('id', 'Elective/Minor');
                         $vertexElective->setAttribute('graphviz.color', '#40c9ff');
                         $edge = $graph->createEdgeDirected($vertexFall1,$vertexElective);
                         $edge->setAttribute('graphviz.color', 'green');
-  
+                        */
+
                         $currYear = 2;
                         $class_count_iter = 0;
                     }
@@ -545,7 +546,7 @@ class GraphController extends BaseController {
                         $edge->setAttribute('graphviz.color', 'white');
                         $lastVertex = $vertex1;
                     
-                        //added to keep last vertex of fall semester
+                        //added to keep last vertex of fall1
                         if($class_count_iter == ($classLimit/2)-1){
 
                             $vertexFall1 = $vertex1;
@@ -562,12 +563,7 @@ class GraphController extends BaseController {
                         $edge = $graph->createEdgeDirected($lastVertex,$vertex1);
                         $edge->setAttribute('graphviz.color', 'white');
                        
-                        $vertexElective = $graph->createVertex();
-                        $vertexElective->setAttribute('id', 'Elective/Minor');
-                        $vertexElective->setAttribute('graphviz.color', '#40c9ff');
-                        $edge = $graph->createEdgeDirected($vertexFall1,$vertexElective);
-                        $edge->setAttribute('graphviz.color', 'green');
-  
+                        
                         $currYear = 2;
                         $class_count_iter = 0;
                     }
@@ -608,6 +604,8 @@ class GraphController extends BaseController {
                     }else{
                         $edge = $graph->createEdgeDirected($lastVertex,$vertex1);
                         $edge->setAttribute('graphviz.color', 'white');
+
+                    
                         $currYear = 3;
                         $class_count_iter = 0;
                     }
@@ -703,8 +701,7 @@ class GraphController extends BaseController {
    
 
         }
-    
-
+   
    // echo $graphviz->createScript($graph);
    // $graphviz->display($graph);
     $dotContent = $graphviz->createScript($graph);
