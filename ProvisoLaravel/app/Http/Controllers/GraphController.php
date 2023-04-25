@@ -214,6 +214,7 @@ class GraphController extends BaseController {
             ->get();
 
             //recommended classes
+            //remaining classes after prereq
         $recommendedClasses = Classes::select('Class','Year','Semester')
             ->whereNotIn('Class',$prereqByYear_Class)
             ->whereIn('Class',$classesRemainingMajor_Class)
@@ -222,20 +223,16 @@ class GraphController extends BaseController {
 
         // iterater for years
         $i = [1,2,3,4];
-        //variable to hold class prereqs, and required prereq set to NULL
-        $classPreReq = NULL;
- //       $classReqPreReq = NULL;
 
         //how many classes a semester, maybe credits
-        //may make it ask before generating
         $classLimit = 8; // Max of 5 classes allowed per semester as of now
-        $class_count_iter = 0; // Var to track classes added to semester
+        $class_count_iter = 0; //track classes added to semester
         $currYear = 1;
         $graph->setAttribute('graphviz.graph.rankdir', 'TB'); // TB - top down; LR - left right          
         $classTempReq = NULL;
-        //iterate through all years and set year/semester nodes
-        
-        
+       
+
+    //iterate through all years and set year/semester nodes 
         foreach ($i as $b){   
 
             switch($b){
@@ -325,7 +322,7 @@ class GraphController extends BaseController {
             //set graph node of class
             $vertex1 = $graph->createVertex();
             $vertex1->setAttribute('id', $recommended->Class);
-            $vertex1->setAttribute('graphviz.color', 'white');
+            //$vertex1->setAttribute('graphviz.color', 'white');
 
             if($currYear == 1 ){
                     
@@ -519,7 +516,7 @@ class GraphController extends BaseController {
             //set graph node of class
             $vertex1 = $graph->createVertex();
             $vertex1->setAttribute('id', $recommended->Class);
-            $vertex1->setAttribute('graphviz.color', 'white');
+          //  $vertex1->setAttribute('graphviz.color', 'white');
 
             if($currYear == 1){
                     
@@ -709,8 +706,17 @@ class GraphController extends BaseController {
     
 
    // echo $graphviz->createScript($graph);
-    $graphviz->display($graph);
+   // $graphviz->display($graph);
+    $dotContent = $graphviz->createScript($graph);
 
+    // Save DOT file to a local file
+    $dotFile = 'dotfiles/recommendationsgraph.dot';
+    file_put_contents($dotFile, $dotContent);
+
+    $imageFile = 'images/recommendationsgraph.png'; // specify the file path for the image file
+    exec("dot -Tpng {$dotFile} -o {$imageFile}");
+
+    return response()->json(['imagePath' => 'images/recommendationsgraph.png']);
     }
     
    

@@ -1,0 +1,53 @@
+digraph {
+  graph [bgcolor="transparent" rankdir="TB" pad=1 compound="true" forcelabels="true"]
+  node [shape="square" style="rounded,filled" width=2 fixedsize="shape"]
+  edge [minlen=2]
+  "Year 1" [color="orange"]
+  "Fall-1" [color="#FFCC66"]
+  "Spring-1" [color="#FFCC66"]
+  "Year 2" [color="orange"]
+  "Fall-2" [color="#FFCC66"]
+  "Spring-2" [color="#FFCC66"]
+  "Year 3" [color="orange"]
+  "Fall-3" [color="#FFCC66"]
+  "Spring-3" [color="#FFCC66"]
+  "Year 4" [color="orange"]
+  "Fall-4" [color="#FFCC66"]
+  "Spring-4" [color="#FFCC66"]
+  "Elective/Minor" [color="#40c9ff"]
+  "Year 1" -> "Fall-1"
+  "Year 1" -> "Spring-1"
+  "Year 1" -> "Year 2"
+  "Year 2" -> "Fall-2"
+  "Year 2" -> "Spring-2"
+  "Year 2" -> "Year 3"
+  "Year 3" -> "Fall-3"
+  "Year 3" -> "Spring-3"
+  "Year 3" -> "Year 4"
+  "Year 4" -> "Fall-4"
+  "Year 4" -> "Spring-4"
+  "Fall-1" -> "CS120" [color="white"]
+  "CS120" -> "ENGL102" [color="white"]
+  "ENGL102" -> "MATH170" [color="white"]
+  "MATH170" -> "MATH176" [color="white"]
+  "Spring-1" -> "CS150" [color="white"]
+  "CS150" -> "CS121" [color="white"]
+  "CS121" -> "CS240" [color="white"]
+  "CS240" -> "CS210" [color="white"]
+  "CS210" -> "MATH175" [color="white"]
+  "MATH176" -> "Elective/Minor" [color="green"]
+  "Fall-2" -> "CS270" [color="white"]
+  "CS270" -> "ENGL317" [color="white"]
+  "ENGL317" -> "CS360" [color="white"]
+  "CS360" -> "CS385" [color="white"]
+  "Spring-2" -> "CS383" [color="white"]
+  "CS383" -> "STAT301" [color="white"]
+  "STAT301" -> "CS480" [color="white"]
+  "CS480" -> "COMM101" [color="white"]
+  "COMM101" -> "CS404" [color="white"]
+  "Fall-3" -> "CS395" [color="white"]
+  "CS395" -> "CS445" [color="white"]
+  "CS445" -> "MATH330" [color="white"]
+  "MATH330" -> "CS481" [color="white"]
+  "Spring-3" -> "CS400" [color="white"]
+}

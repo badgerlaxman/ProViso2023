@@ -37,6 +37,7 @@ form.login_form input.login-input::placeholder { /* Chrome, Firefox, Opera, Safa
 
 div.career_graph,
 div.class_graph,
+div.recommendations_graph,
 div.skill_graph {
 	margin-top: 30px;
 	padding-top: 30px;

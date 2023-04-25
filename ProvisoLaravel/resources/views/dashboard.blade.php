@@ -769,51 +769,40 @@
         </div>
         <!-- end classes -->
 
-        <!-- divider -->
-        <div class="divider" style="background-color: grey; width: none !important; padding:0px !important">
-            <div class="row" style="padding:0px !important">
-                <br>
-            </div>
-       </div>
-        <!-- end divider -->
-
-        <!--generate schedule -->
-        <div class = "clients" style="background-color: goldenrod; width: none !important" id="schedule">
+        <!-- recommended classes graph -->
+        <!-- if company and career are chosen, display the career graph -->
+        @if(!is_null($comp) && !is_null($car))
+        <div class="clients" style="background-color: goldenrod; width: none !important" id="recommendationsgraph">
             <div class="container">
                 <div class='row' style="width:100%; padding:0px !important" >
                     <div class="col-md-12">
                         <div class="titlepage">
-                            <h2>Your Schedule</h2>
+                            <h2>Recommended Class Graph</h2>
+                            <span>You have completed your profile. Click the button below to generate your recommended class graph!</span>
                             <br/>
-                            <button type="button" class="btn btn-secondary class_graph">Generate graphs</button>
-							<!-- Classes -->
-							<div class="container w-100 class_graph">
-							</div>
-							<!-- Skills -->
-							<div class="container w-100 skill_graph">
-							</div>
+                            <button type="button" class="btn btn-secondary recommendations_graph" id="recommendationsgraphbutton">Generate Recommendations Graph</button>
+                            <!-- Recommendations Graph -->
+                            <div class="container w-100 recommendations_graph">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-		<!--Graph Modal-->
-		<div class="modal fade" id="skill_modal" tabindex="-1" role="dialog" aria-labelledby="skill_modal_label" aria-hidden="true">
-			<div class="modal-dialog" style="max-width: 1300px; margin: auto" role="document">
+
+        <!--Graph Modal-->
+		<div class="modal fade" id="recommendations_modal" tabindex="-1" role="dialog" aria-labelledby="recommendations_modal_label" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" style="max-width: 1300px; margin: auto" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="skill_modal_label">Desired skills</h5>
+						<h5 class="modal-title" id="Recommendations_modal_label">Recommended Class Graph</h5>
+                      
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-					<div class="modal-body row w-100" style="margin: auto; padding: 0">
-						<div class="col-md-5" style="padding: 0">
-							<img src="wsgi/skillGraph?ID={{ Auth::guard('user')->user()->id }}" alt="Graph showing recommended classes to learn the skills required by the selected company."/>
-						</div>
-						<div class="col-md-7" style="padding: 0">
-							<img src="wsgi/classGraph?ID={{ Auth::guard('user')->user()->id }}" alt="Graph showing basic CS class progression." style="margin-top: 22px; margin-left: -60px; width: 110%"/>
-						</div>
+					<div class="modal-body row w-100 text-center" style="margin: auto; padding: 0">
+                        <img src="{{ asset('images/recommendationsgraph.png') }}" alt="recommendations graph" class="modal-image img-fluid mx-auto d-block"  style="margin: 0 auto">
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -822,14 +811,17 @@
 			</div>
 		</div>
         <!-- end modal -->
-        <!-- end schedule section -->
-        
+
         <!--divider -->
         <div class="divider" style="background-color: grey; width: none !important; padding:0px !important">
             <div class='row' style="padding:0px !important" >
                 <br>
             </div>
         </div>
+        <!-- end divider -->
+        @endif
+
+
         <!-- Javascript files-->
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.bundle.min.js"></script>
@@ -852,6 +844,23 @@
                         // Handle the response from the Laravel route
                         console.log(response);
                         $('div.career_graph').html('<p>Click the graph to open it in a larger window.</p><button type="button" class="btn btn-secondary w-50" data-toggle="modal" data-target="#career_modal"><img src="{{ asset('images/careergraph.png') }}" alt="career graph"></button>');
+                    },
+                    error: function(error) {
+                        console.log(error);
+                        // Handle any error that may occur during the AJAX request
+                    }
+                });
+			});
+
+            $('button.recommendations_graph').click(function () {
+                // make an AJAX request to the laravel route
+                $.ajax({
+                    url: "{{ route('print.recommendations') }}", // Replace with your Laravel route URL
+                    type: "GET", 
+                    success: function(response) {
+                        // Handle the response from the Laravel route
+                        console.log(response);
+                        $('div.recommendations_graph').html('<p>Click the graph to open it in a larger window.</p><button type="button" class="btn btn-secondary w-50" data-toggle="modal" data-target="#recommendations_modal"><img src="{{ asset('images/recommendationsgraph.png') }}" alt="recommendations graph"></button>');
                     },
                     error: function(error) {
                         console.log(error);
