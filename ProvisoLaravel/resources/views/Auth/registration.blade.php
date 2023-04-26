@@ -56,7 +56,7 @@
 								@if ($errors->has('ID'))
 									<span class="text-danger">{{ $errors->first('ID') }}</span>
 								@endif
-								<input type="text" class="login-input form-control enter" name="email" placeholder="Email" required />
+								<input type="email" class="login-input form-control enter" id="email" name="email" placeholder="Email" required />
 								<br/>
 								@if ($errors->has('email'))
 									<span class="text-danger">{{ $errors->first('email') }}</span>
