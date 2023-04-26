@@ -57,26 +57,32 @@
 									<span class="text-danger">{{ $errors->first('ID') }}</span>
 								@endif
 								<input type="text" class="login-input form-control enter" name="email" placeholder="Email" required />
+								<br/>
 								@if ($errors->has('email'))
 									<span class="text-danger">{{ $errors->first('email') }}</span>
 								@endif
 								<input type="password" class="login-input form-control enter" name="Password" placeholder="Password" required />
+								<br/>
 								@if ($errors->has('Password'))
 									<span class="text-danger">{{ $errors->first('Password') }}</span>
 								@endif
 								<input type="text" class="login-input form-control enter" name="First" placeholder="First" required />
+								<br/>
 								@if ($errors->has('First'))
 									<span class="text-danger">{{ $errors->first('First') }}</span>
 								@endif
 								<input type="text" class="login-input form-control enter" name="Last" placeholder="Last" required />
+								<br/>
 								@if ($errors->has('Last'))
 									<span class="text-danger">{{ $errors->first('Last') }}</span>
 								@endif
 								<input type="text" class="login-input form-control enter" name="Major" placeholder="Major"required />
+								<br/>
 								@if ($errors->has('Major'))
 									<span class="text-danger">{{ $errors->first('Major') }}</span>
 								@endif
 								<input type="text" class="login-input form-control enter" name="Year" placeholder="Year" required />
+								<br/>
 								@if ($errors->has('Year'))
 									<span class="text-danger">{{ $errors->first('Year') }}</span>
 								@endif
