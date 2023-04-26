@@ -31,11 +31,6 @@ use Hash;
 use Graphp\Graph\Graph;
 use Graphp\GraphViz\GraphViz;
 
-//require_once __DIR__ . '\..\..\..\bootstrap\app.php';
-
-//require_once '/Applications/XAMPP/htdocs/CS360/ProViso/ProViso2023/ProvisoLaravel/bootstrap/app.php'; // bootstrap info
-
-
 /**
  * Controller to manage all blade views and allow pages to interface with the database.
  */
@@ -43,40 +38,6 @@ class GraphController extends BaseController {
 
     public function index() {
         return view('index');
-    }
-
-    public function dbconnector() {
-        /*$host = "127.0.0.1";
-        $username = "root";
-        $password = "";
-        $database = "provisoadvising";
-
-        // Create a new MySQLi object and establish a connection
-        $con = new mysqli($host, $username, $password, $database);
-
-        // Check if the connection was successful
-        if ($con->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }*/
-
-        // Access Laravel configuration
-        $dbConnection = config('database.default'); // 'mysql'
-        $dbHost = config('database.connections.' . $dbConnection . '.host');
-        $dbPort = config('database.connections.' . $dbConnection . '.port');
-        $dbDatabase = config('database.connections.' . $dbConnection . '.database');
-        $dbUsername = config('database.connections.' . $dbConnection . '.username');
-        $dbPassword = config('database.connections.' . $dbConnection . '.password');
-
-        // Establish database connection
-        $conn = new mysqli($dbHost, $dbUsername, $dbPassword, $dbDatabase, $dbPort);
-        // Check for connection errors
-        if ($conn->connect_errno) {
-            die("Failed to connect to MySQL: " . $mysqli->connect_error);
-        }
-
-        // Return the database connection or any other desired output
-        return $conn;
-
     }
 
     public function basic_graph()
@@ -107,41 +68,7 @@ class GraphController extends BaseController {
         $dotContent = $graphviz->createScript($graph);
     }
 
-    public function get_taken($year){
-
-    }
-
-    public function get_skills(){
-
-    }
-
-    public function print_classes(){
-        $graph = new Graph();
-        $graphviz = new GraphViz();
-        $graphviz->setFormat('png');
-
-        $graph->setAttribute('graphviz.graph.bgcolor', 'transparent');
-        $graph->setAttribute('graphviz.graph.rankdir', 'LR');
-        $graph->setAttribute('graphviz.graph.pad', '1');
-        $graph->setAttribute('graphviz.graph.compound', 'true');
-        $graph->setAttribute('graphviz.graph.forcelabels', 'true');
-        $graph->setAttribute('graphviz.node.shape', 'square');
-        $graph->setAttribute('graphviz.node.style', 'rounded,filled');
-        $graph->setAttribute('graphviz.node.width', '2');
-        $graph->setAttribute('graphviz.node.fixedsize', 'shape');
-        $graph->setAttribute('graphviz.edge.minlen', '2');
-
-        $vertex1 = $graph->createVertex(array('name' => 'A'));
-        $vertex2 = $graph->createVertex(array('name' => 'B'));
-        $vertex3 = $graph->createVertex(array('name' => 'C'));
-
-        // create some edges
-        $graph->createEdgeDirected($vertex1, $vertex2);
-        $graph->createEdgeDirected($vertex2, $vertex3);
-        $graph->createEdgeDirected($vertex3, $vertex1);
-
-    }
-
+    // recommendations 
     public function print_recommendations(){
 
         
@@ -716,17 +643,6 @@ class GraphController extends BaseController {
     return response()->json(['imagePath' => 'images/recommendationsgraph.png']);
     }
     
-   
-
-
-    public function print_skills(){
-
-    }
-    
-    public function print_all_skills(){
-
-    }
-    
     // career graph 
     public function print_classes_and_skills(){
         $graph = new Graph();
@@ -744,7 +660,8 @@ class GraphController extends BaseController {
         $graph->setAttribute('graphviz.node.width', '2');
         $graph->setAttribute('graphviz.node.fixedsize', 'shape');
         $graph->setAttribute('graphviz.edge.minlen', '2');
-        $graph->setAttribute('graphviz.graph.fontname', 'Comic Sans MS');
+        $graph->setAttribute('graphviz.node.fontname', 'Times-Roman');
+        $graph->setAttribute('graphviz.graph.splines', 'ortho');
 
         // retrieve the careerID for the career selected
         $careerselected = CareerSelected::select('CareerID')->where('ID', Auth::guard('user')->user()->id)->first();
@@ -758,22 +675,52 @@ class GraphController extends BaseController {
         // join career and company name
         $careerName = $careerName[0]['Title'];
         $companyName = $companyName[0]['Name'];
-        $rootName = $companyName . " " . $careerName;
+        $rootName = $companyName . "\n" . $careerName;
+
+        // check if the rootname is longer than the node widht; if it is, break it into two lines
+        $maxNodeWidth = floatval($graph->getAttribute('graphviz.node.width'));
+        $rootNameWidth = strlen($rootName) * 0.1; // Assumes 10 characters per inch
+        $rootNameLength = strlen($rootName);
+
+        $maxLineLength = 20;
+
+        // Wrap the string into multiple lines
+        if ($rootNameLength > $maxLineLength)
+        {
+            $wrappedString = wordwrap($rootName, $maxLineLength, "\n");
+            $rootName = $wrappedString;
+        }
 
         // create root node (career)
         $careerNode = $graph->createVertex();
-        $careerNode->setAttribute('id', $rootName);
+        $careerNode->setAttribute('graphviz.id', $rootName);
+        $careerNode->setAttribute('graphviz.label', $rootName);
+        $careerNode->setAttribute('graphviz.labeljust', 'c');
         $careerNode->setAttribute('graphviz.color', '#FFCC66');
+
 
         // create skills nodes and edges from skills nodes to career node
         foreach($skillsrequired as $skill)
         {
             // retrieve skill name using skillID
             $skillName = Skill::select('Name')->where('ID', $skill->SkillID)->first();
+            $skillNodeID = $skillName->Name;
+
+            // check if the skill name is too long
+            $skillNameWidth = strlen($skillName) * 0.1; 
+            $skillNameLength = strlen($skillName);
+    
+            // wrap the string into multiple lines
+            if ($skillNameLength > $maxLineLength)
+            {
+                $wrappedString = wordwrap($skillNodeID, $maxLineLength, "\n");
+                $skillNodeID = $wrappedString;
+            }
             
             // make skill node
             $skillNode = $graph->createVertex();
-            $skillNode->setAttribute('id', $skillName->Name);
+            //$skillNode->setAttribute('id', $skillName->Name);
+            $skillNode->setAttribute('id', $skillNodeID);
             $skillNode->setAttribute('graphviz.color', '#FFFF99');
 
             // make direted edge from skill node to career node
@@ -786,8 +733,21 @@ class GraphController extends BaseController {
             foreach($classesperskill as $class)
             {
                 $className = Classes::select('Title')->where('Class', $class->Class)->first();
+                $classNodeID = $class->Class . "\n" . $className->Title;
+
+                // check if the class name is too long
+                $classNameWidth = strlen($className) * 0.1; 
+                $classNameLength = strlen($className);
+        
+                // wrap the string into multiple lines
+                if ($classNameLength > $maxLineLength)
+                {
+                    $wrappedString = wordwrap($classNodeID, $maxLineLength, "\n");
+                    $classNodeID = $wrappedString;
+                }
+
                 $classNode = $graph->createVertex();
-                $classNodeID = $class->Class . " " . $className->Title;
+                //$classNodeID = $class->Class . " " . $className->Title;
                 $classNode->setAttribute('id', $classNodeID);
                 $classNode->setAttribute('graphviz.color', '#FFFFCC');
             
@@ -807,6 +767,8 @@ class GraphController extends BaseController {
 
         return response()->json(['imagePath' => 'images/careergraph.png']);
     }
+
+    // minor rec
     public function print_minor_recommendations(){
 
         //set graph node style
@@ -1055,29 +1017,6 @@ class GraphController extends BaseController {
 
 
     }
-    public function print_classes_and_skills_legend(){
-
-    }
-
-    public function create_class_graph($user){
-
-    }
-
-    public function create_skill_graph($user){
-
-    }
-
-    public function update_student($user){
-
-    }
-
-   
-
-    // initialize ID and student
-    /*id = '2';
-    con.execute(q.get_student_query(id));
-    studen = con.fetchall()[0];*/
-
 
 }
 

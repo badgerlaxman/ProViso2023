@@ -28,15 +28,26 @@
 
         <style>
             .modal-image {
-                transition: transform 0.3s ease-in-out;
                 display: block;
-                margin-left: auto;
-                margin-right: auto;
-                
+                height: 100%;
+                scroll-snap-align: start;
+                width: auto;
+                margin: 0 auto;
             }
 
             .modal-image:hover {
-                transform: scale(2.2); /* Adjust the scaling factor as needed */
+                transform: scale(1.5); 
+            } 
+
+            .modal-image-container {
+                height: 100%;
+                overflow-x: scroll;
+                overflow-y: scroll;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                scroll-snap-type: x mandatory;
+                scroll-behavior: smooth;
             }
         </style>
 
@@ -493,7 +504,7 @@
                     <div class="col-md-12">
                         <div class="titlepage">
                             <h2>Career Graph</h2>
-                            <span>You have chosen a career and company, so you can create a career graph. A career graph will show you the required skills needed for a career at a certain company. The graph will also show you classes offered at your institution that teach that skill. Click the button below to generate your career graph for your desired company!</span>
+                            <span>You have chosen a career and company, so you can create a career graph. A career graph will show you the required skills needed for a career at a certain company. The graph will also show you classes offered at your institution that teach that skill. You can use the class recommendations from the career graph to choose your technical electives. Click the button below to generate your career graph for your desired company!</span>
                             <br/>
                             <button type="button" class="btn btn-secondary career_graph" id="careergraphbutton">Generate Career Graph</button>
                             <!-- Career Graph -->
@@ -524,8 +535,10 @@
 						</button>
 					</div>
 					<div class="modal-body row w-100 text-center" style="margin: auto; padding: 0">
-                        <img src="{{ asset('images/careergraph.png') }}" alt="career graph" class="modal-image img-fluid mx-auto d-block"  style="margin: 0 auto">
-					</div>
+                        <div class="modal-image-container">
+                            <img id="career-graph-img" src="{{ asset('images/careergraph.png') }}" alt="career graph" class="modal-image img-fluid mx-auto d-block"  style="margin: 0 auto">
+                        </div>
+                    </div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 					</div>
@@ -840,10 +853,12 @@
                 $.ajax({
                     url: "{{ route('print.classes.and.skills') }}", // Replace with your Laravel route URL
                     type: "GET", 
+                    cache: false, // Disable caching
                     success: function(response) {
                         // Handle the response from the Laravel route
                         console.log(response);
-                        $('div.career_graph').html('<p>Click the graph to open it in a larger window.</p><button type="button" class="btn btn-secondary w-50" data-toggle="modal" data-target="#career_modal"><img src="{{ asset('images/careergraph.png') }}" alt="career graph"></button>');
+                        $('div.career_graph').html('<p>Click the graph to open it in a larger window.</p><button type="button" class="btn btn-secondary w-50" data-toggle="modal" data-target="#career_modal"><img src="'+response.imagePath+'?'+Date.now()+'" alt="career graph"></button>');
+                        $('#career-graph-img').attr('src', response.imagePath + '?' + Date.now());
                     },
                     error: function(error) {
                         console.log(error);
