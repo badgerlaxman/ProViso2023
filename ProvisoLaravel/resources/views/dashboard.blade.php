@@ -127,7 +127,7 @@
                                                         <a class="nav-link" href="#addClass">Add Classes</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a class="nav-link" href="#schedule">Schedule</a>
+                                                        <a class="nav-link" href="#recommendationsgraph">Schedule</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -829,10 +829,39 @@
         <!-- end modal -->
         @endif
 
+        <!-- recommendations without company/career/minor selected -->        
+        @if(is_null($comp) || is_null($car) || is_null($min))
+        <div class="clients" style="background-color: goldenrod; width: none !important" id="recommendationsgraph">
+            <div class="container">
+                <div class='row' style="width:100%; padding:0px !important" >
+                    <div class="col-md-12">
+                        <div class="titlepage">
+                            <h2>Please complete your profile to generate your recommended major Graph</h2>
+                                <div class="container w-100 recommendations">
+        
+                            @if(is_null($car))
+                                <a href="#addCareer">Add Career</a>
+                            @endif
+                            <br/>
+                            @if(is_null($comp))
+                                <a href="#company">Select Company</a>
+                            @endif
+                            <br/>
+                            @if(is_null($min))
+                                <a href="#addMinor">Select Minor</a>
+                            @endif
 
-        <!-- recommended classes graph -->
-        <!-- if company and career are chosen, display the career graph -->
-        @if(!is_null($comp) && !is_null($car))
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+        <!-- recommendations graph -->
+        <!-- if company, career and minor are chosen, display the  graph -->
+
+        @if(!is_null($comp) && !is_null($car) && !is_null($min))
         <div class="clients" style="background-color: goldenrod; width: none !important" id="recommendationsgraph">
             <div class="container">
                 <div class='row' style="width:100%; padding:0px !important" >

@@ -10,8 +10,8 @@ digraph {
   3 -> "Spring-3"
   4 -> "Fall-4"
   4 -> "Spring-4"
-  "Fall-2" -> "MATH275"
+  "Fall-1" -> "MATH385"
+  "Spring-1" -> "MATH390"
+  "Fall-2" -> "MATH388"
   "Spring-3" -> "MATH310"
-  "Fall-3" -> "MATH388"
-  "Spring-3" -> "MATH390"
 }
