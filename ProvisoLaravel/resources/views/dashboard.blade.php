@@ -815,8 +815,11 @@
 						</button>
 					</div>
 					<div class="modal-body row w-100 text-center" style="margin: auto; padding: 0">
-                        <img src="{{ asset('images/recommendationsgraph.png') }}" alt="recommendations graph" class="modal-image img-fluid mx-auto d-block"  style="margin: 0 auto">
-					</div>
+                        <div class="modal-image-container">
+                           <img id="recommendations-graph-img" src="{{ asset('images/recommendationsgraph.png') }}" alt="recommendations graph" class="modal-image img-fluid mx-auto d-block"  style="margin: 0 auto">
+					
+                           </div>
+                        </div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 					</div>
@@ -824,7 +827,8 @@
 			</div>
 		</div>
         <!-- end modal -->
-
+      
+				
         <!--divider -->
         <div class="divider" style="background-color: grey; width: none !important; padding:0px !important">
             <div class='row' style="padding:0px !important" >
@@ -868,14 +872,16 @@
 			});
 
             $('button.recommendations_graph').click(function () {
-                // make an AJAX request to the laravel route
+       // make an AJAX request to the laravel route
                 $.ajax({
                     url: "{{ route('print.recommendations') }}", // Replace with your Laravel route URL
                     type: "GET", 
+                    cache: false, // Disable caching
                     success: function(response) {
                         // Handle the response from the Laravel route
                         console.log(response);
-                        $('div.recommendations_graph').html('<p>Click the graph to open it in a larger window.</p><button type="button" class="btn btn-secondary w-50" data-toggle="modal" data-target="#recommendations_modal"><img src="{{ asset('images/recommendationsgraph.png') }}" alt="recommendations graph"></button>');
+                        $('div.recommendations_graph').html('<p>Click the graph to open it in a larger window.</p><button type="button" class="btn btn-secondary w-50" data-toggle="modal" data-target="#recommendations_modal"><img src="'+response.imagePath+'?'+Date.now()+'" alt="recommendations graph"></button>');
+                        $('#recommendations-graph-img').attr('src', response.imagePath + '?' + Date.now());
                     },
                     error: function(error) {
                         console.log(error);
