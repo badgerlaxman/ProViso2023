@@ -1012,8 +1012,19 @@ class GraphController extends BaseController {
         }
 
 
-    echo $graphviz->createScript($graph);
-    $graphviz->display($graph);
+    //echo $graphviz->createScript($graph);
+   // $graphviz->display($graph);
+
+    $dotContent = $graphviz->createScript($graph);
+
+    // Save DOT file to a local file
+    $dotFile = 'dotfiles/minorgraph.dot';
+    file_put_contents($dotFile, $dotContent);
+
+    $imageFile = 'images/minorgraph.png'; // specify the file path for the image file
+    exec("dot -Tpng {$dotFile} -o {$imageFile}");
+
+    return response()->json(['imagePath' => 'images/minorgraph.png']);
 
 
     }

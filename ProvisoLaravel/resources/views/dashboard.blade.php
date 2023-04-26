@@ -782,6 +782,54 @@
         </div>
         <!-- end classes -->
 
+                <!-- recommended minor graph -->
+        <!-- if a minor is chosen, display the minor graph -->
+        @if(!is_null($min))
+        <div class="clients" style="background-color: goldenrod; width: none !important" id="minorgraph">
+            <div class="container">
+                <div class='row' style="width:100%; padding:0px !important" >
+                    <div class="col-md-12">
+                        <div class="titlepage">
+                            <h2>Recommended Class Graph for Selected Minor</h2>
+                            <span>You have selected a minor! Click the button below to generate your recommended minor class graph!</span>
+                            <br/>
+                            <button type="button" class="btn btn-secondary minor_graph" id="minorgraphbutton">Generate Minors Graph</button>
+                            <!-- Minor Graph -->
+                            <div class="container w-100 minor_graph">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Graph Modal-->
+		<div class="modal fade" id="minor_modal" tabindex="-1" role="dialog" aria-labelledby="minor_modal_label" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" style="max-width: 1300px; margin: auto" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="Minor_modal_label">Recommended Minors Graph</h5>
+                      
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body row w-100 text-center" style="margin: auto; padding: 0">
+                        <div class="modal-image-container">
+                           <img id="minor-graph-img" src="{{ asset('images/minorgraph.png') }}" alt="minor graph" class="modal-image img-fluid mx-auto d-block"  style="margin: 0 auto">
+					
+                           </div>
+                        </div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+        <!-- end modal -->
+        @endif
+
+
         <!-- recommended classes graph -->
         <!-- if company and career are chosen, display the career graph -->
         @if(!is_null($comp) && !is_null($car))
@@ -850,6 +898,7 @@
         <script type='text/javascript'>
 			$('button.class_graph').click(function () {
 				$('div.class_graph').html('<p>Click the graph to open it in a larger window.</p><button type="button" class="btn btn-secondary w-50" data-toggle="modal" data-target="#skill_modal"><img src="wsgi/classGraph?ID={{ Auth::guard('user')->user()->id }}" alt="Graph showing basic CS class progression."/></button>');
+                $('div.minorclass_graph').html('<p>Click the graph to open it in a larger window.</p><button type="button" class="btn btn-secondary w-50" data-toggle="modal" data-target="#skill_modal"><img src="wsgi/minorGraph?ID={{ Auth::guard('user')->user()->id }}" alt="Graph showing selected minor class progression."/></button>');
 				$('div.skill_graph').html('<p>Click the graph to open it in a larger window.</p><button type="button" class="btn btn-secondary w-50" data-toggle="modal" data-target="#skill_modal"><img src="wsgi/skillGraph?ID={{ Auth::guard('user')->user()->id }}" alt="Graph showing recommended classes to learn the skills required by the selected company."/></button>');
 			});
             $('button.career_graph').click(function () {
@@ -882,6 +931,25 @@
                         console.log(response);
                         $('div.recommendations_graph').html('<p>Click the graph to open it in a larger window.</p><button type="button" class="btn btn-secondary w-50" data-toggle="modal" data-target="#recommendations_modal"><img src="'+response.imagePath+'?'+Date.now()+'" alt="recommendations graph"></button>');
                         $('#recommendations-graph-img').attr('src', response.imagePath + '?' + Date.now());
+                    },
+                    error: function(error) {
+                        console.log(error);
+                        // Handle any error that may occur during the AJAX request
+                    }
+                });
+			});
+
+            $('button.minor_graph').click(function () {
+       // make an AJAX request to the laravel route
+                $.ajax({
+                    url: "{{ route('print.minor.recommendations') }}", // Replace with your Laravel route URL
+                    type: "GET", 
+                    cache: false, // Disable caching
+                    success: function(response) {
+                        // Handle the response from the Laravel route
+                        console.log(response);
+                        $('div.minor_graph').html('<p>Click the graph to open it in a larger window.</p><button type="button" class="btn btn-secondary w-50" data-toggle="modal" data-target="#minor_modal"><img src="'+response.imagePath+'?'+Date.now()+'" alt="minor graph"></button>');
+                        $('#minor-graph-img').attr('src', response.imagePath + '?' + Date.now());
                     },
                     error: function(error) {
                         console.log(error);
