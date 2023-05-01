@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2023 at 07:24 PM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 8.1.10
+-- Generation Time: May 01, 2023 at 08:37 AM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `careerrequires` (
   `CareerID` int(11) NOT NULL,
   `SkillID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `careerrequires`
@@ -189,7 +189,7 @@ CREATE TABLE `careers` (
   `Title` varchar(255) NOT NULL,
   `Description` varchar(2048) NOT NULL,
   `MinorIDRecommend` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `careers`
@@ -213,7 +213,7 @@ INSERT INTO `careers` (`ID`, `Title`, `Description`, `MinorIDRecommend`) VALUES
 CREATE TABLE `careersavailable` (
   `CareerID` int(11) NOT NULL,
   `CompanyID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `careersavailable`
@@ -295,14 +295,14 @@ INSERT INTO `careersavailable` (`CareerID`, `CompanyID`) VALUES
 CREATE TABLE `careerselected` (
   `ID` int(11) NOT NULL,
   `CareerID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `careerselected`
 --
 
 INSERT INTO `careerselected` (`ID`, `CareerID`) VALUES
-(1, 3),
+(1, 6),
 (19, 2);
 
 -- --------------------------------------------------------
@@ -320,7 +320,7 @@ CREATE TABLE `classes` (
   `Class` varchar(32) GENERATED ALWAYS AS (concat(`Subject`,`Course#`)) VIRTUAL,
   `Credits` int(11) NOT NULL,
   `Semester` int(8) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `classes`
@@ -379,22 +379,22 @@ INSERT INTO `classes` (`ID`, `Subject`, `Course#`, `Title`, `Year`, `Credits`, `
 (10085, 'GEOG', 100, 'Physical Geography', 0, 4, 4),
 (20001, 'MATH', 275, 'Calculus III', 2, 3, 4),
 (20002, 'MATH', 310, 'Ordinary Differential Equations', 3, 3, 4),
-(20003, 'MATH', 385, 'Theory of Computation', 0, 3, 5),
-(20004, 'MATH', 388, 'History of Mathematics', 2, 3, 1),
-(20005, 'MATH', 390, 'Axiomatic Geometry', 1, 3, 3),
-(30001, 'MUSA', 114, 'Studio Instruction', 1, 1, 3),
-(30002, 'MUSA', 114, 'Studio Instruction', 1, 1, 3),
-(30003, 'MUSA', 114, 'Studio Instruction', 2, 1, 3),
-(30004, 'MUSA', 114, 'Studio Instruction', 2, 1, 3),
-(30005, 'MUSA', 145, 'Piano Class 1', 1, 1, 0),
-(30006, 'MUSA', 146, 'Piano Class 2', 1, 1, 1),
-(30007, 'MUSC', 139, 'Aural Skills 1', 1, 2, 0),
-(30008, 'MUSC', 140, 'Aural Skills 2', 1, 2, 1),
-(30009, 'MUSC', 141, 'Theory of Music 1', 1, 2, 0),
-(30010, 'MUSC', 142, 'Theory of Music 2', 1, 2, 1),
-(30011, 'MUSX', 140, 'Convocation (Recital Attendance)', 0, 0, 3),
-(30012, 'MUSX', 140, 'Convocation (Recital Attendance)', 0, 0, 3),
-(30013, 'MUSH', 111, 'Introduction to Music', 1, 3, 1);
+(20003, 'MATH', 385, 'Theory of Computation', 1, 3, 5),
+(20004, 'MATH', 388, 'History of Mathematics', 3, 3, 1),
+(20005, 'MATH', 390, 'Axiomatic Geometry', 3, 3, 3),
+(30001, 'MUS', 114, 'Studio Instruction', 1, 1, 3),
+(30002, 'MUS', 114, 'Studio Instruction', 1, 1, 3),
+(30003, 'MUS', 114, 'Studio Instruction', 2, 1, 3),
+(30004, 'MUS', 114, 'Studio Instruction', 2, 1, 3),
+(30005, 'MUS', 145, 'Piano Class 1', 1, 1, 0),
+(30006, 'MUS', 146, 'Piano Class 2', 1, 1, 1),
+(30007, 'MUS', 139, 'Aural Skills 1', 1, 2, 0),
+(30008, 'MUS', 140, 'Aural Skills 2', 1, 2, 1),
+(30009, 'MUS', 141, 'Theory of Music 1', 1, 2, 0),
+(30010, 'MUS', 142, 'Theory of Music 2', 1, 2, 1),
+(30011, 'MUS', 140, 'Convocation (Recital Attendance)', 0, 0, 3),
+(30012, 'MUS', 140, 'Convocation (Recital Attendance)', 0, 0, 3),
+(30013, 'MUS', 111, 'Introduction to Music', 1, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -406,7 +406,7 @@ CREATE TABLE `companies` (
   `ID` int(11) NOT NULL,
   `Name` varchar(32) NOT NULL,
   `Responsibilities` varchar(2048) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `companies`
@@ -443,7 +443,7 @@ CREATE TABLE `minors` (
   `Minor` varchar(255) NOT NULL,
   `Description` varchar(2048) DEFAULT NULL,
   `Subject` varchar(16) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `minors`
@@ -451,7 +451,7 @@ CREATE TABLE `minors` (
 
 INSERT INTO `minors` (`ID`, `Minor`, `Description`, `Subject`) VALUES
 (0, 'Mathematics', 'A minor in mathematics can help build stronger credentials for employment and improve your opportunities to attend graduate school. A mathematics minor can be added to any degree program and requires just eight courses (26 credits) to complete. Computer Science, Physics, and most Engineering majors can qualify for this minor by taking one to three extra courses.', 'MATH'),
-(1, 'Music', 'No audition is required to become a music minor. This is a great way for students to continue exploring music at the University of Idaho while pursuing another degree. Eleven courses (21 credits) are required for a music minor. ', 'MUSC');
+(1, 'Music', 'No audition is required to become a music minor. This is a great way for students to continue exploring music at the University of Idaho while pursuing another degree. Eleven courses (21 credits) are required for a music minor. ', 'MUS');
 
 -- --------------------------------------------------------
 
@@ -462,7 +462,7 @@ INSERT INTO `minors` (`ID`, `Minor`, `Description`, `Subject`) VALUES
 CREATE TABLE `minorselected` (
   `ID` int(11) NOT NULL,
   `MinorID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `minorselected`
@@ -481,7 +481,7 @@ CREATE TABLE `prerequisites` (
   `Class` varchar(32) NOT NULL,
   `Prereq` varchar(32) NOT NULL,
   `Requirement` varchar(32) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `prerequisites`
@@ -530,7 +530,7 @@ CREATE TABLE `requires` (
   `CompanyID` int(11) NOT NULL,
   `SkillID` int(11) NOT NULL,
   `Priority` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `requires`
@@ -761,7 +761,9 @@ INSERT INTO `requires` (`CompanyID`, `SkillID`, `Priority`) VALUES
 (20, 50, 1),
 (15, 4, 0),
 (15, 16, 0),
-(15, 2, 0);
+(15, 2, 0),
+(21, 1, 0),
+(21, 5, 0);
 
 -- --------------------------------------------------------
 
@@ -772,14 +774,14 @@ INSERT INTO `requires` (`CompanyID`, `SkillID`, `Priority`) VALUES
 CREATE TABLE `selections` (
   `ID` int(11) NOT NULL,
   `CompanyID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `selections`
 --
 
 INSERT INTO `selections` (`ID`, `CompanyID`) VALUES
-(1, 4);
+(1, 21);
 
 -- --------------------------------------------------------
 
@@ -791,7 +793,7 @@ CREATE TABLE `skills` (
   `ID` int(11) NOT NULL,
   `Name` varchar(32) NOT NULL,
   `Description` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `skills`
@@ -925,13 +927,14 @@ CREATE TABLE `students` (
   `Last` varchar(32) NOT NULL,
   `Major` varchar(32) NOT NULL,
   `Year` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `students`
 --
 
 INSERT INTO `students` (`ID`, `Password`, `First`, `Last`, `Major`, `Year`) VALUES
+(0, '$2y$10$ZK6Kw.rMh3NYahjm5lzDf.MdrHuPz7ah9k.gYtGoMMId34DsnyGjy', 'youre', 'mom', 'CS', 2023),
 (1, 'c4ca4238a0b923820dcc509a6f75849b', 'Jane', 'Doe', 'Computer Science', 1),
 (2, 'daeccf0ad3c1fc8c8015205c332f5b42', 'Molly', 'Meadows', 'Computer Science', 3),
 (3, 'eccbc87e4b5ce2fe28308fd9f2a7baf3', 'Carson', 'Sus', 'CS', 1),
@@ -951,7 +954,8 @@ INSERT INTO `students` (`ID`, `Password`, `First`, `Last`, `Major`, `Year`) VALU
 (18, '$2y$10$AvE9J6/6pfvMX3ME8ratKeuorzUKjfNX77sgympXffzSc1f0Ivg.i', '18', '18', '18', 18),
 (19, '$2y$10$SXR.CIiMvJ9UgKKKeUpfMOMEamihXtS80mUIPamfRrMoH7acAXpLa', '19', '19', '19', 19),
 (100, '$2y$10$G9fYlPktsuUiyCQeJvyuyuQPrul2DdNfdmIMnhWfedAQs.H.Un6Hu', 'Janet', 'Doe', 'CS', 1),
-(1234, 'd41d8cd98f00b204e9800998ecf8427e', 'John', 'Doe', 'Computer Science', 1);
+(1234, 'd41d8cd98f00b204e9800998ecf8427e', 'John', 'Doe', 'Computer Science', 1),
+(1300, '$2y$10$BBVWZsYGgFr.qbWZB.0Xguk9Islb8AFvA4EEnngPMPDEaA5OhnDPm', 'Jackson', 'Baldwin', 'CS', 2023);
 
 -- --------------------------------------------------------
 
@@ -965,7 +969,7 @@ CREATE TABLE `suggestions` (
   `Responsibilities` varchar(2048) NOT NULL,
   `SkillIDs` varchar(2048) NOT NULL,
   `User` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -978,7 +982,7 @@ CREATE TABLE `taken` (
   `Class` varchar(8) NOT NULL,
   `Grade` varchar(1) NOT NULL,
   `Year` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `taken`
@@ -1002,7 +1006,9 @@ INSERT INTO `taken` (`ID`, `Class`, `Grade`, `Year`) VALUES
 (19, 'CS150', 'A', 1),
 (19, 'MATH176', 'A', 1),
 (19, 'MATH175', 'A', 1),
-(19, 'MATH170', 'A', 1);
+(19, 'MATH170', 'A', 1),
+(1, 'CS120', 'A', 1),
+(1, 'CS121', 'C', 1);
 
 -- --------------------------------------------------------
 
@@ -1013,7 +1019,7 @@ INSERT INTO `taken` (`ID`, `Class`, `Grade`, `Year`) VALUES
 CREATE TABLE `teaches` (
   `Class` varchar(32) NOT NULL,
   `SkillID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `teaches`
@@ -1182,17 +1188,19 @@ CREATE TABLE `users` (
   `password` varchar(64) NOT NULL,
   `remember_token` varchar(64) DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`created_at`, `email`, `email_verified_at`, `id`, `name`, `password`, `remember_token`, `updated_at`) VALUES
+('2023-04-27 00:08:45', 'fake@gmail.com', NULL, 0, 'youre mom', '$2y$10$sEMPdVQjUDNtfc6OyLRYyu2w6z57SUvA41usQxdz4j9lIDGN5tuyK', NULL, '2023-04-27 00:08:45'),
 ('2022-11-24 08:27:52', '13', NULL, 1, '13 13', '$2y$10$HAlv.ZdzTbtVfPU.SqQLO.F3HhwfWA27UcAnHsCi68bR5vSPmtmL6', NULL, '2022-11-24 08:27:52'),
 ('2022-11-30 10:32:21', '15', NULL, 2, '15 15', '$2y$10$wI0hlidYQtoii1bkxDUdp.JCYI2Vp67qSJqPxpiBHSFVy9YJ.SON.', NULL, '2022-11-30 10:32:21'),
 ('2022-12-01 02:50:42', '19', NULL, 19, '19 19', '$2y$10$8RVX7VBMzTj9jKk.dS49jexp4R6MvoOaLy4OxCU6lq5.AX/05sHoa', NULL, '2022-12-01 02:50:42'),
-('2022-12-18 01:23:39', 'temp@gmail', NULL, 100, 'Janet Doe', '$2y$10$BjYFlwkmmcS7IygMGd0BkuNVuwjVLf2zgsrIU9QPb9Tq0ThaPcyKG', NULL, '2022-12-18 01:23:39');
+('2022-12-18 01:23:39', 'temp@gmail', NULL, 100, 'Janet Doe', '$2y$10$BjYFlwkmmcS7IygMGd0BkuNVuwjVLf2zgsrIU9QPb9Tq0ThaPcyKG', NULL, '2022-12-18 01:23:39'),
+('2023-04-27 00:40:10', '1200', NULL, 1300, 'Jackson Baldwin', '$2y$10$MSobVRDfk3J.1qZvVlaOjujDHW7IUqgteBD6SwQoFBRCoP1ewKURa', NULL, '2023-04-27 00:40:10');
 
 --
 -- Indexes for dumped tables

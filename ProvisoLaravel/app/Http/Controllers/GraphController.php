@@ -819,7 +819,11 @@ class GraphController extends BaseController {
         //may make it ask before generating
         $classLimit = 2; // Max of 5 classes allowed per semester as of now
         $class_count_iter = 0; // Var to track classes added to semester
-        $currYear = 1;
+        //flags for various years to ensure the graph does not add past the set limit
+        $Year1Full = 0;
+        $Year2Full = 0;
+        $Year3Full = 0;
+        $Year4Full = 0;
         $graph->setAttribute('graphviz.graph.rankdir', 'TB'); // TB - top down; LR - left right          
         $classTempReq = NULL;
         //iterate through all years and set year/semester nodes
@@ -830,10 +834,13 @@ class GraphController extends BaseController {
                 case('1'):
                     $vertexHead = $graph->createVertex();
                     $vertexHead->setAttribute('label', 'Year 1');
+                    $vertexHead->setAttribute('graphviz.color', 'orange');
                     $vertexFall1 = $graph->createVertex();
                     $vertexFall1->setAttribute('id', 'Fall-1');
+                    $vertexFall1->setAttribute('graphviz.color', '#FFCC66');
                     $vertexSpring1 = $graph->createVertex();
-                    $vertexSpring1->setAttribute('id', 'Spring-1'); 
+                    $vertexSpring1->setAttribute('id', 'Spring-1');
+                    $vertexSpring1->setAttribute('graphviz.color', '#FFCC66'); 
                     $graph->createEdgeDirected($vertexHead, $vertexFall1);
                     $graph->createEdgeDirected($vertexHead, $vertexSpring1);
 
@@ -842,10 +849,13 @@ class GraphController extends BaseController {
                 case('2'):
                     $vertexHead = $graph->createVertex();
                     $vertexHead->setAttribute('label', 'Year 2');
+                    $vertexHead->setAttribute('graphviz.color', 'orange');
                     $vertexFall2 = $graph->createVertex();
                     $vertexFall2->setAttribute('id', 'Fall-2');
+                    $vertexFall2->setAttribute('graphviz.color', '#FFCC66');
                     $vertexSpring2 = $graph->createVertex();
                     $vertexSpring2->setAttribute('id', 'Spring-2');
+                    $vertexSpring2->setAttribute('graphviz.color', '#FFCC66');
                     $graph->createEdgeDirected($vertexHead, $vertexFall2);
                     $graph->createEdgeDirected($vertexHead, $vertexSpring2);
 
@@ -854,10 +864,13 @@ class GraphController extends BaseController {
                 case('3'):
                     $vertexHead = $graph->createVertex();
                     $vertexHead->setAttribute('label', 'Year 3');
+                    $vertexHead->setAttribute('graphviz.color', 'orange');
                     $vertexFall3 = $graph->createVertex();
                     $vertexFall3->setAttribute('id', 'Fall-3');
+                    $vertexFall3->setAttribute('graphviz.color', '#FFCC66');
                     $vertexSpring3 = $graph->createVertex();
                     $vertexSpring3->setAttribute('id', 'Spring-3');
+                    $vertexSpring3->setAttribute('graphviz.color', '#FFCC66');
                     $graph->createEdgeDirected($vertexHead, $vertexFall3);
                     $graph->createEdgeDirected($vertexHead, $vertexSpring3);
 
@@ -866,10 +879,13 @@ class GraphController extends BaseController {
                 case('4'):
                     $vertexHead = $graph->createVertex();
                     $vertexHead->setAttribute('label', 'Year 4');
+                    $vertexHead->setAttribute('graphviz.color', 'orange');
                     $vertexFall4 = $graph->createVertex();
                     $vertexFall4->setAttribute('id', 'Fall-4');
+                    $vertexFall4->setAttribute('graphviz.color', '#FFCC66');
                     $vertexSpring4 = $graph->createVertex();
                     $vertexSpring4->setAttribute('id', 'Spring-4');
+                    $vertexSpring4->setAttribute('graphviz.color', '#FFCC66');
                     $graph->createEdgeDirected($vertexHead, $vertexFall4);
                     $graph->createEdgeDirected($vertexHead, $vertexSpring4);
 
@@ -889,44 +905,47 @@ class GraphController extends BaseController {
              //       $lastVertex = $vertex1;
 
                 //Year 1  
-                if($recommended->Year < 2){
-
-                   if($class_count_iter == 0 && $currYear != 2){
+                if( $recommended->Year < 2 && $Year1Full == 0){
+                    //if we havent hit class limit and class can be taken in the fall
+                   if($class_count_iter < $classLimit  && ($recommended->Semester == 0 || $recommended->Semester ==3 || $recommended->Semester ==4 || $recommended->Semester ==5)){
                         $vertex1 = $graph->createVertex();
                         $vertex1->setAttribute('id', $recommended->Class);
                         $graph->createEdgeDirected($vertexFall1,$vertex1);
                         $lastVertex = $vertex1;
                         $class_count_iter += 1;
+                        
                    }
-                   elseif($class_count_iter == $classLimit/2 && $class_count_iter < $classLimit){
+
+                   //if we havent hit class limit and class can be taken in the spring
+                   elseif($class_count_iter < $classLimit  && ($recommended->Semester == 1 || $recommended->Semester ==3 || $recommended->Semester ==4 || $recommended->Semester ==6)){
                         $vertex1 = $graph->createVertex();
                         $vertex1->setAttribute('id', $recommended->Class);
                         $graph->createEdgeDirected($vertexSpring1,$vertex1);
                         $lastVertex = $vertex1;
                         $class_count_iter += 1;
+                        
                    }
-                    elseif($class_count_iter < $classLimit){
+                   elseif($class_count_iter < $classLimit){
                         $vertex1 = $graph->createVertex();
                         $vertex1->setAttribute('id', $recommended->Class);
                         $graph->createEdgeDirected($lastVertex,$vertex1);
                         $lastVertex = $vertex1;
                         $class_count_iter += 1;
-
                         $lastVertex = $vertex1; 
                     }else{
-                        $currYear = 2;
+                        $Year1Full = 1;
                         $class_count_iter = 0;
                     }
                 //Year 2
-                }elseif($recommended->Year < 3){
-                   if($class_count_iter == 0){
+                }elseif($recommended->Year < 3 && $Year2Full == 0){
+                   if($class_count_iter < $classLimit  && ($recommended->Semester == 0 || $recommended->Semester ==3 || $recommended->Semester ==4 || $recommended->Semester ==5)){
                         $vertex1 = $graph->createVertex();
                         $vertex1->setAttribute('id', $recommended->Class);
                         $graph->createEdgeDirected($vertexFall2,$vertex1);
                         $lastVertex = $vertex1;
                         $class_count_iter += 1;
                    }
-                   elseif($class_count_iter == $classLimit/2){
+                   elseif($class_count_iter < $classLimit  && ($recommended->Semester == 1 || $recommended->Semester ==3 || $recommended->Semester ==4 || $recommended->Semester ==6)){
 
                         $vertex1 = $graph->createVertex();
                         $vertex1->setAttribute('id', $recommended->Class);
@@ -943,19 +962,19 @@ class GraphController extends BaseController {
                             $class_count_iter += 1;
                             $lastVertex = $vertex1; 
                     }else{
-                        $currYear = 3;
+                        $Year2Full = 1;
                         $class_count_iter = 0;
                     }
                 //Year 3
-                }elseif($recommended->Year < 4){
-                   if($class_count_iter == 0){
+                }elseif($recommended->Year < 4 && $Year3Full == 0){
+                   if($class_count_iter < $classLimit  && ($recommended->Semester == 0 || $recommended->Semester ==3 || $recommended->Semester ==4 || $recommended->Semester ==5)){
                         $vertex1 = $graph->createVertex();
                         $vertex1->setAttribute('id', $recommended->Class);
                         $graph->createEdgeDirected($vertexFall3,$vertex1);
                         $lastVertex = $vertex1;
                         $class_count_iter += 1;
                    }
-                   elseif($class_count_iter == $classLimit/2){
+                   elseif($class_count_iter < $classLimit  && ($recommended->Semester == 1 || $recommended->Semester ==3 || $recommended->Semester ==4 || $recommended->Semester ==6)){
 
                         $vertex1 = $graph->createVertex();
                         $vertex1->setAttribute('id', $recommended->Class);
@@ -973,19 +992,19 @@ class GraphController extends BaseController {
 
                         $lastVertex = $vertex1; 
                     }else{
-                        $currYear = 4;
+                        $Year3Full = 1;
                         $class_count_iter = 0;
                     }
                 //Year 4
-                }elseif($recommended->Year <= 4){
-                   if($class_count_iter == 0){
+                }elseif($recommended->Year <= 4 && $Year4Full == 0){
+                   if($class_count_iter < $classLimit  && ($recommended->Semester == 0 || $recommended->Semester ==3 || $recommended->Semester ==4 || $recommended->Semester ==5) ){
                         $vertex1 = $graph->createVertex();
                         $vertex1->setAttribute('id', $recommended->Class);
                         $graph->createEdgeDirected($vertexFall4,$vertex1);
                         $lastVertex = $vertex1;
                         $class_count_iter += 1;
                    }
-                   elseif($class_count_iter == $classLimit/2){
+                   elseif($class_count_iter < $classLimit  && ($recommended->Semester == 1 || $recommended->Semester ==3 || $recommended->Semester ==4 || $recommended->Semester ==6)){
 
                         $vertex1 = $graph->createVertex();
                         $vertex1->setAttribute('id', $recommended->Class);
@@ -1003,7 +1022,7 @@ class GraphController extends BaseController {
 
                         $lastVertex = $vertex1; 
                     }else{
-                        $currYear = 5;
+                        $Year4Full = 1;
                         $class_count_iter = 0;
                     }
                 }
