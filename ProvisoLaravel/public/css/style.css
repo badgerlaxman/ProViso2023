@@ -1454,6 +1454,14 @@ ul.insta li {
      background-color: #FFFFCC; /* adjust color as needed */
    }
 
+   .careergraphcolor4 {
+     background-color: #77dd77;
+   }
+
+   .careergraphcolor5 {
+     background-color: #FF0000;
+   }
+
    .image-container {
      margin-left: 20px; /* add left margin to separate the image from the legend */
    }

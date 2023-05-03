@@ -40,33 +40,6 @@ class GraphController extends BaseController {
         return view('index');
     }
 
-    public function basic_graph()
-    {
-        // create a new graph object
-        $graph = new Graph();
-        // Set graph attributes
-        $graph->setAttribute('graphviz.graph.size', '5,5'); // Set width and height to 5 inches
-
-        // Set node attributes
-        $graph->setAttribute('graphviz.node.size', '1,1'); // Set width and height of nodes to 1 inch
-
-        $graphviz = new GraphViz();
-        $graphviz->setFormat('png');
-
-        // create some vertices
-        $vertex1 = $graph->createVertex(array('name' => 'A'));
-        $vertex2 = $graph->createVertex(array('name' => 'B'));
-        $vertex3 = $graph->createVertex(array('name' => 'C'));
-
-        // create some edges
-        $graph->createEdgeDirected($vertex1, $vertex2);
-        $graph->createEdgeDirected($vertex2, $vertex3);
-        $graph->createEdgeDirected($vertex3, $vertex1);
-
-        $graphviz->createScript($graph);
-
-        $dotContent = $graphviz->createScript($graph);
-    }
 
     // recommendations 
     public function print_recommendations(){
@@ -644,7 +617,8 @@ class GraphController extends BaseController {
     }
     
     // career graph 
-    public function print_classes_and_skills(){
+    public function print_classes_and_skills()
+    {
         $graph = new Graph();
         $graphviz = new GraphViz();
         $graphviz->setFormat('png');
@@ -698,6 +672,11 @@ class GraphController extends BaseController {
         $careerNode->setAttribute('graphviz.labeljust', 'c');
         $careerNode->setAttribute('graphviz.color', '#FFCC66');
 
+        // retrieve taken classes 
+        $classesTaken = Taken::select('Class')->where('ID', Auth::guard('user')->user()->id)->get();
+
+        // array to keep track of which classes have been added 
+        $classInGraph = array();
 
         // create skills nodes and edges from skills nodes to career node
         foreach($skillsrequired as $skill)
@@ -719,7 +698,6 @@ class GraphController extends BaseController {
             
             // make skill node
             $skillNode = $graph->createVertex();
-            //$skillNode->setAttribute('id', $skillName->Name);
             $skillNode->setAttribute('id', $skillNodeID);
             $skillNode->setAttribute('graphviz.color', '#FFFF99');
 
@@ -732,6 +710,7 @@ class GraphController extends BaseController {
             // create classes nodes and edges from classes nodes to skills nodes
             foreach($classesperskill as $class)
             {
+                // MAKE A NODE FOR THE CLASS
                 $className = Classes::select('Title')->where('Class', $class->Class)->first();
                 $classNodeID = $class->Class . "\n" . $className->Title;
 
@@ -747,12 +726,70 @@ class GraphController extends BaseController {
                 }
 
                 $classNode = $graph->createVertex();
-                //$classNodeID = $class->Class . " " . $className->Title;
-                $classNode->setAttribute('id', $classNodeID);
-                $classNode->setAttribute('graphviz.color', '#FFFFCC');
+                //$classNode->setAttribute('id', $classNodeID);
+                $classNode->setAttribute('graphviz.label', $classNodeID);
+
+                // check if class has been taken yet
+                if (in_array($class->Class, $classesTaken->pluck('Class')->toArray())) // user has taken a class, color it green
+                {
+                    $classNode->setAttribute('graphviz.color', '#77dd77');
+                } 
+                else // user has not taken a class, color it yellow
+                {
+                    $classNode->setAttribute('graphviz.color', '#FFFFCC');
+                }
+
+                // check if the class requires a prereq 
+                $requiresPrereq = Prerequisite::select('Class')->where('Class', $class->Class)->first();
+
+                if($requiresPrereq != null) // if the class requires a prereq, make a node for the prereq
+                {
+                    // make a node for the prereq
+                    // get the prereq info
+                    $prereq = Prerequisite::select('Prereq')->where('Class', $class->Class)->first();
+
+                    $prereqName = Classes::select('Title')->where('Class', $prereq->Prereq)->first();
+                    $prereqNodeID = $prereq->Prereq . "\n" . $prereqName->Title;
+
+                    // check if the class name is too long
+                    $prereqNameWidth = strlen($prereqName) * 0.1; 
+                    $prereqNameLength = strlen($prereqName);
             
-                // make directed edge from class node to skill node
-                $skillclassedge = $graph->createEdgeDirected($classNode, $skillNode);
+                    // wrap the string into multiple lines
+                    if ($prereqNameLength > $maxLineLength)
+                    {
+                        $wrappedString = wordwrap($prereqNodeID, $maxLineLength, "\n");
+                        $prereqNodeID = $wrappedString;
+                    }
+
+                    $prereqNode = $graph->createVertex();
+                    //$prereqNode->setAttribute('id', $prereqNodeID);
+                    $prereqNode->setAttribute('graphviz.label', $prereqNodeID);
+
+                    // check if class has been taken yet
+                    if (in_array($prereq->Prereq, $classesTaken->pluck('Class')->toArray())) // user has taken a class, color it green
+                    {
+                        $prereqNode->setAttribute('graphviz.color', '#77dd77');
+                    } 
+                    else // user has not taken a class, color it yellow
+                    {
+                        $prereqNode->setAttribute('graphviz.color', '#FFFFCC');
+                    }
+
+                    // make an edge from the prereq to the class
+                    $classprereqedge = $graph->createEdgeDirected($prereqNode, $classNode);
+                    // color the edge 
+                    $classprereqedge->setAttribute('graphviz.color', '#FF0000');
+                    // make an edge from the class to the skill
+                    $skillclassedge = $graph->createEdgeDirected($classNode, $skillNode);
+
+                }
+                else
+                {
+                    // it is not a prereq for anything so add it to the graph
+                    // make directed edge from class node to skill node
+                    $skillclassedge = $graph->createEdgeDirected($classNode, $skillNode);
+                }
             }
         }
 

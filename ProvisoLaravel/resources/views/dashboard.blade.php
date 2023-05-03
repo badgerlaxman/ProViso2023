@@ -504,7 +504,7 @@
                     <div class="col-md-12">
                         <div class="titlepage">
                             <h2>Career Graph</h2>
-                            <span>You have chosen a career and company, so you can create a career graph. A career graph will show you the required skills needed for a career at a certain company. The graph will also show you classes offered at your institution that teach that skill. You can use the class recommendations from the career graph to choose your technical electives. Click the button below to generate your career graph for your desired company!</span>
+                            <span>You have chosen a career and company, so you can create a career graph. A career graph will show you the required skills needed for a career at a certain company. The graph will also show you classes offered at your institution that teach that skill. If a class is a prerequisite to another course, it will be below that class node with a red arrow, so you can see which courses to take first. You can use the class recommendations from the career graph to choose your technical electives. Click the button below to generate your career graph for your desired company!</span>
                             <br/>
                             <button type="button" class="btn btn-secondary career_graph" id="careergraphbutton">Generate Career Graph</button>
                             <!-- Career Graph -->
@@ -528,6 +528,8 @@
                                 <li><span class="legend-item careergraphcolor1"></span> Desired Career & Company</li>
                                 <li><span class="legend-item careergraphcolor2"></span> Required Skills for Career & Company</li>
                                 <li><span class="legend-item careergraphcolor3"></span> Classes Offered that teach the Skill</li>
+                                <li><span class="legend-item careergraphcolor4"></span> Classes That have already been taken</li>
+                                <li><span class="legend-item careergraphcolor5"></span> Arrow to indicate this course is a prerequisite</li>
                             </ul>
                         </div>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
