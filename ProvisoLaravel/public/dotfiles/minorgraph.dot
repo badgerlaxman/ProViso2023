@@ -2,6 +2,18 @@ digraph {
   graph [bgcolor="transparent" rankdir="TB" pad=1 compound="true" forcelabels="true"]
   node [shape="square" style="rounded,filled" width=2 fixedsize="shape"]
   edge [minlen=2]
+  1 [color="orange"]
+  "Fall-1" [color="#FFCC66"]
+  "Spring-1" [color="#FFCC66"]
+  2 [color="orange"]
+  "Fall-2" [color="#FFCC66"]
+  "Spring-2" [color="#FFCC66"]
+  3 [color="orange"]
+  "Fall-3" [color="#FFCC66"]
+  "Spring-3" [color="#FFCC66"]
+  4 [color="orange"]
+  "Fall-4" [color="#FFCC66"]
+  "Spring-4" [color="#FFCC66"]
   1 -> "Fall-1"
   1 -> "Spring-1"
   2 -> "Fall-2"
@@ -11,7 +23,7 @@ digraph {
   4 -> "Fall-4"
   4 -> "Spring-4"
   "Fall-1" -> "MATH385"
-  "Spring-1" -> "MATH390"
-  "Fall-2" -> "MATH388"
-  "Spring-3" -> "MATH310"
+  "Fall-2" -> "MATH275"
+  "Spring-4" -> "MATH388"
+  "Fall-4" -> "MATH390"
 }
